@@ -8,7 +8,7 @@ namespace package.guerro.shared
     public struct CameraData : IComponentData
     {
         [Header("Internal")]
-        public int CameraId;
+        public Entity TargetId;
 
         [Header("Properties")]
         public Vector3 Position;

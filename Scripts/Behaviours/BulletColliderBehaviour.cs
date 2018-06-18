@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using package.guerro.shared;
 using Unity.Entities;
 using UnityEngine;
@@ -8,6 +9,15 @@ namespace package.guerro.shared
     [RequireComponent(typeof(ReferencableGameObject))]
     public partial class BulletColliderBehaviour : MonoBehaviour
     {
+        public enum RoleType
+        {
+            Victim = 1,
+            Offender = 2,
+            Both = 3
+        }
+        
+        public RoleType Role = RoleType.Both;
+        
         public void InvokeCollision(BulletColliderBehaviour victim, Vector3 worldPosition, Vector3 worldNormal)
         {
             InvokeCollision(this, victim, worldPosition, worldNormal);
@@ -16,16 +26,15 @@ namespace package.guerro.shared
         public static void InvokeCollision(BulletColliderBehaviour offender,      BulletColliderBehaviour victim,
                                            Vector3                 worldPosition, Vector3                 worldNormal)
         {
-            // Create match
-            var match = new IdMatch(offender.gameObject.GetInstanceID(), victim.GetInstanceID());
-            int uid;
-            if (!s_Matches.TryGetValue(match, out uid))
-            {
-                s_Matches[match] = uid = s_UniqueMatches;
-                s_UniqueMatches++;
-            }
+            if (offender.Role == RoleType.Victim)
+                throw new Exception($"The role of the offender {offender.gameObject.name} is '{offender.Role.ToString()}'");
+            if (victim.Role == RoleType.Offender)
+                throw new Exception($"The role of the victim {victim.gameObject.name} is '{victim.Role.ToString()}'");
             
-            Debug.Log($"New bullet collision! oid: {match.LeftId} vid: {match.RightId}, uid: {uid}");
+            // Create match
+            var match = new IdMatch(offender.gameObject.GetInstanceID(), victim.gameObject.GetInstanceID());
+            
+            Debug.Log($"New bullet collision! oid: {match.LeftId} vid: {match.RightId}");
         }
     }
 
@@ -64,7 +73,7 @@ namespace package.guerro.shared
 
         public struct CollisionResultData : IComponentData
         {
-            public int     Uid;
+            public IdMatch Uid;
             public int     VictimId;
             public int     OffenderId;
             public Vector3 WorldPosition;
@@ -72,24 +81,6 @@ namespace package.guerro.shared
 
             public BulletColliderBehaviour VictimBullet =>
                 ReferencableGameObject.GetComponent<BulletColliderBehaviour>(VictimId);
-        }
-    }
-
-    public partial class BulletColliderBehaviour
-    {
-        private static Dictionary<IdMatch, int> s_Matches =
-            new Dictionary<IdMatch, int>(IdMatch.LeftIdRightIdComparer);
-
-        private static int s_UniqueMatches = 0;
-
-        /// <summary>
-        /// Reset the matches only when needed (example -> when ending a map)
-        /// </summary>
-        /// <param name="resetDictionary"></param>
-        public static void ResetMatches(bool resetDictionary = true)
-        {
-            if (resetDictionary) s_Matches.Clear();
-            s_UniqueMatches = 0;
         }
     }
 }
