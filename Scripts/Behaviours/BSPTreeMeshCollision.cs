@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 namespace package.guerro.shared
 {
@@ -43,20 +44,34 @@ namespace package.guerro.shared
                 m_TriangleNormals[i / 3] = normal;
             }
 
+            Profiler.BeginSample("Awake() --> Draw Tree");
+            Debug.Log("Drawn tree!");
             if (!m_DrawMeshTreeOnStart)
                 BuildTriangleTree();
+            Profiler.EndSample();
         }
 
         private void Start()
         {
+            Profiler.BeginSample("Start() --> Draw Tree");
             if (m_DrawMeshTreeOnStart)
                 BuildTriangleTree();
+            Profiler.EndSample();
+        }
+
+        private void OnDestroy()
+        {
+            m_TriangleNormals = null;
+            m_Vertices        = null;
+
+            if (m_Tree != null)
+                m_Tree.Triangles = null;
         }
 
         /// <summary>
         ///     Returns the closest point on the mesh with respect to Vector3 point to
         /// </summary>
-        public Vector3 ClosestPointOn(Vector3 to, float radius)
+        public Vector3 ClosestPointOn(Vector3 to, float radius, out Vector3 normal)
         {
             to = transform.InverseTransformPoint(to);
 
@@ -64,7 +79,7 @@ namespace package.guerro.shared
 
             FindClosestTriangles(m_Tree, to, radius, triangles);
 
-            var closest = ClosestPointOnTriangle(triangles.ToArray(), to);
+            var closest = ClosestPointOnTriangle(triangles, to, out normal);
 
             return transform.TransformPoint(closest);
         }
@@ -89,11 +104,12 @@ namespace package.guerro.shared
                 triangles.AddRange(node.Triangles);
         }
 
-        private Vector3 ClosestPointOnTriangle(int[] triangles, Vector3 to)
+        private Vector3 ClosestPointOnTriangle(List<int> triangles, Vector3 to, out Vector3 normal)
         {
             var shortestDistance = float.MaxValue;
 
             var shortestPoint = Vector3.zero;
+            normal = Vector3.zero;
 
             // Iterate through all triangles
             foreach (var triangle in triangles)
@@ -112,6 +128,8 @@ namespace package.guerro.shared
                 {
                     shortestDistance = distance;
                     shortestPoint    = nearest;
+
+                    normal = Vector3.Cross((p2 - p1).normalized, (p3 - p1).normalized).normalized;
                 }
             }
 

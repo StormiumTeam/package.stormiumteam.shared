@@ -10,6 +10,18 @@ namespace package.guerro.shared
 {
     public class ReferencableGameObject : MonoBehaviour
     {
+        public struct Result<T>
+        {
+            public bool HadIt;
+            public T Value;
+            
+            public Result(T value, bool hadIt)
+            {
+                Value = value;
+                HadIt = hadIt;
+            }
+        }
+        
         private static FastDictionary<int, ReferencableGameObject> s_GameObjects =
             new FastDictionary<int, ReferencableGameObject>();
 
@@ -79,28 +91,30 @@ namespace package.guerro.shared
         public T GetOrAddComponent<T>()
             where T : Component
         {
-            var component = GetComponentFast<T>();
-            return component != null ? component : AddComponent<T>();
+            var result = GetComponentFast<T>();
+            return result.HadIt ? result.Value : AddComponent<T>();
         }
 
-        public T GetComponentFast<T>()
+        public Result<T> GetComponentFast<T>()
             where T : Component
         {
             var length = Components.Count;
             for (int i = 0; i != length; i++)
             {
                 if (Components[i].GetType().IsSubclassOf(typeof(T)))
-                    return (T) Components[i];
+                {
+                    return new Result<T>((T) Components[i], true);
+                }
             }
 
             var comp = GetComponent<T>();
             if (comp != null)
             {
                 Refresh();
-                return comp;
+                return new Result<T>(comp, true);
             }
 
-            return null;
+            return new Result<T>(null, false);
         }
 
         private void RegisterReferencable()
@@ -119,7 +133,7 @@ namespace package.guerro.shared
                     gameObject.AddComponent<ReferencableGameObject>();
                 return referencableGameObject == null
                     ? gameObject.GetComponent<T>()
-                    : referencableGameObject.GetComponentFast<T>();
+                    : referencableGameObject.GetComponentFast<T>().Value;
             }
 
             s_GameObjects.FastTryGet(gameObject.GetInstanceID(), out referencableGameObject);
@@ -138,7 +152,7 @@ namespace package.guerro.shared
                 }
             }
 
-            return referencableGameObject.GetComponentFast<T>();
+            return referencableGameObject.GetComponentFast<T>().Value;
         }
         
         public new static T GetComponent<T>(int referenceId, bool createReferencable = true)
@@ -146,13 +160,13 @@ namespace package.guerro.shared
         {
             ReferencableGameObject referencableGameObject;
             s_GameObjects.FastTryGet(referenceId, out referencableGameObject);
-            if (referencableGameObject == null)
+            if (referencableGameObject == null)    
             {
                 Debug.LogError("Not found");
                 return null;
             }
 
-            return referencableGameObject.GetComponentFast<T>();
+            return referencableGameObject.GetComponentFast<T>().Value;
         }
 
         public static GameObject FromId(int collidedGameObject)

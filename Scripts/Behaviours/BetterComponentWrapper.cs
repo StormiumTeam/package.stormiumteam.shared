@@ -52,6 +52,8 @@ namespace package.guerro.shared
             var entity = m_GameObjectEntity.Entity;
             var em     = m_GameObjectEntity.EntityManager;
             em.RemoveComponent<T>(entity);
+
+            m_GameObjectEntity = null;
         }
 
 #if UNITY_EDITOR

@@ -36,6 +36,16 @@ namespace package.guerro.shared
             }
         }
 
+        public bool IsGroundForcedThisFrame
+        {
+            get
+            {
+                CleanLastFrameEvents();
+                return m_IsGroundForcedThisFrame;
+            }
+            set => m_IsGroundForcedThisFrame = value;
+        }
+
         // Add the component 'StackData' to the entity
         // Because this is a very small code, we don't use a system
         private void Awake()
@@ -56,6 +66,16 @@ namespace package.guerro.shared
                 m.AddComponentData(e, new StackData());
             
             CPhysicSettings.Active.SetDefaultGroup(e);
+        }
+
+        private void OnDestroy()
+        {
+            m_AllColliderHitsInFrame.Clear();
+            m_AllMoveEventsInFrame.Clear();
+
+            m_AllColliderHitsInFrame = null;
+            m_AllMoveEventsInFrame = null;
+            m_CharacterController = null;
         }
 
         /*public CPhysicGroup GetGroup()
@@ -106,6 +126,8 @@ namespace package.guerro.shared
             if (m_CharacterController.isGrounded)
                 return true;
             if (m_CharacterController.collisionFlags == CollisionFlags.CollidedBelow)
+                return true;
+            if (IsGroundForcedThisFrame)
                 return true;
             
             /*var worldCenter = transform.position + m_CharacterController.center;
@@ -169,6 +191,8 @@ namespace package.guerro.shared
 
                 m_AllMoveEventsInFrame.Clear();
                 m_AllColliderHitsInFrame.Clear();
+
+                m_IsGroundForcedThisFrame = false;
             }
         }
 
@@ -224,7 +248,8 @@ namespace package.guerro.shared
         private  CharacterController         m_CharacterController;
         internal List<MoveEvent>             m_AllMoveEventsInFrame   = new List<MoveEvent>();
         internal List<ControllerColliderHit> m_AllColliderHitsInFrame = new List<ControllerColliderHit>();
-        private  int                         m_LastCleanFrame         = 0;
+        internal bool                        m_IsGroundForcedThisFrame = false;
+        private  int                         m_LastCleanFrame = 0;
     }
 
     /*public class STCharacterControllerSystem : ComponentSystem

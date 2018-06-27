@@ -13,6 +13,8 @@ namespace package.guerro.shared.modding
     // -------- -------- -------- -------- -------- -------- -------- -------- -------- /.
     public partial class CModManager : ComponentSystem
     {
+        public static event Action OnAllPackageLoaded;
+        
         // -------- -------- -------- -------- -------- -------- -------- -------- -------- /.
         // Methods
         // -------- -------- -------- -------- -------- -------- -------- -------- -------- /.
@@ -91,7 +93,8 @@ namespace package.guerro.shared.modding
                 {
                     DisplayName = displayName,
                     NameId = nameId,
-                    IsIntegratedPacket = true
+                    Type = ModType.Package,
+                    Integration = IntegrationType.InternalAndIntegrated
                 });
             }
         }
@@ -114,7 +117,9 @@ namespace package.guerro.shared.modding
             }
             
             // Load if it's not an integrated packet...
-            if (!data.IsIntegratedPacket)
+            if (data.Integration != IntegrationType.Integrated
+                && data.Integration != IntegrationType.InternalAndIntegrated
+                && data.Integration != IntegrationType.ExternalAndIntegrated)
             {
                 // todo
             }
@@ -183,6 +188,23 @@ namespace package.guerro.shared.modding
             }
             
             ScriptBehaviourUpdateOrder.UpdatePlayerLoop(World.Active);
+        }
+
+        public static void RegisterAssemblies(Assembly[] assemblies, string displayName, string nameId,
+                                              IntegrationType integrationType)
+        {
+           RegisterModInternal(assemblies, new SModInfoData()
+           {
+               DisplayName = displayName,
+               NameId = nameId,
+               Type = ModType.Package,
+               Integration = integrationType
+           }); 
+        }
+
+        public static void Invoke_LoadedAllPackages()
+        {
+            OnAllPackageLoaded?.Invoke();
         }
 
         /// <summary>
