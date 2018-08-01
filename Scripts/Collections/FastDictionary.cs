@@ -34,7 +34,7 @@ namespace System.Collections.Generic {
 
         private bool keyIsInteger = typeof(TKey) == typeof(int);
 
-        private int[] buckets;
+        public int[] Buckets;
         private Entry[] entries;
         private int count;
         private int version;
@@ -47,7 +47,7 @@ namespace System.Collections.Generic {
         
         // constants for serialization
         private const String VersionName = "Version";
-        private const String HashSizeName = "HashSize";  // Must save buckets.Length
+        private const String HashSizeName = "HashSize";  // Must save Buckets.Length
         private const String KeyValuePairsName = "KeyValuePairs";
         private const String ComparerName = "Comparer";
 
@@ -145,9 +145,9 @@ namespace System.Collections.Generic {
 
         public ref TValue FastGet(TKey key)
         {
-            if (buckets != null) {
+            if (Buckets != null) {
                 int hashCode = comparer.GetHashCode(key) & 0x7FFFFFFF;
-                for (int i = buckets[hashCode % buckets.Length]; i >= 0;) {
+                for (int i = Buckets[hashCode % Buckets.Length]; i >= 0;) {
                     ref var entry = ref entries[i];
                     i = entry.next;
                     if (entry.hashCode == hashCode && comparer.Equals(entry.key, key))
@@ -186,7 +186,7 @@ namespace System.Collections.Generic {
 
         public void Clear() {
             if (count > 0) {
-                for (int i = 0; i < buckets.Length; i++) buckets[i] = -1;
+                for (int i = 0; i < Buckets.Length; i++) Buckets[i] = -1;
                 Array.Clear(entries, 0, count);
                 freeList = -1;
                 count = 0;
@@ -242,8 +242,8 @@ namespace System.Collections.Generic {
             info.AddValue(ComparerName, comparer, typeof(IEqualityComparer<TKey>));
 #endif
 
-            info.AddValue(HashSizeName, buckets == null ? 0 : buckets.Length); //This is the length of the bucket array.
-            if( buckets != null) {
+            info.AddValue(HashSizeName, Buckets == null ? 0 : Buckets.Length); //This is the length of the bucket array.
+            if( Buckets != null) {
                 KeyValuePair<TKey, TValue>[] array = new KeyValuePair<TKey, TValue>[Count];
                 CopyTo(array, 0);
                 info.AddValue(KeyValuePairsName, array, typeof(KeyValuePair<TKey, TValue>[]));
@@ -251,9 +251,9 @@ namespace System.Collections.Generic {
         }
 
         private int FindEntry(TKey key) {
-            if (buckets != null) {
+            if (Buckets != null) {
                 int hashCode = comparer.GetHashCode(key) & 0x7FFFFFFF;
-                for (int i = buckets[hashCode % buckets.Length]; i >= 0; i = entries[i].next) {
+                for (int i = Buckets[hashCode % Buckets.Length]; i >= 0; i = entries[i].next) {
                     if (entries[i].hashCode == hashCode && comparer.Equals(entries[i].key, key)) return i;
                 }
             }
@@ -263,14 +263,14 @@ namespace System.Collections.Generic {
         public ref TValue RefGet(TKey key)
         {
             var hasFoundOne = false;
-            if (buckets != null)
+            if (Buckets != null)
             {
                 int hashCode;
                 if (keyIsInteger)
                 {
                     hashCode = key.GetHashCode() & 0x7FFFFFFF;
                     
-                    for (int i = buckets[hashCode % buckets.Length]; i >= 0;) {
+                    for (int i = Buckets[hashCode % Buckets.Length]; i >= 0;) {
                         ref var entry = ref entries[i];
                         if (entry.hashCode == hashCode)
                         {
@@ -283,7 +283,7 @@ namespace System.Collections.Generic {
                 {
                     hashCode = comparer.GetHashCode(key) & 0x7FFFFFFF;
                     
-                    for (int i = buckets[hashCode % buckets.Length]; i >= 0;) {
+                    for (int i = Buckets[hashCode % Buckets.Length]; i >= 0;) {
                         ref var entry = ref entries[i];
                         if (entry.hashCode == hashCode && comparer.Equals(entry.key, key))
                         { 
@@ -297,14 +297,14 @@ namespace System.Collections.Generic {
         }
 
         public bool FastTryGet(TKey key, out TValue value) {
-            if (buckets != null)
+            if (Buckets != null)
             {
                 int hashCode;
                 if (keyIsInteger)
                 {
                     hashCode = key.GetHashCode() & 0x7FFFFFFF;
                     
-                    for (int i = buckets[hashCode % buckets.Length]; i >= 0;) {
+                    for (int i = Buckets[hashCode % Buckets.Length]; i >= 0;) {
                         ref var entry = ref entries[i];
                         if (entry.hashCode == hashCode)
                         { 
@@ -318,7 +318,7 @@ namespace System.Collections.Generic {
                 {
                     hashCode = comparer.GetHashCode(key) & 0x7FFFFFFF;
                     
-                    for (int i = buckets[hashCode % buckets.Length]; i >= 0;) {
+                    for (int i = Buckets[hashCode % Buckets.Length]; i >= 0;) {
                         ref var entry = ref entries[i];
                         if (entry.hashCode == hashCode && comparer.Equals(entry.key, key))
                         { 
@@ -335,14 +335,14 @@ namespace System.Collections.Generic {
         }
         
         public bool RefFastTryGet(TKey key, ref TValue value) {
-            if (buckets != null)
+            if (Buckets != null)
             {
                 int hashCode;
                 if (keyIsInteger)
                 {
                     hashCode = key.GetHashCode() & 0x7FFFFFFF;
                     
-                    for (int i = buckets[hashCode % buckets.Length]; i >= 0;) {
+                    for (int i = Buckets[hashCode % Buckets.Length]; i >= 0;) {
                         ref var entry = ref entries[i];
                         if (entry.hashCode == hashCode)
                         { 
@@ -356,7 +356,7 @@ namespace System.Collections.Generic {
                 {
                     hashCode = comparer.GetHashCode(key) & 0x7FFFFFFF;
                     
-                    for (int i = buckets[hashCode % buckets.Length]; i >= 0;) {
+                    for (int i = Buckets[hashCode % Buckets.Length]; i >= 0;) {
                         ref var entry = ref entries[i];
                         if (entry.hashCode == hashCode && comparer.Equals(entry.key, key))
                         { 
@@ -374,14 +374,14 @@ namespace System.Collections.Generic {
 
         private void Initialize(int capacity) {
             int size = PublicHashHelpers.GetPrime(capacity);
-            buckets = new int[size];
-            for (int i = 0; i < buckets.Length; i++) buckets[i] = -1;
+            Buckets = new int[size];
+            for (int i = 0; i < Buckets.Length; i++) Buckets[i] = -1;
             entries = new Entry[size];
             freeList = -1;
         }
 
         private void Insert(TKey key, TValue value, bool add) {
-            if (buckets == null) Initialize(0);
+            if (Buckets == null) Initialize(0);
             int hashCode;
 
             if (keyIsInteger)
@@ -394,13 +394,13 @@ namespace System.Collections.Generic {
             }
 
             
-            int targetBucket = hashCode % buckets.Length;
+            int targetBucket = hashCode % Buckets.Length;
 
 #if FEATURE_RANDOMIZED_STRING_HASHING
             int collisionCount = 0;
 #endif
 
-            ref var bucket = ref buckets[targetBucket];
+            ref var bucket = ref Buckets[targetBucket];
             for (int i = bucket; i >= 0; i = entries[i].next) 
             {
                 ref var forLoopEntry = ref entries[i];
@@ -425,14 +425,14 @@ namespace System.Collections.Generic {
                 if (count == entries.Length)
                 {
                     Resize();
-                    targetBucket = hashCode % buckets.Length;
+                    targetBucket = hashCode % Buckets.Length;
                 }
                 index = count;
                 count++;
             }
 
             ref var entry = ref entries[index];
-            ref var bucket2 = ref buckets[targetBucket];
+            ref var bucket2 = ref Buckets[targetBucket];
 
             entry.hashCode = hashCode;
             entry.next = bucket2;
@@ -491,19 +491,19 @@ namespace System.Collections.Generic {
                     newBuckets[bucket] = i;
                 }
             }
-            buckets = newBuckets;
+            Buckets = newBuckets;
             entries = newEntries;
         }
 
         public bool Remove(TKey key) {
-            if (buckets != null) {
+            if (Buckets != null) {
                 int hashCode = comparer.GetHashCode(key) & 0x7FFFFFFF;
-                int bucket = hashCode % buckets.Length;
+                int bucket = hashCode % Buckets.Length;
                 int last = -1;
-                for (int i = buckets[bucket]; i >= 0; last = i, i = entries[i].next) {
+                for (int i = Buckets[bucket]; i >= 0; last = i, i = entries[i].next) {
                     if (entries[i].hashCode == hashCode && comparer.Equals(entries[i].key, key)) {
                         if (last < 0) {
-                            buckets[bucket] = entries[i].next;
+                            Buckets[bucket] = entries[i].next;
                         }
                         else {
                             entries[last].next = entries[i].next;

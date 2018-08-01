@@ -98,12 +98,12 @@ namespace package.guerro.shared
         public Result<T> GetComponentFast<T>()
             where T : Component
         {
-            var length = Components.Count;
+            var length = m_Components.Count;
             for (int i = 0; i != length; i++)
             {
-                if (Components[i].GetType().IsSubclassOf(typeof(T)))
+                if (m_Components[i].GetType().IsSubclassOf(typeof(T)))
                 {
-                    return new Result<T>((T) Components[i], true);
+                    return new Result<T>((T) m_Components[i], true);
                 }
             }
 

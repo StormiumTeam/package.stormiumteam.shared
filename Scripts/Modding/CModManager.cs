@@ -14,6 +14,7 @@ namespace package.guerro.shared.modding
     public partial class CModManager : ComponentSystem
     {
         public static event Action OnAllPackageLoaded;
+        public static event Action<CModInfo> OnNewMod;
         
         // -------- -------- -------- -------- -------- -------- -------- -------- -------- /.
         // Methods
@@ -188,6 +189,8 @@ namespace package.guerro.shared.modding
             }
             
             ScriptBehaviourUpdateOrder.UpdatePlayerLoop(World.Active);
+            
+            OnNewMod?.Invoke(modInfo);
         }
 
         public static void RegisterAssemblies(Assembly[] assemblies, string displayName, string nameId,
