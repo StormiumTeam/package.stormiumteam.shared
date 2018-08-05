@@ -1,4 +1,4 @@
-﻿namespace package.guerro.shared.modding
+﻿namespace package.stormiumteam.shared.modding
 {
     public enum ModType
     {

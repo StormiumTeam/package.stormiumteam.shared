@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using package.guerro.shared;
+using package.stormiumteam.shared;
 using Unity.Entities;
 using UnityEngine;
 

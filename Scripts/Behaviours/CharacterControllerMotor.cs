@@ -4,7 +4,7 @@ using Scripts.Physics;
 using Unity.Entities;
 using UnityEngine;
 
-namespace package.guerro.shared
+namespace package.stormiumteam.shared
 {
     /// <summary>
     /// Provide an extension to the charactercontroller. 3D only

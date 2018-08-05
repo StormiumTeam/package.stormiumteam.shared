@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
 
-namespace package.guerro.shared
+namespace package.stormiumteam.shared
 {
     /// <summary>
     /// Provide an extension to the rigidbody. 3D only

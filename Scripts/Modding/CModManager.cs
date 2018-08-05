@@ -6,7 +6,7 @@ using System.Reflection;
 using Unity.Entities;
 using UnityEngine;
 
-namespace package.guerro.shared.modding
+namespace package.stormiumteam.shared.modding
 {
     // -------- -------- -------- -------- -------- -------- -------- -------- -------- /.
     // Public Group

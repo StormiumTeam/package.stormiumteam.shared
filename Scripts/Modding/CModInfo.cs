@@ -1,12 +1,12 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using Unity.Entities;
 using UnityEngine;
-using UnityEngine.Experimental.Input.Utilities;
 using Assembly = System.Reflection.Assembly;
 
-namespace package.guerro.shared.modding
+namespace package.stormiumteam.shared.modding
 {
     public class CModInfo
     {
@@ -23,8 +23,8 @@ namespace package.guerro.shared.modding
         public string DisplayName => Data.DisplayName;
         public string NameId => Data.NameId;
 
-        public ReadOnlyArray<Assembly> AttachedAssemblies
-            => new ReadOnlyArray<Assembly>(m_Assemblies);
+        public ReadOnlyCollection<Assembly> AttachedAssemblies
+            => new ReadOnlyCollection<Assembly>(m_Assemblies);
 
         public CModInfo(SModInfoData data, int id)
         {

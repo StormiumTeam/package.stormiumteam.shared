@@ -1,5 +1,5 @@
 {
-	"name": "package.guerro.shared",
+	"name": "package.stormiumteam.shared",
 	"displayName":"ST/P4 Shared",
 	"version": "0.0.1",
 	"unity": "2018.2",
@@ -7,7 +7,6 @@
 	"keywords": [],
     "dependencies": 
     {
-		"com.unity.inputsystem": "0.0.1",
 		"com.unity.entities": "0.0.11"
 	}
 }

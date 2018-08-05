@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace package.guerro.shared.modding
+namespace package.stormiumteam.shared.modding
 {
     /// <summary>
     /// This is the entry point for mods.

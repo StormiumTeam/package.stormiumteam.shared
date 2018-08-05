@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using package.guerro.shared;
+using package.stormiumteam.shared;
 using Unity.Entities;
 using UnityEngine;
 
-namespace package.guerro.shared
+namespace package.stormiumteam.shared
 {
     [RequireComponent(typeof(ReferencableGameObject))]
     public partial class BulletColliderBehaviour : MonoBehaviour

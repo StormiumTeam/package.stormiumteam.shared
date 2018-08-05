@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Profiling;
 
-namespace package.guerro.shared
+namespace package.stormiumteam.shared
 {
     /// <summary>
     ///     Recursively paritions a mesh's vertices to allow to more quickly

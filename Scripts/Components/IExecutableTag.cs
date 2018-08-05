@@ -1,4 +1,4 @@
-﻿namespace package.guerro.shared
+﻿namespace package.stormiumteam.shared
 {
     /// <summary>
     /// Flag: If present, it means that the system can execute this component.

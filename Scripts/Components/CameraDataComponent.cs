@@ -2,7 +2,7 @@
 using Unity.Entities;
 using UnityEngine;
 
-namespace package.guerro.shared
+namespace package.stormiumteam.shared
 {
     [Serializable]
     public struct CameraData : IComponentData

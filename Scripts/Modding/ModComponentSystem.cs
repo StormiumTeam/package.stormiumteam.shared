@@ -6,7 +6,7 @@ using JetBrains.Annotations;
 using Unity.Entities;
 using UnityEngine;
 
-namespace package.guerro.shared.modding
+namespace package.stormiumteam.shared.modding
 {
     public abstract class ModComponentSystem : ComponentSystem
     {

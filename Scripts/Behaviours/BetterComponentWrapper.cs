@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace package.guerro.shared
+namespace package.stormiumteam.shared
 {
     [RequireComponent(typeof(GameObjectEntity))]
     public class BetterComponentWrapper<T> : MonoBehaviour

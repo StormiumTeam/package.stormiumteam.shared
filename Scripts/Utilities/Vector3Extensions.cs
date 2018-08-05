@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace package.guerro.shared
+namespace package.stormiumteam.shared
 {
     public static class Vector3Extensions
     {

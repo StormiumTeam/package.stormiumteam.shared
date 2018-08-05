@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Unity.Entities;
 
-namespace package.guerro.shared
+namespace package.stormiumteam.shared
 {
     public static class ECSWorldLoop
     {
         private static List<World> m_LoopableWorlds = new List<World>();
 
         public static ReadOnlyCollection<World> LoopableWorlds => new ReadOnlyCollection<World>(m_LoopableWorlds);
+        public static long Version { get; private set; }
 
         public static void FlagAsLoopable(World world)
         {
@@ -33,6 +34,8 @@ namespace package.guerro.shared
             }
             
             ScriptBehaviourUpdateOrder.UpdatePlayerLoop(m_LoopableWorlds.ToArray());
+
+            Version++;
         }
     }
 }
