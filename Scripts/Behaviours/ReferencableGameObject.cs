@@ -67,12 +67,6 @@ namespace package.stormiumteam.shared
             OnCreate();
         }
 
-        private void OnDisable()
-        {
-            m_Components.Clear();
-            m_Components = null;
-        }
-
         public void Refresh()
         {
             m_Components = new List<Component>(GetComponents<Component>());

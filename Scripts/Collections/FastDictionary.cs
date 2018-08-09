@@ -159,6 +159,26 @@ namespace System.Collections.Generic {
             throw new KeyNotFoundException();
         }
 
+        private TValue m_Default;
+        public ref TValue FastGetOrDefault(TKey key)
+        {
+            if (Buckets != null) {
+                int hashCode = comparer.GetHashCode(key) & 0x7FFFFFFF;
+                for (int i = Buckets[hashCode % Buckets.Length]; i >= 0;) {
+                    ref var entry = ref entries[i];
+                    i = entry.next;
+                    if (entry.hashCode == hashCode && comparer.Equals(entry.key, key))
+                    {
+                        return ref entry.value;
+                    }
+                }
+            }
+
+            m_Default = default(TValue);
+
+            return ref m_Default;
+        }
+
         public void Add(TKey key, TValue value) {
             Insert(key, value, true);
         }

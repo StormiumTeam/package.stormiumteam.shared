@@ -11,9 +11,20 @@ namespace package.stormiumteam.shared
 {
     public static class AppEvent<TEvent> where TEvent : IAppEvent
     {
+        public static object Caller { get; set; }
+
         public static List<TEvent> delayList = new List<TEvent>();
         public static List<TEvent> eventList = new List<TEvent>();
         public static List<TEvent> objList = new List<TEvent>();
+
+        public static void Invoke(object caller, Action<TEvent> call)
+        {
+            foreach (var @event in eventList)
+            {
+                Caller = caller;
+                call(@event);
+            }
+        }
     }
         
     public interface IAppEvent

@@ -71,7 +71,7 @@ namespace package.stormiumteam.shared
         /// <param name="s">The step value</param>
         /// <returns>The new stepped result</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float Step(float o, float d, float s)
+        public static float MoveTorward(float o, float d, float s)
         {
             var r = o;
             r = d > o 
@@ -104,13 +104,13 @@ namespace package.stormiumteam.shared
         /// <param name="s">The step value</param>
         /// <returns>The new stepped result</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Step(Vector3 o, Vector3 d, float s)
+        public static Vector3 MoveTorward(Vector3 o, Vector3 d, float s)
         {
             return new Vector3
             (
-                Step(o.x, d.x, s),
-                Step(o.y, d.y, s),
-                Step(o.z, d.z, s)
+                MoveTorward(o.x, d.x, s),
+                MoveTorward(o.y, d.y, s),
+                MoveTorward(o.z, d.z, s)
             );
         }
         
@@ -122,13 +122,13 @@ namespace package.stormiumteam.shared
         /// <param name="s">The step value</param>
         /// <returns>The new stepped result</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Step(Vector3 o, Vector3 d, Vector3 s)
+        public static Vector3 MoveTorward(Vector3 o, Vector3 d, Vector3 s)
         {
             return new Vector3
             (
-                Step(o.x, d.x, s.x),
-                Step(o.y, d.y, s.y),
-                Step(o.z, d.z, s.z)
+                MoveTorward(o.x, d.x, s.x),
+                MoveTorward(o.y, d.y, s.y),
+                MoveTorward(o.z, d.z, s.z)
             );
         }
 
