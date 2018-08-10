@@ -1,4 +1,5 @@
-﻿using Unity.Entities;
+﻿using Scripts.Utilities;
+using Unity.Entities;
 using UnityEngine;
 
 namespace package.stormiumteam.shared
@@ -12,6 +13,8 @@ namespace package.stormiumteam.shared
             var worldSettings = new World("Settings");
             
             ECSWorldLoop.FlagAsLoopable(World.Active);
+            
+            new GameObject("Native", typeof(NativeUnitySystem));
         }
     }
 }

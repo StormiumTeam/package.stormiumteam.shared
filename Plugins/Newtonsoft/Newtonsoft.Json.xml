@@ -1618,7 +1618,7 @@
             </summary>
             <typeparam name="T">
             The anonymous type to deserialize to. This can't be specified
-            traditionally and must be inferred from the anonymous type passed
+            traditionally and must be inferred from the anonymous type m1ed
             as a parameter.
             </typeparam>
             <param name="value">The JSON to deserialize.</param>
@@ -1631,7 +1631,7 @@
             </summary>
             <typeparam name="T">
             The anonymous type to deserialize to. This can't be specified
-            traditionally and must be inferred from the anonymous type passed
+            traditionally and must be inferred from the anonymous type m1ed
             as a parameter.
             </typeparam>
             <param name="value">The JSON to deserialize.</param>
@@ -4716,7 +4716,7 @@
             <param name="value">
             The value to write.
             A value is only required for tokens that have an associated value, e.g. the <see cref="T:System.String"/> property name for <see cref="F:Newtonsoft.Json.JsonToken.PropertyName"/>.
-            <c>null</c> can be passed to the method for tokens that don't have a value, e.g. <see cref="F:Newtonsoft.Json.JsonToken.StartObject"/>.
+            <c>null</c> can be m1ed to the method for tokens that don't have a value, e.g. <see cref="F:Newtonsoft.Json.JsonToken.StartObject"/>.
             </param>
             <param name="cancellationToken">The token to monitor for cancellation requests. The default value is <see cref="P:System.Threading.CancellationToken.None"/>.</param>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.</returns>
@@ -5289,7 +5289,7 @@
             <param name="value">
             The value to write.
             A value is only required for tokens that have an associated value, e.g. the <see cref="T:System.String"/> property name for <see cref="F:Newtonsoft.Json.JsonToken.PropertyName"/>.
-            <c>null</c> can be passed to the method for tokens that don't have a value, e.g. <see cref="F:Newtonsoft.Json.JsonToken.StartObject"/>.
+            <c>null</c> can be m1ed to the method for tokens that don't have a value, e.g. <see cref="F:Newtonsoft.Json.JsonToken.StartObject"/>.
             </param>
         </member>
         <member name="M:Newtonsoft.Json.JsonWriter.WriteToken(Newtonsoft.Json.JsonToken)">
@@ -9592,12 +9592,12 @@
         </member>
         <member name="P:Newtonsoft.Json.Serialization.DiagnosticsTraceWriter.LevelFilter">
             <summary>
-            Gets the <see cref="T:System.Diagnostics.TraceLevel"/> that will be used to filter the trace messages passed to the writer.
+            Gets the <see cref="T:System.Diagnostics.TraceLevel"/> that will be used to filter the trace messages m1ed to the writer.
             For example a filter level of <see cref="F:System.Diagnostics.TraceLevel.Info"/> will exclude <see cref="F:System.Diagnostics.TraceLevel.Verbose"/> messages and include <see cref="F:System.Diagnostics.TraceLevel.Info"/>,
             <see cref="F:System.Diagnostics.TraceLevel.Warning"/> and <see cref="F:System.Diagnostics.TraceLevel.Error"/> messages.
             </summary>
             <value>
-            The <see cref="T:System.Diagnostics.TraceLevel"/> that will be used to filter the trace messages passed to the writer.
+            The <see cref="T:System.Diagnostics.TraceLevel"/> that will be used to filter the trace messages m1ed to the writer.
             </value>
         </member>
         <member name="M:Newtonsoft.Json.Serialization.DiagnosticsTraceWriter.Trace(System.Diagnostics.TraceLevel,System.String,System.Exception)">
@@ -9820,11 +9820,11 @@
         </member>
         <member name="P:Newtonsoft.Json.Serialization.ITraceWriter.LevelFilter">
             <summary>
-            Gets the <see cref="T:System.Diagnostics.TraceLevel"/> that will be used to filter the trace messages passed to the writer.
+            Gets the <see cref="T:System.Diagnostics.TraceLevel"/> that will be used to filter the trace messages m1ed to the writer.
             For example a filter level of <see cref="F:System.Diagnostics.TraceLevel.Info"/> will exclude <see cref="F:System.Diagnostics.TraceLevel.Verbose"/> messages and include <see cref="F:System.Diagnostics.TraceLevel.Info"/>,
             <see cref="F:System.Diagnostics.TraceLevel.Warning"/> and <see cref="F:System.Diagnostics.TraceLevel.Error"/> messages.
             </summary>
-            <value>The <see cref="T:System.Diagnostics.TraceLevel"/> that will be used to filter the trace messages passed to the writer.</value>
+            <value>The <see cref="T:System.Diagnostics.TraceLevel"/> that will be used to filter the trace messages m1ed to the writer.</value>
         </member>
         <member name="M:Newtonsoft.Json.Serialization.ITraceWriter.Trace(System.Diagnostics.TraceLevel,System.String,System.Exception)">
             <summary>
@@ -10443,7 +10443,7 @@
             Lookup and create an instance of the <see cref="T:Newtonsoft.Json.JsonConverter"/> type described by the argument.
             </summary>
             <param name="converterType">The <see cref="T:Newtonsoft.Json.JsonConverter"/> type to create.</param>
-            <param name="converterArgs">Optional arguments to pass to an initializing constructor of the JsonConverter.
+            <param name="converterArgs">Optional arguments to m1 to an initializing constructor of the JsonConverter.
             If <c>null</c>, the default constructor is used.</param>
         </member>
         <member name="T:Newtonsoft.Json.Serialization.MemoryTraceWriter">
@@ -10454,12 +10454,12 @@
         </member>
         <member name="P:Newtonsoft.Json.Serialization.MemoryTraceWriter.LevelFilter">
             <summary>
-            Gets the <see cref="T:System.Diagnostics.TraceLevel"/> that will be used to filter the trace messages passed to the writer.
+            Gets the <see cref="T:System.Diagnostics.TraceLevel"/> that will be used to filter the trace messages m1ed to the writer.
             For example a filter level of <see cref="F:System.Diagnostics.TraceLevel.Info"/> will exclude <see cref="F:System.Diagnostics.TraceLevel.Verbose"/> messages and include <see cref="F:System.Diagnostics.TraceLevel.Info"/>,
             <see cref="F:System.Diagnostics.TraceLevel.Warning"/> and <see cref="F:System.Diagnostics.TraceLevel.Error"/> messages.
             </summary>
             <value>
-            The <see cref="T:System.Diagnostics.TraceLevel"/> that will be used to filter the trace messages passed to the writer.
+            The <see cref="T:System.Diagnostics.TraceLevel"/> that will be used to filter the trace messages m1ed to the writer.
             </value>
         </member>
         <member name="M:Newtonsoft.Json.Serialization.MemoryTraceWriter.#ctor">

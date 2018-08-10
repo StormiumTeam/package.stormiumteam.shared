@@ -11,6 +11,8 @@ namespace package.stormiumteam.shared
 {
     public static class AppEvent<TEvent> where TEvent : IAppEvent
     {
+        private static TEvent[] m_FixedEventList = null;
+        
         public static object Caller { get; set; }
 
         public static List<TEvent> delayList = new List<TEvent>();
@@ -24,6 +26,23 @@ namespace package.stormiumteam.shared
                 Caller = caller;
                 call(@event);
             }
+        }
+
+        public static TEvent[] GetObjEvents()
+        {
+            if (m_FixedEventList == null
+                || m_FixedEventList.Length != eventList.Count)
+            {
+                m_FixedEventList = eventList.ToArray();
+                return m_FixedEventList;
+            }
+
+            for (int i = 0; i != m_FixedEventList.Length; i++)
+            {
+                m_FixedEventList[i] = eventList[i];
+            }
+
+            return m_FixedEventList;
         }
     }
         

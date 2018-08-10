@@ -43,12 +43,16 @@ namespace package.stormiumteam.shared.online
         {
             MasterPlayers[masterId.Id.ToGuid()] = player;
             AllPlayers.Add(player);
+            
+            player.WorldPointer.SetOrCreateComponentData(new PlayerEntityTag());
         }
 
         public void AddLocalPlayer(GamePlayer player)
         {
             if (!AllPlayers.Contains(player)) AllPlayers.Add(player);
             LocalPlayers.Add(player);
+
+            player.WorldPointer.SetOrCreateComponentData(new PlayerEntityTag());
         }
 
         public Entity GetEntity(GamePlayer player)
