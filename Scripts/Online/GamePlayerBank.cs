@@ -42,7 +42,7 @@ namespace package.stormiumteam.shared.online
         public void AddPlayer(MasterServerPlayerId masterId, GamePlayer player)
         {
             MasterPlayers[masterId.Id.ToGuid()] = player;
-            AllPlayers.Add(player);
+            if (!AllPlayers.Contains(player)) AllPlayers.Add(player);
             
             player.WorldPointer.SetOrCreateComponentData(new PlayerEntityTag());
         }

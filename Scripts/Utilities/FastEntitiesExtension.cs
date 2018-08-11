@@ -5,7 +5,6 @@ namespace package.stormiumteam.shared
     public static class FastEntitiesExtensions
     {
         public static bool HasComponent<T>(this Entity entity, World world = null)
-            where T : struct, IComponentData
         {
             if (world == null)
                 world = World.Active;
