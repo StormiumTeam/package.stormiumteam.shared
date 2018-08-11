@@ -1,14 +1,12 @@
 ﻿using System;
-using System.ComponentModel;
-using UnityEngine;
 
 namespace Scripts.Utilities
 {
     /// <summary>
-    /// A sequential unique non-random identifier.
+    ///     A sequential unique non-random identifier.
     /// </summary>
     /// <remarks>
-    /// The identifiers are only unique if they are sequenced.
+    ///     The identifiers are only unique if they are sequenced.
     /// </remarks>
     [Serializable]
     public struct SeqId
@@ -48,7 +46,7 @@ namespace Scripts.Utilities
         {
             #region Italian food
 
-            ulong __m1 = m1;
+            var   __m1 = m1;
             ulong __u1 = u1;
             ulong __u2 = u2;
 

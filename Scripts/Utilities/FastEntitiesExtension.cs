@@ -39,6 +39,16 @@ namespace package.stormiumteam.shared
                 entityManager.AddComponentData(entity, data);
         }
 
+        public static void RemoveComponentIfExist<T>(this Entity entity, World world = null)
+            where T : struct
+        {
+            if (world == null)
+                world = World.Active;
+            var entityManager = world.GetExistingManager<EntityManager>();
+            if (entityManager.HasComponent<T>(entity))
+                entityManager.RemoveComponent<T>(entity);
+        }
+
         public static void SetOrAddSharedComponentData<T>(this Entity entity, T data, World world = null)
             where T : struct, ISharedComponentData
         {
@@ -52,7 +62,7 @@ namespace package.stormiumteam.shared
         }
 
         public static void SetOrAddSharedComponentData<T>(this EntityManager em, Entity entity, T data)
-            where T : struct , ISharedComponentData
+            where T : struct, ISharedComponentData
         {
             if (em.HasComponent<T>(entity)) em.SetSharedComponentData(entity, data);
             else em.AddSharedComponentData(entity, data);
