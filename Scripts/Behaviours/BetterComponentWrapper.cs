@@ -1,4 +1,5 @@
-﻿using Unity.Entities;
+﻿using System.Runtime;
+using Unity.Entities;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,6 +10,22 @@ namespace package.stormiumteam.shared
         where T : struct, IComponentData
     {
         public T Value;
+        
+        protected void AddComponentData<TComp>(TComp comp)
+            where TComp : struct, IComponentData
+        {
+            m_GameObjectEntity.EntityManager.AddComponentData(m_GameObjectEntity.Entity, comp);
+        }
+
+        protected void AddSharedComponentData<TComp>(TComp comp)
+            where TComp : struct, ISharedComponentData
+        {
+            m_GameObjectEntity.EntityManager.AddSharedComponentData(m_GameObjectEntity.Entity, comp);
+        }
+
+        protected virtual void OnUnityAwake()
+        {
+        }
 
         private GameObjectEntity m_GameObjectEntity;
 
@@ -23,6 +40,8 @@ namespace package.stormiumteam.shared
                 em.AddComponentData(entity, Value);
             else
                 Value = em.GetComponentData<T>(entity);
+
+            OnUnityAwake();
         }
 
         private void OnEnable()
