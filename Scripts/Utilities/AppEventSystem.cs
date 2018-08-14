@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using package.stormiumteam.shared;
 using Unity.Entities;
-using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.Experimental.LowLevel;
 
 namespace package.stormiumteam.shared
