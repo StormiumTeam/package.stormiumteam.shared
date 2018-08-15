@@ -68,10 +68,11 @@ namespace package.stormiumteam.shared
         {
             if (UseBuffering)
             {
-                m_Buffer.AddComponent(entity, data);
+                if (m_EntityManager.HasComponent<T>(entity))
+                    m_Buffer.AddComponent(entity, data);
                 return;
             }
-            
+
             if (!IsCreated) m_EntityManager = World.Active.GetOrCreateManager<EntityManager>();
 
             if (m_EntityManager.HasComponent<T>(entity))
