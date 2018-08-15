@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Scripts.Utilities
+namespace package.stormiumteam.shared
 {
     public static class BoundsExtensions
     {

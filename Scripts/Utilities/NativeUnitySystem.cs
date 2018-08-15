@@ -3,7 +3,7 @@ using package.stormiumteam.shared;
 using Unity.Entities;
 using UnityEngine;
 
-namespace Scripts.Utilities
+namespace package.stormiumteam.shared
 {
     public class NativeUnitySystem : MonoBehaviour
     {

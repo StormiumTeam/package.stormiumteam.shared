@@ -3,7 +3,7 @@ using package.stormiumteam.shared;
 using Unity.Collections;
 using Unity.Entities;
 
-namespace Scripts.Utilities
+namespace package.stormiumteam.shared
 {
     public struct DelayEntityTag : IComponentData
     {

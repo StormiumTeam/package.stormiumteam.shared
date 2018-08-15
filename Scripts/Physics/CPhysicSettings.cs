@@ -5,7 +5,7 @@ using package.stormiumteam.shared;
 using Unity.Entities;
 using UnityEngine;
 
-namespace Scripts.Physics
+namespace package.stormiumteam.shared
 {
     /*
      * Public members

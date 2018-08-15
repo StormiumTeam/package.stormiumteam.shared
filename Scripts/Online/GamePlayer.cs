@@ -1,5 +1,5 @@
 ﻿using System;
-using Scripts.Utilities;
+using package.stormiumteam.shared;
 using Unity.Entities;
 
 namespace package.stormiumteam.shared.online

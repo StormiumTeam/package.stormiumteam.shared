@@ -1,6 +1,6 @@
 ﻿using Unity.Entities;
 
-namespace Scripts.Physics
+namespace package.stormiumteam.shared
 {
     public struct CPhysicGroup
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Scripts.Utilities
+namespace package.stormiumteam.shared
 {
     /// <summary>
     ///     A sequential unique non-random identifier.

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Scripts.Utilities
+namespace package.stormiumteam.shared
 {    
     public struct LayerInfo
     {
