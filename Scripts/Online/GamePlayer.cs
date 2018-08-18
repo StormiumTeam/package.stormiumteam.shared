@@ -25,6 +25,24 @@ namespace package.stormiumteam.shared.online
         /// No matter what, the client and the server should possess the same id for the same player
         /// </remarks>
         public SeqId Id;
-        public bool IsLocal;
+
+        public bool IsLocal
+        {
+            get
+            {
+                var plBank = World.Active.GetOrCreateManager<GamePlayerBank>();
+                var playerFromIdent = plBank.GetPlayerFromIdent(Id);
+                if (!playerFromIdent.IsCreated) return false;
+
+                var localPlayers = plBank.LocalPlayers;
+                foreach (var localPlayer in localPlayers)
+                {
+                    if (localPlayer.WorldPointer == playerFromIdent.WorldPointer)
+                        return true;
+                }
+
+                return false;
+            }
+        }
     }
 }

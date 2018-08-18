@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace package.stormiumteam.shared
 {
-    [Serializable]
-    public struct CameraTargetData : IComponentData
+    [Serializable, Obsolete]
+    public struct oldCameraTargetData : IComponentData
     {
         public Vector3 Position;
         public Vector3 Rotation;
@@ -18,7 +18,7 @@ namespace package.stormiumteam.shared
         public int CameraId;
     }
 
-    public class CameraTargetComponent : BetterComponentWrapper<CameraTargetData>
+    public class CameraTargetComponent : BetterComponentWrapper<oldCameraTargetData>
     {
         
     }

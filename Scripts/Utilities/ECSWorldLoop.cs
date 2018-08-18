@@ -33,7 +33,7 @@ namespace package.stormiumteam.shared
                     FlagAsUnloopable(world);
             }
             
-            ScriptBehaviourUpdateOrder.UpdatePlayerLoop(m_LoopableWorlds.ToArray());
+            ScriptBehaviourUpdateOrder.UpdatePlayerLoop(copy);
 
             Version++;
         }

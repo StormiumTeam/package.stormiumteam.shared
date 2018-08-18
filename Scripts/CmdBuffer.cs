@@ -69,6 +69,8 @@ namespace package.stormiumteam.shared
             if (UseBuffering)
             {
                 if (m_EntityManager.HasComponent<T>(entity))
+                    m_Buffer.SetComponent(entity, data);
+                else
                     m_Buffer.AddComponent(entity, data);
                 return;
             }

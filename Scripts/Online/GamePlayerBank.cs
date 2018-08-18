@@ -47,12 +47,11 @@ namespace package.stormiumteam.shared.online
             player.WorldPointer.SetOrAddComponentData(new PlayerEntityTag());
         }
 
-        public void AddLocalPlayer(GamePlayer player)
+        public void AddLocalPlayer(GamePlayer player, MasterServerPlayerId masterServerPlayerId)
         {
-            if (!AllPlayers.Contains(player)) AllPlayers.Add(player);
             LocalPlayers.Add(player);
-
-            player.WorldPointer.SetOrAddComponentData(new PlayerEntityTag());
+            
+            AddPlayer(masterServerPlayerId, player);
         }
 
         public Entity GetEntity(GamePlayer player)
