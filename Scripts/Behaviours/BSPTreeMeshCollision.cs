@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Unity.Collections;
+using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.Profiling;
 
@@ -67,6 +69,7 @@ namespace package.stormiumteam.shared
             if (m_Tree != null)
                 m_Tree.Triangles = null;
         }
+
 
         /// <summary>
         ///     Returns the closest point on the mesh with respect to Vector3 point to

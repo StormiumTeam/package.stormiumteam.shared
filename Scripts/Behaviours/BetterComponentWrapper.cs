@@ -65,14 +65,18 @@ namespace package.stormiumteam.shared
             if (m_GameObjectEntity == null)
                 return;
             
+            var entity = m_GameObjectEntity.Entity;
+            var em     = m_GameObjectEntity.EntityManager;
+            
+            m_GameObjectEntity = null;
+            
             if (!Application.isPlaying)
                 return;
 
-            var entity = m_GameObjectEntity.Entity;
-            var em     = m_GameObjectEntity.EntityManager;
+            if (entity == Entity.Null || em == null)
+                return;
+            
             em.RemoveComponent<T>(entity);
-
-            m_GameObjectEntity = null;
         }
 
 #if UNITY_EDITOR
