@@ -10,6 +10,5 @@ namespace package.stormiumteam.shared
 
     public struct ClientOperationOnly<T> : IComponentData
     {
-        
     }
 }

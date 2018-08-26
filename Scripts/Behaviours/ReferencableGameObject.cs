@@ -12,13 +12,13 @@ namespace package.stormiumteam.shared
     {
         public struct Result<T>
         {
-            public bool HadIt;
+            public bool HasValue;
             public T Value;
             
-            public Result(T value, bool hadIt)
+            public Result(T value, bool hasValue)
             {
                 Value = value;
-                HadIt = hadIt;
+                HasValue = hasValue;
             }
 
             public static implicit operator T(Result<T> r)
@@ -35,7 +35,7 @@ namespace package.stormiumteam.shared
         public ReadOnlyCollection<Component> Components => new ReadOnlyCollection<Component>(m_Components);
 
         private bool       m_WasCreated = false;
-        private GameObject m_fastPathGameObject;
+        private GameObject m_FastPathGameObject;
         private GameObjectEntity m_GameObjectEntity;
 
         private void OnCreate()
@@ -43,7 +43,7 @@ namespace package.stormiumteam.shared
             if (m_WasCreated)
                 return;
             m_WasCreated         = true;
-            m_fastPathGameObject = gameObject;
+            m_FastPathGameObject = gameObject;
 
             m_Components = new List<Component>(GetComponents<Component>());
 
@@ -91,7 +91,7 @@ namespace package.stormiumteam.shared
             where T : Component
         {
             var result = GetComponentFast<T>();
-            return result.HadIt ? result.Value : AddComponent<T>();
+            return result.HasValue ? result.Value : AddComponent<T>();
         }
 
         public Result<T> GetComponentFast<T>()
@@ -141,20 +141,20 @@ namespace package.stormiumteam.shared
                 referencableGameObject = gameObject.GetComponent<ReferencableGameObject>();
                 if (referencableGameObject == null)
                 {
-                    if (createReferencable)
+                    if (!createReferencable)
                     {
-                        referencableGameObject = gameObject.AddComponent<ReferencableGameObject>();
-                        referencableGameObject.OnCreate();
-                    }
-                    else
                         return gameObject.GetComponent<T>();
+                    }
+
+                    referencableGameObject = gameObject.AddComponent<ReferencableGameObject>();
+                    referencableGameObject.OnCreate();
                 }
             }
 
             return referencableGameObject.GetComponentFast<T>().Value;
         }
         
-        public new static T GetComponent<T>(int referenceId, bool createReferencable = true)
+        public static T GetComponent<T>(int referenceId, bool createReferencable = true)
             where T : Component
         {
             ReferencableGameObject referencableGameObject;
@@ -168,11 +168,11 @@ namespace package.stormiumteam.shared
             return referencableGameObject.GetComponentFast<T>().Value;
         }
 
-        public static GameObject FromId(int collidedGameObject)
+        public static GameObject FromId(int gameObjectId)
         {
             ReferencableGameObject referencableGameObject;
-            s_GameObjects.FastTryGet(collidedGameObject, out referencableGameObject);
-            return referencableGameObject.m_fastPathGameObject;
+            s_GameObjects.FastTryGet(gameObjectId, out referencableGameObject);
+            return referencableGameObject.m_FastPathGameObject;
         }
     }
 }
