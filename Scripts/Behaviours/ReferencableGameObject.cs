@@ -20,6 +20,11 @@ namespace package.stormiumteam.shared
                 Value = value;
                 HadIt = hadIt;
             }
+
+            public static implicit operator T(Result<T> r)
+            {
+                return r.Value;
+            }
         }
         
         private static FastDictionary<int, ReferencableGameObject> s_GameObjects =

@@ -26,11 +26,24 @@ namespace package.stormiumteam.shared
         /// <summary>
         /// The target position
         /// </summary>
-        public float2 Value;
+        public float3 Value;
 
-        public CameraTargetPosition(float2 position)
+        public CameraTargetPosition(float3 position)
         {
             Value = position;
+        }
+    }
+    
+    public struct CameraTargetRotation : IComponentData
+    {
+        /// <summary>
+        /// The target position
+        /// </summary>
+        public Quaternion Value;
+
+        public CameraTargetRotation(Quaternion rotation)
+        {
+            Value = rotation;
         }
     }
 }

@@ -127,7 +127,6 @@ namespace package.stormiumteam.shared
         }
 
         public void SubscribeToAll<TObj>(TObj obj)
-            where TObj : IAppEvent
         {
             var interfaces = obj.GetType().GetInterfaces();
             foreach (var @interface in interfaces)
@@ -142,7 +141,6 @@ namespace package.stormiumteam.shared
 
         public void SubscribeTo<TSub, TObj>(TObj __obj)
             where TSub : IAppEvent
-            where TObj : IAppEvent
         {
             var obj = (TSub)(object) __obj;
 
