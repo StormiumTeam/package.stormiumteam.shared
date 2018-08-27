@@ -2,13 +2,13 @@
 
 namespace package.stormiumteam.shared
 {
-    public struct DataClientOperationOnly<T> : IComponentData
+    public struct DataIgnoreServerOperation<T> : IComponentData
         where T : struct, IComponentData
     {
         
     }
 
-    public struct ClientOperationOnly<T> : IComponentData
+    public struct IgnoreServerOperation<T> : IComponentData
     {
     }
 }

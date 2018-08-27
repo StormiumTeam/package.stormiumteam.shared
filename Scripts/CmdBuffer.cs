@@ -82,7 +82,24 @@ namespace package.stormiumteam.shared
             else
                 m_EntityManager.AddComponentData(entity, data);
         }
-        
+
+        public void RemoveComponentIfExist<T>(Entity entity)
+            where T : struct, IComponentData
+        {
+            if (UseBuffering)
+            {
+                if (m_EntityManager.HasComponent<T>(entity))
+                    m_Buffer.RemoveComponent<T>(entity);
+
+                return;
+            }
+
+            if (!IsCreated) m_EntityManager = World.Active.GetOrCreateManager<EntityManager>();
+
+            if (m_EntityManager.HasComponent<T>(entity))
+                m_EntityManager.RemoveComponent<T>(entity);
+        }
+
         public static CmdBuffer Resolve(BarrierSystem original)
         {
             return new CmdBuffer(original.CreateCommandBuffer());
