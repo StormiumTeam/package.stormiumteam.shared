@@ -354,6 +354,33 @@ namespace System.Collections.Generic {
             return false;
         }
         
+        public bool RefFastTryGet(int key, ref TValue value) {
+            if (!keyIsInteger)
+                throw new Exception();
+
+            if (Buckets != null)
+            {
+                int hashCode, bucketLength;
+                hashCode = key & 0x7FFFFFFF;
+                bucketLength = Buckets.Length;
+
+                for (int i = Buckets[hashCode % bucketLength]; i >= 0;)
+                {
+                    ref var entry = ref entries[i];
+                    if (entry.hashCode == hashCode)
+                    {
+                        value = entry.value;
+                        return true;
+                    }
+
+                    i = entry.next;
+                }
+            }
+
+            value = default(TValue);
+            return false;
+        }
+        
         public bool RefFastTryGet(TKey key, ref TValue value) {
             if (Buckets != null)
             {

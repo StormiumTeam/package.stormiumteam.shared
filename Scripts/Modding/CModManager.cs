@@ -100,6 +100,24 @@ namespace package.stormiumteam.shared.modding
             }
         }
         
+        private static IEnumerable<Type> GetLoadableTypes(Assembly assembly)
+        {
+            try
+            {
+                return assembly.GetTypes();
+            }
+            catch (ReflectionTypeLoadException e)
+            {
+                Debug.LogException(e);
+                Debug.Log("Inners exceptions:");
+                foreach(Exception inner in e.LoaderExceptions) {
+                    Debug.Log(inner.GetType().Name + "\t" + inner.Message);
+                }
+                Debug.Log("...................");
+                return e.Types.Where(t => t != null);
+            }
+        }
+        
         /// <summary>
         /// When this variable is at 1, we can't register internal packets anymore
         /// </summary>
@@ -132,7 +150,7 @@ namespace package.stormiumteam.shared.modding
             // Call the bootstrappers...
             foreach (var assembly in assemblies)
             {
-                var bootStrapperTypes = assembly.GetTypes().Where(t => 
+                var bootStrapperTypes = GetLoadableTypes(assembly).Where(t => 
                     t.IsSubclassOf(typeof(CModBootstrap)) && 
                     !t.IsAbstract && 
                     !t.ContainsGenericParameters && 
@@ -153,7 +171,7 @@ namespace package.stormiumteam.shared.modding
             // Create the systems
             foreach (var assembly in assemblies)
             {
-                var systemTypes = assembly.GetTypes().Where(t => 
+                var systemTypes = GetLoadableTypes(assembly).Where(t => 
                     t.IsSubclassOf(typeof(ComponentSystemBase)) && 
                     !t.IsAbstract && 
                     !t.ContainsGenericParameters && 

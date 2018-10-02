@@ -70,7 +70,7 @@ namespace package.stormiumteam.shared
 
         private long m_LoopVersion;
 
-        protected override void OnCreateManager(int capacity)
+        protected override void OnCreateManager()
         {
             m_HasRan = false;
 

@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace package.stormiumteam.shared
 {
-    public class CPhysicTracer : ComponentSystem
+    public class PhysicColletor : ComponentSystem
     {
-        public static CPhysicTracer Active => Unity.Entities.World.Active.GetOrCreateManager<CPhysicTracer>();
+        public static PhysicColletor Active => Unity.Entities.World.Active.GetOrCreateManager<PhysicColletor>();
         
         protected override void OnUpdate()
         {
@@ -21,10 +21,14 @@ namespace package.stormiumteam.shared
             {
                 TracerColliderResult<TCollider>.m_Collider = new GameObject($"#CPhysicTracer({typeof(TCollider).Name})")
                     .AddComponent<TCollider>();
+                if (typeof(TCollider) == typeof(CharacterController))
+                {
+                    TracerColliderResult<TCollider>.m_Collider.gameObject.AddComponent<CharacterControllerMotor>();
+                }
             }
 
             var collider = TracerColliderResult<TCollider>.m_Collider;
-            collider.gameObject.layer = 31;
+            CPhysicSettings.Active.SetGlobalCollision(collider.gameObject, true);
             collider.transform.parent = null;
             collider.transform.position = Vector3.zero;
             collider.transform.localScale = Vector3.one;
@@ -38,7 +42,7 @@ namespace package.stormiumteam.shared
         public void Pool<TCollider>(TCollider collider)
             where TCollider : Collider
         {
-            collider.gameObject.layer = 31;
+            CPhysicSettings.Active.SetGlobalCollision(collider.gameObject, false);
         }
         
         public void ResetCollider<TCollider>(TCollider collider)
@@ -72,7 +76,7 @@ namespace package.stormiumteam.shared
         
         public void Dispose()
         {
-            CPhysicTracer.Active.Pool(Collider);
+            PhysicColletor.Active.Pool(Collider);
             Collider = null;
         }
         

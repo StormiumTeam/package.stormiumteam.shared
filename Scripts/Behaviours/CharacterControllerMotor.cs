@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.Entities;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 namespace package.stormiumteam.shared
 {
@@ -14,12 +16,12 @@ namespace package.stormiumteam.shared
 
         public CharacterController CharacterController
         {
-            get { return m_CharacterController; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return m_CharacterController; }
         }
 
         public IReadOnlyList<MoveEvent> AllMoveEventsInFrame
         {
-            get
+            [MethodImpl(MethodImplOptions.AggressiveInlining)] get
             {
                 CleanLastFrameEvents();
                 return m_AllMoveEventsInFrame;
@@ -28,7 +30,7 @@ namespace package.stormiumteam.shared
 
         public IReadOnlyList<ControllerColliderHit> AllColliderHitsInFrame
         {
-            get
+            [MethodImpl(MethodImplOptions.AggressiveInlining)] get
             {
                 CleanLastFrameEvents();
                 return m_AllColliderHitsInFrame;
@@ -37,34 +39,41 @@ namespace package.stormiumteam.shared
 
         public bool IsGroundForcedThisFrame
         {
-            get
+            [MethodImpl(MethodImplOptions.AggressiveInlining)] get
             {
                 CleanLastFrameEvents();
                 return m_IsGroundForcedThisFrame;
             }
-            set => m_IsGroundForcedThisFrame = value;
+            [MethodImpl(MethodImplOptions.AggressiveInlining)] set { m_IsGroundForcedThisFrame = value; }
         }
+
+        public Vector3 AngleDir
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return m_AngleDir; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining)] set { m_AngleDir = value; }
+        }
+
+        public bool IsStableOnGround
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return m_IsStableOnGround; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining)] set { m_IsStableOnGround = value; }
+        }
+
+        public bool IsSliding { [MethodImpl(MethodImplOptions.AggressiveInlining)] get; [MethodImpl(MethodImplOptions.AggressiveInlining)] set; }
 
         // Add the component 'StackData' to the entity
         // Because this is a very small code, we don't use a system
         private void Awake()
         {
-            // Get our entity by using the referencable gameobject.
-            var gameObjectEntity = ReferencableGameObject.GetComponent<GameObjectEntity>(gameObject);
-            if (gameObjectEntity == null)
-                gameObjectEntity = gameObject.AddComponent<GameObjectEntity>();
-
             m_CharacterController = GetComponent<CharacterController>();
+            m_CachedTransform = transform;
 
-            // Create the variables
-            var e = gameObjectEntity.Entity;
-            var m = gameObjectEntity.EntityManager;
-
-            // Add the component if it doesn't exist
-            if (!m.HasComponent<StackData>(e))
-                m.AddComponentData(e, new StackData());
-            
-            CPhysicSettings.Active.SetDefaultGroup(e);
+            var gameObjectEntity = GetComponent<GameObjectEntity>();
+            if (gameObjectEntity != null)
+            {
+                m_EntityManager = gameObjectEntity.EntityManager;
+                m_Entity = gameObjectEntity.Entity;
+            }
         }
 
         private void OnDestroy()
@@ -77,77 +86,24 @@ namespace package.stormiumteam.shared
             m_CharacterController = null;
         }
 
-        /*public CPhysicGroup GetGroup()
-        {
-            var gameObjectEntity = ReferencableGameObject.GetComponent<GameObjectEntity>(gameObject);
-            
-            var e = gameObjectEntity.Entity;
-            var m = gameObjectEntity.EntityManager;
-
-            return m.GetComponentData<PhysicGroupTargetData>(e).Target;
-        }*/
-
-        /// <summary>
-        /// Check if we are on a slope.
-        /// This is performance heavy, so you should do your own method.
-        /// </summary>
-        /// <returns></returns>
-        public bool IsOnSlope()
-        {
-            return false;
-            // We are in air, and floating slopes don't exist.
-            if (!IsGrounded())
-                return false;
-
-            /*RaycastHit hit;
-            
-            var worldCenter = transform.position + m_CharacterController.center;
-            
-            var lowPoint  = worldCenter - new Vector3(0, m_CharacterController.height * 0.5f, 0);
-            var highPoint = lowPoint + new Vector3(0, m_CharacterController.height, 0);
-
-            CPhysicSettings.Active.SetCollision(GetGroup(), false);
-            
-            var ray = new Ray(worldCenter, Vector3.down);
-            var radius = m_CharacterController.radius - m_CharacterController.skinWidth;
-            if (Physics.SphereCast(ray, radius, m_CharacterController.height * 2))
-            {
-                
-            }
-            
-            CPhysicSettings.Active.SetCollision(GetGroup(), true);
-            */
-            return true;
-        }
-
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool IsGrounded()
         {
-            if (m_CharacterController.isGrounded)
-                return true;
-            if (m_CharacterController.collisionFlags == CollisionFlags.CollidedBelow)
-                return true;
-            if (IsGroundForcedThisFrame)
-                return true;
-            
-            /*var worldCenter = transform.position + m_CharacterController.center;
-            
-            var lowPoint = worldCenter - new Vector3(0, m_CharacterController.height * 0.5f, 0);
-            var highPoint = lowPoint + new Vector3(0, m_CharacterController.height, 0);
-
-            if (Physics.CapsuleCast(lowPoint, highPoint, m_CharacterController.radius, 
-                Vector3.down, m_CharacterController.skinWidth + 5f + (m_CharacterController.height * 0.5f)))
-                return true;*/
-            
-            return false;
+            return m_IsGroundForcedThisFrame || m_LastIsGrounded || m_LastCollisionFlags == CollisionFlags.CollidedBelow;
         }
 
         /// <summary>
         /// Get move events when an idle motion
         /// </summary>
         /// <returns></returns>
-        public MoveEvent Zero()
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public MoveEvent SmallMove()
         {
-            return MoveBy(new Vector3());
+            var originPos = m_CachedTransform.position;
+            var ev        = MoveBy(new Vector3(0, -(m_CharacterController.minMoveDistance + 0.001f), 0));
+            m_CachedTransform.position = originPos;
+
+            return ev;
         }
 
         /// <summary>
@@ -156,48 +112,59 @@ namespace package.stormiumteam.shared
         /// </summary>
         /// <param name="toPosition"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public MoveEvent MoveTo(Vector3 toPosition)
         {
-            return MoveBy(transform.position - toPosition);
+            return MoveBy(m_CachedTransform.position - toPosition);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public MoveEvent MoveBy(Vector3 motion)
         {
             CleanLastFrameEvents();
 
-            var originPosition = m_CharacterController.transform.position;
+            var originPosition = m_CachedTransform.position;
 
             var eventListenerStartIndex = m_AllColliderHitsInFrame.Count;
             m_CharacterController.Move(motion);
             var eventListenerEndIndex = m_AllColliderHitsInFrame.Count;
 
+            m_LastIsGrounded = m_CharacterController.isGrounded;
+            m_LastCollisionFlags = m_CharacterController.collisionFlags;
+            
             return new MoveEvent()
             {
                 CharacterControllerMotor = this,
                 Motion                   = motion,
                 Origin                   = originPosition,
-                Position                 = m_CharacterController.transform.position,
+                Position                 = m_CachedTransform.position,
                 EventsStartIndex         = eventListenerStartIndex,
                 EventsLength             = eventListenerEndIndex - eventListenerStartIndex
             };
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void CleanLastFrameEvents()
         {
-            if (m_LastCleanFrame < Time.frameCount)
+            Profiler.BeginSample("CleanLastFrameEvents");
+            var frameCount = Time.frameCount;
+            if (m_LastCleanFrame < frameCount)
             {
-                m_LastCleanFrame = Time.frameCount;
+                m_LastCleanFrame = frameCount;
 
                 m_AllMoveEventsInFrame.Clear();
                 m_AllColliderHitsInFrame.Clear();
 
                 m_IsGroundForcedThisFrame = false;
             }
+            Profiler.EndSample();
         }
 
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
+            Profiler.BeginSample("OnControllerColliderHit");
             m_AllColliderHitsInFrame.Add(hit);
+            Profiler.EndSample();
         }
     }
 
@@ -214,6 +181,7 @@ namespace package.stormiumteam.shared
             public int EventsStartIndex;
             public int EventsLength;
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public ControllerColliderHit GetColliderHit(int index)
             {
                 if (index > EventsLength)
@@ -221,56 +189,54 @@ namespace package.stormiumteam.shared
                 return CharacterControllerMotor.m_AllColliderHitsInFrame[EventsStartIndex + index];
             }
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public struct StackData : IComponentData
-        {
-            /// <summary>
-            /// The friction force of the character (manual implementation)
-            /// </summary>
-            public float   FrictionForce;
-            /// <summary>
-            /// The velocity of the character (manual implementation)
-            /// </summary>
-            public Vector3 Velocity;
-            /// <summary>
-            /// The mass of the character, the higher it is, the more it should push objects far away (manual implementation)
-            /// </summary>
-            public float Mass;
-        }
     }
 
     public partial class CharacterControllerMotor
     {
-        private  CharacterController         m_CharacterController;
-        internal List<MoveEvent>             m_AllMoveEventsInFrame   = new List<MoveEvent>();
-        internal List<ControllerColliderHit> m_AllColliderHitsInFrame = new List<ControllerColliderHit>();
+        private CharacterController m_CharacterController;
+        private Transform           m_CachedTransform;
+        private Entity m_Entity;
+        private EntityManager m_EntityManager;
+
+        internal List<MoveEvent>             m_AllMoveEventsInFrame    = new List<MoveEvent>();
+        internal List<ControllerColliderHit> m_AllColliderHitsInFrame  = new List<ControllerColliderHit>();
         internal bool                        m_IsGroundForcedThisFrame = false;
-        private  int                         m_LastCleanFrame = 0;
+        internal Vector3                     m_AngleDir;
+        internal bool                        m_IsStableOnGround;
+        private  int                         m_LastCleanFrame     = 0;
+        private  bool                        m_LastIsGrounded     = false;
+        private  CollisionFlags              m_LastCollisionFlags = CollisionFlags.None;
     }
 
-    /*public class STCharacterControllerSystem : ComponentSystem
+    public struct CharacterControllerState : IComponentData
     {
-        public struct Group
+        public byte GroundFlags;
+        public byte StableGroundFlags;
+        public byte SlideFlags;
+
+        public CharacterControllerState(bool isGrounded, bool isStableOnGround, bool isSliding)
         {
-            public ComponentArray<CGameCharacterController> Controllers;
-            public ComponentDataArray<CGameCharacterController.StackData> Datas;
-            public int Length;
+            GroundFlags       = (byte) (isGrounded ? 1 : 0);
+            StableGroundFlags = (byte) (isStableOnGround ? 1 : 0);
+            SlideFlags        = (byte) (isSliding ? 1 : 0);
         }
 
-        private Group m_Group;
-
-        protected override void OnUpdate()
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool IsGrounded()
         {
-            for (int i = 0; i != m_Group.Length; i++)
-            {
-                var controller = m_Group.Controllers[i];
-                var data = m_Group.Datas[i];
-                
-                
-            }
+            return GroundFlags == 1;
         }
-    }*/
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool IsStableOnGround()
+        {
+            return StableGroundFlags == 1;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool IsSliding()
+        {
+            return SlideFlags == 1;
+        }
+    }
 }

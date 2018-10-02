@@ -8,6 +8,8 @@ namespace package.stormiumteam.shared
         public bool                 UseBuffering;
         public EntityCommandBuffer? Buffer;
 
+        public Entity ChainEntity;
+
         private EntityCommandBuffer m_Buffer;
         private EntityManager       m_EntityManager;
 
@@ -19,6 +21,7 @@ namespace package.stormiumteam.shared
             m_EntityManager = manager ?? World.Active.GetOrCreateManager<EntityManager>();
 
             IsCreated = true;
+            ChainEntity = Entity.Null;
         }
 
         public CmdBuffer(EntityCommandBuffer? buffer, EntityManager entityManager = null)
@@ -31,6 +34,7 @@ namespace package.stormiumteam.shared
             m_Buffer = Buffer ?? default(EntityCommandBuffer);
             
             IsCreated = true;
+            ChainEntity = Entity.Null;
         }
 
         public CmdBuffer(CmdBuffer original, CmdBuffer implementation, EntityManager entityManager = null)
@@ -47,11 +51,17 @@ namespace package.stormiumteam.shared
             else m_Buffer = Buffer.Value;
             
             IsCreated = true;
+            ChainEntity = Entity.Null;
         }
 
+        /*
+         * No chaining methods
+         */
         public void AddComponentData<T>(Entity entity, T data)
             where T : struct, IComponentData
         {
+            ChainEntity = entity;
+            
             if (UseBuffering)
             {
                 m_Buffer.AddComponent(entity, data);
@@ -66,6 +76,8 @@ namespace package.stormiumteam.shared
         public void SetOrAddComponentData<T>(Entity entity, T data)
             where T : struct, IComponentData
         {
+            ChainEntity = entity;
+            
             if (UseBuffering)
             {
                 if (m_EntityManager.HasComponent<T>(entity))
@@ -86,6 +98,8 @@ namespace package.stormiumteam.shared
         public void RemoveComponentIfExist<T>(Entity entity)
             where T : struct, IComponentData
         {
+            ChainEntity = entity;
+            
             if (UseBuffering)
             {
                 if (m_EntityManager.HasComponent<T>(entity))

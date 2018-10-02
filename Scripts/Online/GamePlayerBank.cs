@@ -15,7 +15,7 @@ namespace package.stormiumteam.shared.online
 
         public GamePlayer MainPlayer;
 
-        protected override void OnCreateManager(int capacity)
+        protected override void OnCreateManager()
         {
             MasterPlayers = new FastDictionary<Guid, GamePlayer>();
             AllPlayers    = new List<GamePlayer>();

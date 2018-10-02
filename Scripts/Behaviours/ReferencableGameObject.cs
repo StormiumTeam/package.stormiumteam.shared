@@ -36,7 +36,6 @@ namespace package.stormiumteam.shared
 
         private bool       m_WasCreated = false;
         private GameObject m_FastPathGameObject;
-        private GameObjectEntity m_GameObjectEntity;
 
         private void OnCreate()
         {
@@ -46,18 +45,6 @@ namespace package.stormiumteam.shared
             m_FastPathGameObject = gameObject;
 
             m_Components = new List<Component>(GetComponents<Component>());
-
-            m_GameObjectEntity = GetComponent<GameObjectEntity>();
-            if (m_GameObjectEntity == null)
-            {
-                m_GameObjectEntity = gameObject.AddComponent<GameObjectEntity>();
-            }
-
-            if (m_GameObjectEntity.Entity == Entity.Null)
-            {
-                m_GameObjectEntity.enabled = false;
-                m_GameObjectEntity.enabled = true;
-            }
 
             RegisterReferencable();
         }
@@ -80,7 +67,7 @@ namespace package.stormiumteam.shared
         public T AddComponent<T>()
             where T : Component
         {
-            var component = gameObject.AddComponent<T>();
+            var component = m_FastPathGameObject.AddComponent<T>();
             
             m_Components.Add(component);
 
@@ -118,7 +105,7 @@ namespace package.stormiumteam.shared
 
         private void RegisterReferencable()
         {
-            s_GameObjects[gameObject.GetInstanceID()] = this;
+            s_GameObjects[m_FastPathGameObject.GetInstanceID()] = this;
         }
 
         public new static T GetComponent<T>(GameObject gameObject, bool createReferencable = true)
