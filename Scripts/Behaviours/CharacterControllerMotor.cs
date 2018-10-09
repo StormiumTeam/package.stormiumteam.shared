@@ -60,6 +60,7 @@ namespace package.stormiumteam.shared
         }
 
         public bool IsSliding { [MethodImpl(MethodImplOptions.AggressiveInlining)] get; [MethodImpl(MethodImplOptions.AggressiveInlining)] set; }
+        public Vector3 Momentum { get; set; }
 
         // Add the component 'StackData' to the entity
         // Because this is a very small code, we don't use a system
@@ -87,9 +88,22 @@ namespace package.stormiumteam.shared
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool IsGrounded()
+        public bool IsGrounded(int layerMask)
         {
-            return m_IsGroundForcedThisFrame || m_LastIsGrounded || m_LastCollisionFlags == CollisionFlags.CollidedBelow;
+            var worldCenter = m_CachedTransform.position + m_CharacterController.center;
+            var lowPoint    = worldCenter - new Vector3(0, m_CharacterController.height * 0.5f, 0);
+            var spherePos = lowPoint + new Vector3(0, m_CharacterController.radius - m_CharacterController.skinWidth);
+
+            m_CharacterController.enabled = false;
+            
+            var result = m_IsGroundForcedThisFrame
+                         || m_LastIsGrounded
+                         || m_LastCollisionFlags == CollisionFlags.CollidedBelow
+                         || Physics.CheckSphere(spherePos, m_CharacterController.radius, layerMask);
+
+            m_CharacterController.enabled = true;
+            
+            return result;
         }
 
         /// <summary>
@@ -213,12 +227,14 @@ namespace package.stormiumteam.shared
         public byte GroundFlags;
         public byte StableGroundFlags;
         public byte SlideFlags;
+        public Vector3 AngleDir;
 
-        public CharacterControllerState(bool isGrounded, bool isStableOnGround, bool isSliding)
+        public CharacterControllerState(bool isGrounded, bool isStableOnGround, bool isSliding, Vector3 angleDir)
         {
             GroundFlags       = (byte) (isGrounded ? 1 : 0);
             StableGroundFlags = (byte) (isStableOnGround ? 1 : 0);
             SlideFlags        = (byte) (isSliding ? 1 : 0);
+            AngleDir = angleDir;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
