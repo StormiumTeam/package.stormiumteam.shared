@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using Unity.Entities;
 using UnityEngine;
 using UnityEngine.Profiling;
@@ -146,7 +147,7 @@ namespace package.stormiumteam.shared
             m_LastIsGrounded = m_CharacterController.isGrounded;
             m_LastCollisionFlags = m_CharacterController.collisionFlags;
             
-            return new MoveEvent()
+            var ev = new MoveEvent()
             {
                 CharacterControllerMotor = this,
                 Motion                   = motion,
@@ -155,6 +156,10 @@ namespace package.stormiumteam.shared
                 EventsStartIndex         = eventListenerStartIndex,
                 EventsLength             = eventListenerEndIndex - eventListenerStartIndex
             };
+            
+            m_AllMoveEventsInFrame.Add(ev);
+
+            return ev;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

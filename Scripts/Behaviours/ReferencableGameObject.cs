@@ -87,6 +87,9 @@ namespace package.stormiumteam.shared
             var length = m_Components.Count;
             for (int i = 0; i != length; i++)
             {
+                if (m_Components[i] == null)
+                    continue;
+                
                 if (m_Components[i].GetType().IsSubclassOf(typeof(T)))
                 {
                     return new Result<T>((T) m_Components[i], true);

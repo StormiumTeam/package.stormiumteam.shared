@@ -41,6 +41,12 @@ namespace package.stormiumteam.shared
 
         private void Awake()
         {
+            if (!GetComponent<GameObjectEntity>())
+            {
+                gameObject.AddComponent<GameObjectEntity>();
+            }
+
+            
             RefreshInternal();
 
             var groups = CPhysicSettings.Active.GetGroups(GetComponent<GameObjectEntity>().Entity);
