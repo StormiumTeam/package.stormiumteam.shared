@@ -93,7 +93,7 @@ namespace package.stormiumteam.shared
         {
             var worldCenter = m_CachedTransform.position + m_CharacterController.center;
             var lowPoint    = worldCenter - new Vector3(0, m_CharacterController.height * 0.5f, 0);
-            var spherePos = lowPoint + new Vector3(0, m_CharacterController.radius - m_CharacterController.skinWidth);
+            var spherePos = lowPoint + new Vector3(0, m_CharacterController.radius - (m_CharacterController.skinWidth * 2));
 
             m_CharacterController.enabled = false;
             
