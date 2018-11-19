@@ -1,6 +1,7 @@
 {
     "name": "package.guerro.shared",
     "references": [
+        "Unity.Addressables",
         "Unity.Entities",
         "Unity.Entities.Hybrid",
         "Unity.Mathematics",
