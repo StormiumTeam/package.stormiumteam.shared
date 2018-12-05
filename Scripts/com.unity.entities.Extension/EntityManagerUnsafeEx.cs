@@ -22,8 +22,6 @@ namespace package.stormiumteam.shared.ecs
             {
                 UnsafeUtility.MemCpy(array, componentDataPtr, data.Length);
             }
-
-            Marshal.Copy((IntPtr) componentDataPtr, data, 0, data.Length);
         }
 
         public static void P_SetComponentDataRaw(this EntityManager em, Entity entity, int typeIndex, void* data, int size)
