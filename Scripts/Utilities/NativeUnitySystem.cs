@@ -27,7 +27,6 @@ namespace package.stormiumteam.shared
             var eventList = AppEvent<INativeEventOnGUI>.GetObjEvents();
             foreach (var obj in eventList)
             {
-                AppEvent<INativeEventOnGUI>.Caller = this;
                 try
                 {
                     obj.NativeOnGUI();

@@ -8,38 +8,36 @@ namespace package.stormiumteam.shared
 {
     public static class AppEvent<TEvent> where TEvent : IAppEvent
     {
-        private static TEvent[] m_FixedEventList = null;
-        
-        public static object Caller { get; set; }
+        private static TEvent[] s_FixedEventList = new TEvent[0];
+        public static bool s_IsObjEventsDirty = false;
 
-        public static List<TEvent> delayList = new List<TEvent>();
-        public static List<TEvent> eventList = new List<TEvent>();
-        public static List<TEvent> objList = new List<TEvent>();
-
-        public static void Invoke(object caller, Action<TEvent> call)
-        {
-            foreach (var @event in eventList)
-            {
-                Caller = caller;
-                call(@event);
-            }
-        }
+        public static List<TEvent> DelayList = new List<TEvent>();
+        public static List<TEvent> EventList = new List<TEvent>();
+        public static List<TEvent> ObjList = new List<TEvent>();
 
         public static TEvent[] GetObjEvents()
         {
-            if (m_FixedEventList == null
-                || m_FixedEventList.Length != eventList.Count)
+            if (!s_IsObjEventsDirty) return s_FixedEventList;
+
+            s_IsObjEventsDirty = false;
+            
+            if (s_FixedEventList.Length != EventList.Count)
             {
-                m_FixedEventList = eventList.ToArray();
-                return m_FixedEventList;
+                s_FixedEventList = EventList.ToArray();
+                return s_FixedEventList;
             }
 
-            for (int i = 0; i != m_FixedEventList.Length; i++)
+            for (int i = 0; i != s_FixedEventList.Length; i++)
             {
-                m_FixedEventList[i] = eventList[i];
+                s_FixedEventList[i] = EventList[i];
             }
 
-            return m_FixedEventList;
+            return s_FixedEventList;
+        }
+
+        public static void MakeDirtyObjEvents()
+        {
+            s_IsObjEventsDirty = true;
         }
     }
         
@@ -120,10 +118,10 @@ namespace package.stormiumteam.shared
         public void CheckDelayed<TEvent>()
             where TEvent : IAppEvent
         {
-            foreach (var delayed in AppEvent<TEvent>.delayList)
+            foreach (var delayed in AppEvent<TEvent>.DelayList)
                 SubscribeTo<TEvent, TEvent>(delayed);
             
-            AppEvent<TEvent>.delayList.Clear();
+            AppEvent<TEvent>.DelayList.Clear();
         }
 
         public void SubscribeToAll<TObj>(TObj obj)
@@ -151,47 +149,51 @@ namespace package.stormiumteam.shared
                 
             if (!HasRanAndPlayerLoopIsCorrect)
             {
-                AppEvent<TSub>.delayList.Add(obj);
+                AppEvent<TSub>.DelayList.Add(obj);
                 return;
             }
 
-            if (AppEvent<TSub>.eventList.Contains(obj))
+            if (AppEvent<TSub>.EventList.Contains(obj))
                 return;   
 
-            var oldList = AppEvent<TSub>.eventList;
+            var oldList = AppEvent<TSub>.EventList;
             var newList = new List<TSub>();
 
             var currPlayerLoop = ScriptBehaviourUpdateOrder.CurrentPlayerLoop;
             AddSystem(currPlayerLoop, obj, oldList, newList);
 
             oldList.Clear();
-            AppEvent<TSub>.eventList = newList;
-            AppEvent<TSub>.objList.Add(obj);
+            AppEvent<TSub>.EventList = newList;
+            AppEvent<TSub>.ObjList.Add(obj);
 
-            foreach (var subObj in AppEvent<TSub>.objList)
+            foreach (var subObj in AppEvent<TSub>.ObjList)
             {
-                if (!AppEvent<TSub>.eventList.Contains(subObj))
-                    AppEvent<TSub>.eventList.Add(subObj);
+                if (!AppEvent<TSub>.EventList.Contains(subObj))
+                    AppEvent<TSub>.EventList.Add(subObj);
             }
+            
+            AppEvent<TSub>.MakeDirtyObjEvents();
         }
 
         public void Remake<TSub>()
             where TSub : IAppEvent
         {
-            var oldList = AppEvent<TSub>.eventList;
+            var oldList = AppEvent<TSub>.EventList;
             var newList = new List<TSub>();
 
             var currPlayerLoop = ScriptBehaviourUpdateOrder.CurrentPlayerLoop;
             RemakeSystemLoop(currPlayerLoop, oldList, newList);
 
             oldList.Clear();
-            AppEvent<TSub>.eventList = newList;
+            AppEvent<TSub>.EventList = newList;
             
-            foreach (var subObj in AppEvent<TSub>.objList)
+            foreach (var subObj in AppEvent<TSub>.ObjList)
             {
-                if (!AppEvent<TSub>.eventList.Contains(subObj))
-                    AppEvent<TSub>.eventList.Add(subObj);
+                if (!AppEvent<TSub>.EventList.Contains(subObj))
+                    AppEvent<TSub>.EventList.Add(subObj);
             }
+            
+            AppEvent<TSub>.MakeDirtyObjEvents();
         }
         
         // ...
