@@ -1,4 +1,5 @@
 ﻿using package.stormiumteam.shared;
+using package.stormiumteam.shared.utils;
 using Unity.Entities;
 using UnityEngine;
 
@@ -15,6 +16,8 @@ namespace package.stormiumteam.shared
             ECSWorldLoop.FlagAsLoopable(World.Active);
             
             new GameObject("Native", typeof(NativeUnitySystem));
+            
+            WorldPool.AddRange(32);
         }
     }
 }
