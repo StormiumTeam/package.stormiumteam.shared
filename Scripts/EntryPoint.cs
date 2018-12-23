@@ -17,7 +17,7 @@ namespace package.stormiumteam.shared
             
             new GameObject("Native", typeof(NativeUnitySystem));
             
-            WorldPool.AddRange(32);
+            WorldPool.AddRange(2);
         }
     }
 }

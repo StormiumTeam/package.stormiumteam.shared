@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace package.stormiumteam.shared.ecs
 {
+#if USE_WEIRD_THINGS
     public static unsafe class EntityManagerUnsafeEx
     {
         public static void* P_GetComponentDataRaw(this EntityManager em, Entity entity, int typeIndex)
@@ -49,17 +50,18 @@ namespace package.stormiumteam.shared.ecs
         public static void P_SetBufferDataRaw(this EntityManager em, Entity entity, int componentTypeIndex, byte* pointer, int sizeInChunk)
         {
             var elementSize = TypeManager.GetTypeInfo(componentTypeIndex).ElementSize;
-            var num         = sizeInChunk / elementSize;
+            var num = sizeInChunk / elementSize;
             var ptr = (BufferHeader*) UnsafeUtility.Malloc
             (
                 UnsafeUtility.SizeOf<BufferHeader>(), UnsafeUtility.AlignOf<BufferHeader>(), Allocator.Persistent
             );
 
             BufferHeader.Initialize(ptr, num);
-            ptr->Pointer  = pointer;
-            ptr->Length   = num;
+            ptr->Pointer = pointer;
+            ptr->Length = num;
             ptr->Capacity = Mathf.Max(TypeManager.GetTypeInfo(componentTypeIndex).BufferCapacity, num);
             em.SetBufferRaw(entity, componentTypeIndex, ptr, sizeInChunk);
         }
     }
+#endif
 }

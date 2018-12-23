@@ -9,11 +9,13 @@ namespace package.stormiumteam.shared
     public static class AppEvent<TEvent> where TEvent : IAppEvent
     {
         private static TEvent[] s_FixedEventList = new TEvent[0];
-        public static bool s_IsObjEventsDirty = false;
+        private static bool s_IsObjEventsDirty = false;
 
         public static List<TEvent> DelayList = new List<TEvent>();
         public static List<TEvent> EventList = new List<TEvent>();
         public static List<TEvent> ObjList = new List<TEvent>();
+
+        public static bool IsDirty => s_IsObjEventsDirty;
 
         public static TEvent[] GetObjEvents()
         {

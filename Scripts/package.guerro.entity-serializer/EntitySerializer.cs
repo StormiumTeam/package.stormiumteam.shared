@@ -9,6 +9,7 @@ using UnityEngine.Profiling;
 
 namespace Scripts.Utilities
 {
+#if USE_WEIRD_THINGS
     public static unsafe class EntitySerializer
     {
         public static void CreateDataHeader(NativeList<byte> data)
@@ -250,4 +251,5 @@ namespace Scripts.Utilities
             public int   Capacity;
         }
     }
+#endif
 }
