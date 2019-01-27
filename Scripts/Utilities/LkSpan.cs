@@ -1,4 +1,7 @@
 using System;
+using System.Runtime.InteropServices;
+using Unity.Collections.LowLevel.Unsafe;
+using UnityEngine;
 
 namespace package.stormiumteam.shared.utils
 {
@@ -9,10 +12,40 @@ namespace package.stormiumteam.shared.utils
         public readonly int Length;
         public readonly IntPtr Pointer;
         
+        public LkSpan(IntPtr data, int length)
+        {
+            Length  = length;
+            Pointer = data;
+        }
+        
         public LkSpan(T* data, int length)
         {
             Length = length;
             Pointer = new IntPtr(data);
+        }
+    }
+    
+    public unsafe struct NmLkSpan<T>
+        where T : struct
+    {
+        public readonly int    Length;
+        public readonly IntPtr Pointer;
+        
+        public NmLkSpan(IntPtr data, int length)
+        {
+            Length  = length;
+            Pointer = data;
+        }
+
+        public T this[int i]
+        {
+            get
+            {
+                if (i < 0) throw new IndexOutOfRangeException($"Argument {nameof(i)} is inferior to 0.");
+                if (i >= Length) throw new IndexOutOfRangeException($"Argument {nameof(i)}={i} is superior to length={Length}");
+
+                return UnsafeUtility.ReadArrayElement<T>((void*) Pointer, i);
+            }
         }
     }
 }
