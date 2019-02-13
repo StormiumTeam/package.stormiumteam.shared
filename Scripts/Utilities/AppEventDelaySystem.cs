@@ -59,7 +59,7 @@ namespace package.stormiumteam.shared
             };
         }
 
-        public static void ClearAll<TDelaySystem, TArguments, TTarget>
+        /*public static void ClearAll<TDelaySystem, TArguments, TTarget>
             (this IAppEventDelayGroup<TDelaySystem, TArguments, TTarget> group, ComponentGroup componentGroup, CmdBuffer buffer = default (CmdBuffer))
             where TTarget : ComponentSystem
             where TArguments : struct, IDelayComponentArguments
@@ -77,6 +77,6 @@ namespace package.stormiumteam.shared
                 commandBuffer.Playback(World.Active.GetExistingManager<EntityManager>());
                 commandBuffer.Dispose();
             }
-        }
+        }*/
     }
 }
