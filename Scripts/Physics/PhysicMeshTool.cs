@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using Unity.Collections;
 using UnityEngine;
-using UnityEngine.Profiling;
 
 namespace package.stormiumteam.shared
 {

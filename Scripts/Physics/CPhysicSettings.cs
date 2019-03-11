@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
-using package.stormiumteam.shared;
 using Unity.Entities;
 using UnityEngine;
-using UnityEngine.Profiling;
 
 namespace package.stormiumteam.shared
 {
@@ -81,7 +79,7 @@ namespace package.stormiumteam.shared
             
             // Create the entity
             var entityManager = World.GetExistingManager<EntityManager>();
-            var entity = entityManager.CreateEntity(ComponentType.Create<PhysicGroupData>());
+            var entity = entityManager.CreateEntity(ComponentType.ReadWrite<PhysicGroupData>());
             
             group.Id = entity;
 

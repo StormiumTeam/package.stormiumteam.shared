@@ -4,9 +4,11 @@ using Unity.Collections.LowLevel.Unsafe;
 
 namespace package.stormiumteam.shared
 {
+    [NativeContainerSupportsDeallocateOnJobCompletion]
     public unsafe struct UnsafeAllocation<T> : IDisposable
         where T : struct
     {
+        [NativeDisableUnsafePtrRestriction]
         public void* Data;
         public Allocator Allocator;
         
@@ -21,6 +23,17 @@ namespace package.stormiumteam.shared
         public void Dispose()
         {
             UnsafeUtility.Free(Data, Allocator);
+        }
+
+        public ref T AsRef()
+        {
+            return ref UnsafeUtilityEx.AsRef<T>(Data);
+        }
+
+        public T Value
+        {
+            get => AsRef();
+            set => UnsafeUtility.MemCpy(Data, UnsafeUtility.AddressOf(ref value), UnsafeUtility.SizeOf<T>());
         }
     }
     

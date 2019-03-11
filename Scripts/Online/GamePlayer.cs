@@ -1,6 +1,4 @@
-﻿using System;
-using package.stormiumteam.shared;
-using Unity.Entities;
+﻿using Unity.Entities;
 
 namespace package.stormiumteam.shared.online
 {

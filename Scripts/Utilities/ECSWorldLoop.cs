@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Unity.Entities;
 
@@ -24,7 +23,7 @@ namespace package.stormiumteam.shared
 
         public static void Retake()
         {
-            FlagAsLoopable(World.Active);
+            /*FlagAsLoopable(World.Active);
 
             var copy = m_LoopableWorlds.ToArray();
             foreach (var world in copy)
@@ -35,7 +34,7 @@ namespace package.stormiumteam.shared
             
             ScriptBehaviourUpdateOrder.UpdatePlayerLoop(copy);
 
-            Version++;
+            Version++;*/
         }
     }
 }

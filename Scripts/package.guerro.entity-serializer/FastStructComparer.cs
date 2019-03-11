@@ -1,6 +1,5 @@
 ﻿using System;
 using Unity.Collections.LowLevel.Unsafe;
-using Unity.Entities;
 
 namespace Scripts.Utilities
 {

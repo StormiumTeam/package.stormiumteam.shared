@@ -1,5 +1,4 @@
-﻿using package.stormiumteam.shared;
-using package.stormiumteam.shared.utils;
+﻿using package.stormiumteam.shared.utils;
 using Unity.Entities;
 using UnityEngine;
 

@@ -1,9 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using EudiFramework;
-using Unity.Collections;
-using Unity.Entities;
 using UnityEngine;
 
 namespace package.stormiumteam.shared

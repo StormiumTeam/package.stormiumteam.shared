@@ -1,6 +1,4 @@
-﻿using System.Runtime;
-using Unity.Entities;
-using UnityEditor;
+﻿using Unity.Entities;
 using UnityEngine;
 
 namespace package.stormiumteam.shared

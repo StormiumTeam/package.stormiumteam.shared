@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Unity.Entities;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace package.stormiumteam.shared

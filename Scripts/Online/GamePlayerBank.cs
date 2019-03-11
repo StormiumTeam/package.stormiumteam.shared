@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using package.stormiumteam.shared;
 using Unity.Entities;
 
 namespace package.stormiumteam.shared.online

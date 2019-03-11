@@ -1,7 +1,4 @@
-﻿using System;
-using package.stormiumteam.shared;
-using package.stormiumteam.shared.ecs;
-using Unity.Collections;
+﻿using package.stormiumteam.shared.ecs;
 using Unity.Entities;
 
 namespace package.stormiumteam.shared

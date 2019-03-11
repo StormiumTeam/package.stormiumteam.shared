@@ -34,7 +34,7 @@ namespace package.stormiumteam.shared
                 world = World.Active;
             var entityManager = world.GetExistingManager<EntityManager>();
             var hasComponent = entityManager.HasComponent<T>(entity);
-            if (hasComponent && !ComponentType.Create<T>().IsZeroSized)
+            if (hasComponent && !ComponentType.ReadWrite<T>().IsZeroSized)
                 entityManager.SetComponentData(entity, data);
             else if (!hasComponent)
                 entityManager.AddComponentData(entity, data);
