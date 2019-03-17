@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using Unity.Entities;
+using UnityEngine;
 using UnityEngine.Experimental.LowLevel;
 
 namespace package.stormiumteam.shared
@@ -19,6 +20,13 @@ namespace package.stormiumteam.shared
 
         public static TEvent[] GetObjEvents()
         {
+            // if we still have some delayed subscribers, try to force an update to the appEventSystem
+            if (DelayList.Count > 0)
+            {
+                var appEventSystem = World.Active.GetOrCreateManager<AppEventSystem>();
+                appEventSystem.ForceUpdate();
+            }
+                
             if (!s_IsObjEventsDirty) return s_FixedEventList;
 
             s_IsObjEventsDirty = false;
@@ -48,6 +56,7 @@ namespace package.stormiumteam.shared
             
     }
     
+    // Urgent: This should be remade as the playerloop don't have the system in order (because of the new ComponentSystemGroup)
     public class AppEventSystem : ComponentSystem
     {
         private bool m_HasRan;
@@ -96,6 +105,11 @@ namespace package.stormiumteam.shared
         {
         }
 
+        internal void ForceUpdate()
+        {
+            OnUpdate();
+        }
+        
         protected override void OnUpdate()
         {
             // Run delayed actions
@@ -152,11 +166,14 @@ namespace package.stormiumteam.shared
             if (!HasRanAndPlayerLoopIsCorrect)
             {
                 AppEvent<TSub>.DelayList.Add(obj);
+                
                 return;
             }
 
             if (AppEvent<TSub>.EventList.Contains(obj))
-                return;   
+            {
+                return;
+            }
 
             var oldList = AppEvent<TSub>.EventList;
             var newList = new List<TSub>();
@@ -206,7 +223,10 @@ namespace package.stormiumteam.shared
                 if (loopSystem.type == oldManager.GetType())
                 {
                     var newManager = World.GetExistingManager(oldManager.GetType());
-                    if (newManager != null && !newList.Contains(oldManager)) newList.Add((T) (object) newManager);
+                    if (newManager != null && !newList.Contains(oldManager))
+                    {
+                        newList.Add((T) (object) newManager);
+                    }
 
                     goto phase2;
                 }
