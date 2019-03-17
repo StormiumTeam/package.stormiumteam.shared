@@ -5,6 +5,11 @@ namespace package.stormiumteam.shared
 {
 	public static class MainBit
 	{
+		public static void SetBitAt(ref byte curr, byte pos, bool val)
+		{
+			SetBitAt(ref curr, pos, (byte) (val ? 1 : 0));
+		}
+
 		public static void SetBitAt(ref byte curr, byte pos, byte val)
 		{
 			var cd = (curr & (1 << pos)) == 0;
