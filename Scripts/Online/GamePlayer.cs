@@ -28,7 +28,7 @@ namespace package.stormiumteam.shared.online
         {
             get
             {
-                var plBank = World.Active.GetOrCreateManager<GamePlayerBank>();
+                var plBank = World.Active.GetOrCreateSystem<GamePlayerBank>();
                 var playerFromIdent = plBank.GetPlayerFromIdent(Id);
                 if (!playerFromIdent.IsCreated) return false;
 

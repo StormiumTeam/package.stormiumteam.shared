@@ -6,7 +6,7 @@ namespace package.stormiumteam.shared
 {
     public class PhysicColletor : ComponentSystem
     {
-        public static PhysicColletor Active => Unity.Entities.World.Active.GetOrCreateManager<PhysicColletor>();
+        public static PhysicColletor Active => Unity.Entities.World.Active.GetOrCreateSystem<PhysicColletor>();
         
         protected override void OnUpdate()
         {

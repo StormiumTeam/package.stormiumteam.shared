@@ -53,7 +53,7 @@ namespace package.stormiumteam.shared.modding
             get
             {
                 var assembly = Assembly.GetCallingAssembly();
-                return World.Active.GetOrCreateManager<CModManager>().GetAssemblyMod(assembly);
+                return World.Active.GetOrCreateSystem<CModManager>().GetAssemblyMod(assembly);
             }
         }
 
@@ -62,7 +62,7 @@ namespace package.stormiumteam.shared.modding
             get
             {
                 var assembly = Assembly.GetCallingAssembly();
-                return World.Active.GetOrCreateManager<CModManager>().GetAssemblyMod(assembly).GetWorld();
+                return World.Active.GetOrCreateSystem<CModManager>().GetAssemblyMod(assembly).GetWorld();
             }
         }
     }
@@ -71,12 +71,12 @@ namespace package.stormiumteam.shared.modding
     {
         public static ModWorld GetWorld(this CModInfo modInfo)
         {
-            return World.Active.GetOrCreateManager<CModManager>().GetModWorld(modInfo);
+            return World.Active.GetOrCreateSystem<CModManager>().GetModWorld(modInfo);
         }
 
         /* TODO: public static ModInputManager GetInputManager(this CModInfo modInfo)
         {
-            return modInfo.GetWorld().GetOrCreateManager<ModInputManager>();
+            return modInfo.GetWorld().GetOrCreateSystem<ModInputManager>();
         }*/
     }
 }

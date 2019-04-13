@@ -181,14 +181,14 @@ namespace package.stormiumteam.shared.modding
                 {
                     if (systemType.IsSubclassOf(typeof(ModComponentSystem)))
                     {
-                        modWorld.CreateManager(systemType);
+                        modWorld.GetExistingSystem(systemType);
                       
                     }
                     // TODO: Verify for ClientComponentSystem
                     else
                     {
                         
-                        var manager = World.Active.GetOrCreateManager(systemType);
+                        var manager = World.Active.GetOrCreateSystem(systemType);
                         
                         var allFields = modWorld.GetType().GetFields();
                         foreach (var field in allFields)

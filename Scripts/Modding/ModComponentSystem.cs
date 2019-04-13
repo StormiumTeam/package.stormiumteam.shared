@@ -62,10 +62,10 @@ namespace package.stormiumteam.shared.modding
 	    static ModWorld()
 	    {
 		    // ReSharper disable AssignNullToNotNullAttribute
-		    s_DestroyInstance = typeof(ScriptBehaviourManager)
+		    s_DestroyInstance = typeof(ComponentSystemBase)
 			    .GetMethod("DestroyInstance", BindingFlags.NonPublic
 			                                   | BindingFlags.Instance);
-		    s_CreateInstance = typeof(ScriptBehaviourManager)
+		    s_CreateInstance = typeof(ComponentSystemBase)
 			    .GetMethod("CreateInstance", BindingFlags.NonPublic
 			                                      | BindingFlags.Instance);
 
@@ -183,7 +183,7 @@ namespace package.stormiumteam.shared.modding
 			return manager;
 		}
 
-	    ModComponentSystem GetExistingManagerInternal (Type type)
+	    ModComponentSystem GetExistingSystemInternal (Type type)
 		{
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
 		    if (!IsCreated)
@@ -199,16 +199,16 @@ namespace package.stormiumteam.shared.modding
 			return null;
 		}
 
-	    ModComponentSystem GetOrCreateManagerInternal (Type type)
+	    ModComponentSystem GetOrCreateSystemInternal (Type type)
 		{
-			var manager = GetExistingManagerInternal(type);
+			var manager = GetExistingSystemInternal(type);
 
 			return manager ?? CreateManagerInternal(type, GetCapacityForType(type), null);
 		}
 
 	    void AddTypeLookup(Type type, ModComponentSystem manager)
 	    {
-	        while (type != typeof(ScriptBehaviourManager))
+	        while (type != typeof(ComponentSystemBase))
 	        {
 	            if (!m_BehaviourManagerLookup.ContainsKey(type))
 	                m_BehaviourManagerLookup.Add(type, manager);
@@ -224,7 +224,7 @@ namespace package.stormiumteam.shared.modding
 		    ++m_Version;
 
 			var type = manager.GetType();
-			while (type != typeof(ScriptBehaviourManager))
+			while (type != typeof(ComponentSystemBase))
 			{
 			    if (m_BehaviourManagerLookup[type] == manager)
 			    {
@@ -267,24 +267,24 @@ namespace package.stormiumteam.shared.modding
 			return (T)CreateManagerInternal(typeof(T), GetCapacityForType(typeof(T)), constructorArgumnents);
 		}
 
-		public T GetOrCreateManager<T> () where T : ModComponentSystem
+		public T GetOrCreateSystem<T> () where T : ModComponentSystem
 		{
-			return (T)GetOrCreateManagerInternal (typeof(T));
+			return (T)GetOrCreateSystemInternal (typeof(T));
 		}
 
-		public ModComponentSystem GetOrCreateManager(Type type)
+		public ModComponentSystem GetOrCreateSystem(Type type)
 		{
-			return GetOrCreateManagerInternal (type);
+			return GetOrCreateSystemInternal (type);
 		}
 
-		public T GetExistingManager<T> () where T : ModComponentSystem
+		public T GetExistingSystem<T> () where T : ModComponentSystem
 		{
-			return (T)GetExistingManagerInternal (typeof(T));
+			return (T)GetExistingSystemInternal (typeof(T));
 		}
 
-		public ModComponentSystem GetExistingManager(Type type)
+		public ModComponentSystem GetExistingSystem(Type type)
 		{
-			return GetExistingManagerInternal (type);
+			return GetExistingSystemInternal (type);
 		}
 
 		public void DestroyManager(ModComponentSystem manager)

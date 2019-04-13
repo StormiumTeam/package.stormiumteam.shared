@@ -37,7 +37,7 @@ namespace Scripts.Utilities
         /// <returns></returns>
         public IReplicationInstance GetReplicationInstance()
         {
-            return World.Active.GetExistingManager<ReplicationInstanceManager>().GetInstance(ReplicationInstanceId);
+            return World.Active.GetExistingSystem<ReplicationInstanceManager>().GetInstance(ReplicationInstanceId);
         }
 
         /// <summary>

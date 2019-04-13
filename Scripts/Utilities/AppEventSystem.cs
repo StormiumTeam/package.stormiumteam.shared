@@ -24,7 +24,7 @@ namespace package.stormiumteam.shared
             // if we still have some delayed subscribers, try to force an update to the appEventSystem
             if (DelayList.Count > 0)
             {
-                var appEventSystem = World.Active.GetOrCreateManager<AppEventSystem>();
+                var appEventSystem = World.Active.GetOrCreateSystem<AppEventSystem>();
                 appEventSystem.ForceUpdate();
             }
                 
@@ -80,7 +80,7 @@ namespace package.stormiumteam.shared
 
         private long m_LoopVersion;
 
-        protected override void OnCreateManager()
+        protected override void OnCreate()
         {
             m_HasRan = false;
 
@@ -128,7 +128,7 @@ namespace package.stormiumteam.shared
             }
         }
 
-        protected override void OnDestroyManager()
+        protected override void OnDestroy()
         {
         }
 
@@ -260,7 +260,7 @@ namespace package.stormiumteam.shared
             {
                 if (loopSystem.type == oldManager.GetType())
                 {
-                    var newManager = World.GetExistingManager(oldManager.GetType());
+                    var newManager = World.GetExistingSystem(oldManager.GetType());
                     if (newManager != null && !newList.Contains(oldManager))
                     {
                         newList.Add((T) (object) newManager);
@@ -291,7 +291,7 @@ namespace package.stormiumteam.shared
             {
                 if (loopSystem.type == oldManager.GetType())
                 {
-                    var newManager = World.GetExistingManager(oldManager.GetType());
+                    var newManager = World.GetExistingSystem(oldManager.GetType());
                     if (newManager != null && !newList.Contains(oldManager)) newList.Add((T) (object) newManager);
 
                     goto phase2;

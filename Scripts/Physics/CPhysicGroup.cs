@@ -78,7 +78,7 @@ namespace package.stormiumteam.shared
 
         public CPhysicGroup GetGroup()
         {
-            return World.Active.GetExistingManager<EntityManager>()
+            return World.Active.EntityManager
                         .GetSharedComponentData<PhysicGroupData>(Target)
                         .Get();
         }

@@ -23,7 +23,7 @@ namespace package.stormiumteam.shared
         /// Get the active instance from the world
         /// </summary>
         public static CPhysicSettings Active
-            => World.Active.GetOrCreateManager<CPhysicSettings>();
+            => World.Active.GetOrCreateSystem<CPhysicSettings>();
 
         /// <summary>
         /// Get all the groups from this instance
@@ -78,7 +78,7 @@ namespace package.stormiumteam.shared
             group.Managed = new CPhysicGroupManaged();
             
             // Create the entity
-            var entityManager = World.GetExistingManager<EntityManager>();
+            var entityManager = World.EntityManager;
             var entity = entityManager.CreateEntity(ComponentType.ReadWrite<PhysicGroupData>());
             
             group.Id = entity;

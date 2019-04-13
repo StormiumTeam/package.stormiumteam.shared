@@ -33,7 +33,7 @@ namespace package.stormiumteam.shared
             where TTarget : ComponentSystem
             where TArguments : struct, IDelayComponentArguments
         {
-            var em = World.Active.GetOrCreateManager<EntityManager>();
+            var em = World.Active.EntityManager;
             var entity = em.CreateEntity
             (
                 typeof(DelayEntityTag),
@@ -43,7 +43,7 @@ namespace package.stormiumteam.shared
             em.SetOrAddSharedComponentData(entity, arguments);
         }
 
-        public static ComponentType[] GetComponentGroup<TDelaySystem, TArguments, TTarget>
+        public static ComponentType[] GetEntityQuery<TDelaySystem, TArguments, TTarget>
             (this IAppEventDelayGroup<TDelaySystem, TArguments, TTarget> group)
             where TTarget : ComponentSystem
             where TArguments : struct, IDelayComponentArguments
@@ -58,13 +58,13 @@ namespace package.stormiumteam.shared
         }
 
         /*public static void ClearAll<TDelaySystem, TArguments, TTarget>
-            (this IAppEventDelayGroup<TDelaySystem, TArguments, TTarget> group, ComponentGroup componentGroup, CmdBuffer buffer = default (CmdBuffer))
+            (this IAppEventDelayGroup<TDelaySystem, TArguments, TTarget> group, EntityQuery EntityQuery, CmdBuffer buffer = default (CmdBuffer))
             where TTarget : ComponentSystem
             where TArguments : struct, IDelayComponentArguments
         {
             var commandBuffer = buffer.Buffer ?? new EntityCommandBuffer(Allocator.Temp);
             
-            var entities = componentGroup.GetEntityArray();
+            var entities = EntityQuery.GetEntityArray();
             for (int i = 0; i != entities.Length; i++)
             {
                 commandBuffer.DestroyEntity(entities[i]);
@@ -72,7 +72,7 @@ namespace package.stormiumteam.shared
 
             if (buffer.Buffer == null)
             {
-                commandBuffer.Playback(World.Active.GetExistingManager<EntityManager>());
+                commandBuffer.Playback(World.Active.EntityManager);
                 commandBuffer.Dispose();
             }
         }*/

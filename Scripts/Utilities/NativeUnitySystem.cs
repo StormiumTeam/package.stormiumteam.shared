@@ -16,7 +16,7 @@ namespace package.stormiumteam.shared
                 Destroy(gameObject);
 
             m_Instance = this;
-            m_AppEventSystem = World.Active.GetOrCreateManager<AppEventSystem>();
+            m_AppEventSystem = World.Active.GetOrCreateSystem<AppEventSystem>();
             
             DontDestroyOnLoad(gameObject);
         }

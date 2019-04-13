@@ -7,12 +7,12 @@ namespace Scripts.Utilities
     {
         private List<IReplicationInstance> m_AllInstances;
 
-        protected override void OnCreateManager()
+        protected override void OnCreate()
         {
             m_AllInstances = new List<IReplicationInstance>();
         }
 
-        protected override void OnDestroyManager()
+        protected override void OnDestroy()
         {
             m_AllInstances.Clear();
             m_AllInstances = null;

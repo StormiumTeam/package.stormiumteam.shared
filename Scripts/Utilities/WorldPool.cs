@@ -12,7 +12,7 @@ namespace package.stormiumteam.shared.utils
         internal WorldPoolItem(World world)
         {
             World = world;
-            EntityManager = World.GetExistingManager<EntityManager>();
+            EntityManager = World.EntityManager;
         }
         
         public void Dispose()
@@ -41,7 +41,6 @@ namespace package.stormiumteam.shared.utils
         internal static World CreateWorld(string name)
         {
             var world = new World(name);
-            world.CreateManager<EntityManager>();
             
             return world;
         }

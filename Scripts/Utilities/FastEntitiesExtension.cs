@@ -8,7 +8,7 @@ namespace package.stormiumteam.shared
         {
             if (world == null)
                 world = World.Active;
-            return world.GetExistingManager<EntityManager>().HasComponent<T>(entity);
+            return world.EntityManager.HasComponent<T>(entity);
         }
 
         public static T GetComponentData<T>(this Entity entity, World world = null)
@@ -16,7 +16,7 @@ namespace package.stormiumteam.shared
         {
             if (world == null)
                 world = World.Active;
-            return world.GetExistingManager<EntityManager>().GetComponentData<T>(entity);
+            return world.EntityManager.GetComponentData<T>(entity);
         }
 
         public static void SetComponentData<T>(this Entity entity, T data, World world = null)
@@ -24,7 +24,7 @@ namespace package.stormiumteam.shared
         {
             if (world == null)
                 world = World.Active;
-            world.GetExistingManager<EntityManager>().SetComponentData(entity, data);
+            world.EntityManager.SetComponentData(entity, data);
         }
 
         public static void SetOrAddComponentData<T>(this Entity entity, T data, World world = null)
@@ -32,7 +32,7 @@ namespace package.stormiumteam.shared
         {
             if (world == null)
                 world = World.Active;
-            var entityManager = world.GetExistingManager<EntityManager>();
+            var entityManager = world.EntityManager;
             var hasComponent = entityManager.HasComponent<T>(entity);
             if (hasComponent && !ComponentType.ReadWrite<T>().IsZeroSized)
                 entityManager.SetComponentData(entity, data);
@@ -45,7 +45,7 @@ namespace package.stormiumteam.shared
         {
             if (world == null)
                 world = World.Active;
-            var entityManager = world.GetExistingManager<EntityManager>();
+            var entityManager = world.EntityManager;
             if (entityManager.HasComponent<T>(entity))
                 entityManager.RemoveComponent<T>(entity);
         }
@@ -55,7 +55,7 @@ namespace package.stormiumteam.shared
         {
             if (world == null)
                 world = World.Active;
-            var entityManager = world.GetExistingManager<EntityManager>();
+            var entityManager = world.EntityManager;
             if (entityManager.HasComponent<T>(entity))
                 entityManager.SetSharedComponentData(entity, data);
             else
