@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Unity.Entities;
 using UnityEngine;
@@ -134,8 +135,20 @@ namespace package.stormiumteam.shared
         public void CheckDelayed<TEvent>()
             where TEvent : IAppEvent
         {
-            foreach (var delayed in AppEvent<TEvent>.DelayList)
+            var currDelayed = AppEvent<TEvent>.DelayList.ToList();
+            foreach (var delayed in currDelayed)
+            {
+                Debug.LogError($"Existing {delayed}");
                 SubscribeTo<TEvent, TEvent>(delayed);
+            }
+
+            if (currDelayed.Count != AppEvent<TEvent>.DelayList.Count)
+            {
+                for (var i = currDelayed.Count - 1; i != AppEvent<TEvent>.DelayList.Count; i++)
+                {
+                    Debug.LogError($"{AppEvent<TEvent>.DelayList[i]} got added.");
+                }
+            }
             
             AppEvent<TEvent>.DelayList.Clear();
         }
@@ -163,7 +176,7 @@ namespace package.stormiumteam.shared
                 Register<TSub>();
             }
                 
-            if (!HasRanAndPlayerLoopIsCorrect)
+            if (!HasRanAndPlayerLoopIsCorrect && !AppEvent<TSub>.DelayList.Contains(obj))
             {
                 AppEvent<TSub>.DelayList.Add(obj);
                 
@@ -190,6 +203,31 @@ namespace package.stormiumteam.shared
                 if (!AppEvent<TSub>.EventList.Contains(subObj))
                     AppEvent<TSub>.EventList.Add(subObj);
             }
+            
+            AppEvent<TSub>.MakeDirtyObjEvents();
+        }
+        
+        public void UnsubcribeFromAll<TObj>(TObj obj)
+        {
+            var interfaces = obj.GetType().GetInterfaces();
+            foreach (var @interface in interfaces)
+            {
+                if (!typeof(IAppEvent).IsAssignableFrom(@interface)) continue;
+                
+                var method  = typeof(AppEventSystem).GetMethod("UnsubscribeFrom");
+                var generic = method.MakeGenericMethod(@interface);
+                generic.Invoke(this, new object[] {obj});
+            }
+        }
+        
+        public void UnsubscribeFrom<TSub>(TSub obj)
+            where TSub : IAppEvent
+        {
+            if (AppEvent<TSub>.ObjList.Contains(obj))
+                AppEvent<TSub>.ObjList.Remove(obj);
+            
+            if (AppEvent<TSub>.EventList.Contains(obj))
+                AppEvent<TSub>.EventList.Remove(obj);
             
             AppEvent<TSub>.MakeDirtyObjEvents();
         }
