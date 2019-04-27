@@ -56,16 +56,33 @@ namespace package.stormiumteam.shared
         where T : struct
     {
         public void*     Data;
+        public int Length;
         public Allocator Allocator;
         
         public UnsafeAllocationLength(Allocator allocator, int length)
         {
             Allocator = allocator;
             Data      = UnsafeUtility.Malloc(length, UnsafeUtility.AlignOf<T>(), allocator);
+            Length = length;
+        }
+
+        public UnsafeAllocationLength(NativeList<T> list)
+        {
+            Allocator = Allocator.Invalid;
+            Data = list.GetUnsafePtr();
+            Length = list.Length;
+        }
+
+        public T this[int index]
+        {
+            get => UnsafeUtilityEx.ArrayElementAsRef<T>(Data, index);
         }
         
         public void Dispose()
         {
+            if (Allocator == Allocator.Invalid)
+                return;
+            
             UnsafeUtility.Free(Data, Allocator);
         }
     }
