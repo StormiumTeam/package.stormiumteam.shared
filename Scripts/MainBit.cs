@@ -5,12 +5,19 @@ namespace package.stormiumteam.shared
 {
 	public static class MainBit
 	{
-		public static void SetBitAt(ref byte curr, byte pos, bool val)
+		// ------------
+		// SET GET
+		// ------------
+		
+		//
+		// BYTE
+		//
+		public static void SetBitAt(ref byte curr, int pos, bool val)
 		{
 			SetBitAt(ref curr, pos, (byte) (val ? 1 : 0));
 		}
 
-		public static void SetBitAt(ref byte curr, byte pos, byte val)
+		public static void SetBitAt(ref byte curr, int pos, byte val)
 		{
 			var cd = (curr & (1 << pos)) == 0;
 			if (val != 0)
@@ -26,11 +33,76 @@ namespace package.stormiumteam.shared
 			}
 		}
 
-		public static byte GetBitAt(byte curr, byte pos)
+		public static byte GetBitAt(byte curr, int pos)
+		{
+			return (byte) math.select(0, 1, (curr & (1 << pos)) != 0);
+		}
+		
+		//
+		// INT
+		//
+		public static void SetBitAt(ref int curr, int pos, bool val)
+		{
+			SetBitAt(ref curr, pos, (byte) (val ? 1 : 0));
+		}
+
+		public static void SetBitAt(ref int curr, int pos, byte val)
+		{
+			var cd = (curr & (1 << pos)) == 0;
+			if (val != 0)
+			{
+				// Set
+				if (cd)
+					curr = curr | (1 << pos);
+			}
+			else
+			{
+				if (!cd)
+					curr = curr & ~(1 << pos);
+			}
+		}
+
+		public static byte GetBitAt(int curr, int pos)
+		{
+			return (byte) math.select(0, 1, (curr & (1 << pos)) != 0);
+		}
+		
+		//
+		// UNSIGNED INT
+		//
+		public static void SetBitAt(ref uint curr, int pos, bool val)
+		{
+			SetBitAt(ref curr, pos, (byte) (val ? 1 : 0));
+		}
+
+		public static void SetBitAt(ref uint curr, int pos, byte val)
+		{
+			var cd = (curr & (1 << pos)) == 0;
+			if (val != 0)
+			{
+				// Set
+				if (cd)
+					curr = (uint) (curr | (1 << pos));
+			}
+			else
+			{
+				if (!cd)
+					curr = (uint) (curr & ~(1 << pos));
+			}
+		}
+
+		public static byte GetBitAt(uint curr, int pos)
 		{
 			return (byte) math.select(0, 1, (curr & (1 << pos)) != 0);
 		}
 
+		// -------------
+		// RANGE
+		// -------------
+		
+		//
+		// BYTE
+		//
 		public static void SetByteRangeAt(ref byte curr, byte pos, byte val, byte size)
 		{
 			if (size != 2)

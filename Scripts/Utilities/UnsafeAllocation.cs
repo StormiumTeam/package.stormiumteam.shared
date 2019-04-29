@@ -76,6 +76,7 @@ namespace package.stormiumteam.shared
         public T this[int index]
         {
             get => UnsafeUtilityEx.ArrayElementAsRef<T>(Data, index);
+            set => UnsafeUtility.WriteArrayElement(Data, index, value);
         }
         
         public void Dispose()
