@@ -1,5 +1,4 @@
-﻿using package.stormiumteam.shared.utils;
-using Unity.Entities;
+﻿using Unity.Entities;
 using UnityEngine;
 
 namespace package.stormiumteam.shared
@@ -10,13 +9,13 @@ namespace package.stormiumteam.shared
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         public static void Init()
         {
-            var worldSettings = new World("Settings");
+            //var worldSettings = new World("Settings");
             
             ECSWorldLoop.FlagAsLoopable(World.Active);
             
             new GameObject("Native", typeof(NativeUnitySystem));
             
-            WorldPool.AddRange(2);
+            //WorldPool.AddRange(2);
         }
     }
 }

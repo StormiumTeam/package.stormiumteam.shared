@@ -138,7 +138,7 @@ namespace package.stormiumteam.shared
             var currDelayed = AppEvent<TEvent>.DelayList.ToList();
             foreach (var delayed in currDelayed)
             {
-                Debug.LogError($"Existing {delayed}");
+                //Debug.LogError($"Existing {delayed}");
                 SubscribeTo<TEvent, TEvent>(delayed);
             }
 
