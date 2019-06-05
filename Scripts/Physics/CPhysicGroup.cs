@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
 
@@ -52,13 +53,29 @@ namespace package.stormiumteam.shared
         public Entity Id;
     }
 
-    public struct PhysicGroupData : ISharedComponentData
+    public struct PhysicGroupData : ISharedComponentData, IEquatable<PhysicGroupData>
     {
         internal CPhysicGroup Group;
         
         public CPhysicGroup Get()
         {
             return Group;
+        }
+
+        public bool Equals(PhysicGroupData other)
+        {
+            return Group.Id == other.Group.Id;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            return obj is PhysicGroupData other && Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return Group.GetHashCode();
         }
     }
 

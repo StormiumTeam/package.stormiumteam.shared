@@ -16,7 +16,7 @@ namespace package.stormiumteam.shared
 
     }
 
-    public interface IDelayComponentArguments : ISharedComponentData
+    public interface IDelayComponentArguments : IComponentData
     {
     }
 
@@ -40,7 +40,7 @@ namespace package.stormiumteam.shared
                 typeof(DelayEntitySystem<TDelaySystem>),
                 typeof(DelayEntityTargetSystem<TTarget>)
             );
-            em.SetOrAddSharedComponentData(entity, arguments);
+            em.SetComponentData(entity, arguments);
         }
 
         public static ComponentType[] GetEntityQuery<TDelaySystem, TArguments, TTarget>

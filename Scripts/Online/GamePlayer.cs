@@ -1,4 +1,5 @@
-﻿using Unity.Entities;
+﻿using System;
+using Unity.Entities;
 
 namespace package.stormiumteam.shared.online
 {
@@ -14,7 +15,7 @@ namespace package.stormiumteam.shared.online
         }
     }
 
-    public struct MasterServerPlayerId : ISharedComponentData
+    public struct MasterServerPlayerId : ISharedComponentData, IEquatable<MasterServerPlayerId>
     {
         /// <summary>
         /// The ID of the player
@@ -41,6 +42,22 @@ namespace package.stormiumteam.shared.online
 
                 return false;
             }
+        }
+
+        public bool Equals(MasterServerPlayerId other)
+        {
+            return Id.Equals(other.Id);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            return obj is MasterServerPlayerId other && Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
         }
     }
 }

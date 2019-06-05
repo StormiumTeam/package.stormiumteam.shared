@@ -9,7 +9,7 @@ namespace package.stormiumteam.shared
     ///     The identifiers are only unique if they are sequenced.
     /// </remarks>
     [Serializable]
-    public struct SeqId
+    public struct SeqId : IEquatable<SeqId>
     {
         public ulong M1;
         public uint  U1, U2;
@@ -75,6 +75,28 @@ namespace package.stormiumteam.shared
         public override string ToString()
         {
             return $"#<{M1}:{U1}:{U2}>";
+        }
+
+        public bool Equals(SeqId other)
+        {
+            return M1 == other.M1 && U1 == other.U1 && U2 == other.U2;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            return obj is SeqId other && Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = M1.GetHashCode();
+                hashCode = (hashCode * 397) ^ (int) U1;
+                hashCode = (hashCode * 397) ^ (int) U2;
+                return hashCode;
+            }
         }
     }
 }
