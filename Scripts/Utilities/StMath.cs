@@ -33,8 +33,8 @@ namespace package.stormiumteam.shared
         public static long DoubleIntToLong(int i1, int i2)
         {
             long b = i2;
-            b = b << 32;
-            b = b | (uint)i1;
+            b <<= 32;
+            b |= (uint)i1;
             return b;
         }
         
