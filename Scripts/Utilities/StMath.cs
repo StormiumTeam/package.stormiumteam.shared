@@ -1,63 +1,38 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 namespace package.stormiumteam.shared
 {
+    [StructLayout(LayoutKind.Explicit)]
+    public struct LongIntUnion
+    {
+        [FieldOffset(0)]
+        public long LongValue;
+
+        [FieldOffset(0)]
+        public int Int0Value;
+
+        [FieldOffset(sizeof(int))]
+        public int Int1Value;
+    }
+    
+    [StructLayout(LayoutKind.Explicit)]
+    public struct ULongUIntUnion
+    {
+        [FieldOffset(0)]
+        public ulong LongValue;
+
+        [FieldOffset(0)]
+        public uint Int0Value;
+
+        [FieldOffset(sizeof(uint))]
+        public uint Int1Value;
+    }
+
     public static class StMath
     {
-        public static (uint, uint) ULongToDoubleUInt(ulong l1) {
-            var a1 = (uint)(l1 & uint.MaxValue);
-            var a2 = (uint)(l1 >> 32);
-            return (a1, a2);
-        }
-
-        public static ulong DoubleUIntToULong(uint i1, uint i2)
-        {
-            return ((ulong) i2 << 32) | i1;
-        }
-        
-        public static ulong DoubleIntToULong(int i1, int i2)
-        {
-            var ui1 = IntToUInt(i1);
-            var ui2 = IntToUInt(i2);
-            
-            return ((ulong) ui2 << 32) | ui1;
-        }
-        
-        public static (int, int) LongToDoubleInt(long l1) {
-            var a1 = (int)(l1 & uint.MaxValue);
-            var a2 = (int)(l1 >> 32);
-            return (a1, a2);
-        }
-
-        public static long DoubleIntToLong(int i1, int i2)
-        {
-            long b = i2;
-            b <<= 32;
-            b |= (uint)i1;
-            return b;
-        }
-        
-        public static long ULongToLong(ulong ulongValue)
-        {
-            return unchecked((long)ulongValue + long.MinValue);
-        }
-
-        public static ulong LongToULong(long longValue)
-        {
-            return unchecked((ulong)(longValue - long.MinValue));
-        }
-        
-        public static int UIntToInt(uint ulongValue)
-        {
-            return unchecked((int)ulongValue + int.MinValue);
-        }
-
-        public static uint IntToUInt(int longValue)
-        {
-            return unchecked((uint)(longValue - int.MinValue));
-        }
-        
         public static float Distance(float l, float r)
         {
             return Mathf.Abs(l - r);

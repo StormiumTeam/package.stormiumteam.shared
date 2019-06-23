@@ -11,17 +11,17 @@ namespace StormiumTeam.Shared
     {
         public PatternBank LocalBank { get; private set; }
 
-        private        Dictionary<int, PatternBank>          m_ForeignBanks;
-        private        Dictionary<long, PatternBankExchange> m_Exchanges;
+        private Dictionary<int, PatternBank>          m_ForeignBanks;
+        private Dictionary<long, PatternBankExchange> m_Exchanges;
 
         protected override void OnCreate()
         {
             base.OnCreate();
-            
+
             m_ForeignBanks = new Dictionary<int, PatternBank>();
-            m_Exchanges = new Dictionary<long, PatternBankExchange>();
-            
-            LocalBank = new PatternBank(0);
+            m_Exchanges    = new Dictionary<long, PatternBankExchange>();
+
+            LocalBank         = new PatternBank(0);
             m_ForeignBanks[0] = LocalBank;
         }
 
@@ -32,8 +32,8 @@ namespace StormiumTeam.Shared
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            
-            
+
+
             m_ForeignBanks.Clear();
 
             foreach (var exchange in m_Exchanges.Values)
@@ -41,7 +41,7 @@ namespace StormiumTeam.Shared
             m_Exchanges.Clear();
 
             m_ForeignBanks = null;
-            m_Exchanges = null;
+            m_Exchanges    = null;
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace StormiumTeam.Shared
 
         public PatternBankExchange GetExchange(int originInstanceId, int destinationInstanceId)
         {
-            return m_Exchanges[StMath.DoubleIntToLong(originInstanceId, destinationInstanceId)];
+            return m_Exchanges[new LongIntUnion {Int0Value = originInstanceId, Int1Value = destinationInstanceId}.LongValue];
         }
     }
 }

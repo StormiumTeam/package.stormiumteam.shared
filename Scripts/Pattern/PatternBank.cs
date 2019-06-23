@@ -25,7 +25,8 @@ namespace StormiumTeam.Shared
         {
             Origin      = origin;
             Destination = destination;
-            Id          = StMath.DoubleIntToLong(origin, destination);
+            Id          = new LongIntUnion {Int0Value = origin, Int1Value = destination}.LongValue;
+
 
             OriginToDestination = new Dictionary<int, int>();
             DestinationToOrigin = new Dictionary<int, int>();
@@ -33,10 +34,12 @@ namespace StormiumTeam.Shared
 
         public PatternBankExchange(long id)
         {
-            (Origin, Destination) = StMath.LongToDoubleInt(id);
+            var union = new LongIntUnion {LongValue = id};
+            Origin      = union.Int0Value;
+            Destination = union.Int1Value;
 
             Id = id;
-            
+
             OriginToDestination = new Dictionary<int, int>();
             DestinationToOrigin = new Dictionary<int, int>();
         }
