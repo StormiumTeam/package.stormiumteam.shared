@@ -37,7 +37,7 @@ namespace package.stormiumteam.shared
 		{
 			return (byte) math.select(0, 1, (curr & (1 << pos)) != 0);
 		}
-		
+
 		//
 		// INT
 		//
