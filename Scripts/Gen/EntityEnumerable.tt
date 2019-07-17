@@ -19,6 +19,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.ComponentModel;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
@@ -27,19 +28,6 @@ using Unity.Entities;
 
 namespace StormiumTeam.Shared.Gen
 {
-    public unsafe struct WrapRef<T> where T : class
-    {
-        public T Object;
-
-        public static void MemCpy(T origin, void* destination, int size)
-        {
-            var tmp = default(WrapRef<T>);
-            tmp.Object = origin;
-
-            UnsafeUtility.MemCpy(destination, UnsafeUtility.AddressOf(ref tmp), size);
-        }
-    }
-
     public static class EntityEnumerableExt
     {
 <#
@@ -134,7 +122,7 @@ foreach (var categories in combinations) {
     {
 #>
             <#=string.Format("ChunkComponentType{0}", i)#> = system.<#=AccessFunction[c]#><T<#=i#>>(<#=IsReadOnly[c]#>);
-            <#=string.Format("Address{0}", i)#> = UnsafeUtility.AddressOf(<#=string.Format(FwdParam[(int) c], i)#>);
+            <#=string.Format("Address{0}", i)#> = <#=GetAddressOf((Category) c)#>(<#=string.Format(FwdParam[(int) c], i)#>);
 <#
     }
 #>
@@ -159,7 +147,7 @@ foreach (var categories in combinations) {
 #>
                 <#=string.Format("ChunkComponentType{0} = this.ChunkComponentType{0}", i)#>,
                 <#=string.Format("Address{0} = this.Address{0}", i)#>,
-                <#=(c != (int) Category.C ? string.Format("SizeOf{0} = UnsafeUtility.SizeOf<T{0}>()", i) : string.Format("SizeOf{0} = UnsafeUtility.SizeOf<WrapRef<T{0}>>()", i))#>,
+                <#=(c != (int) Category.C ? string.Format("SizeOf{0} = UnsafeUtility.SizeOf<T{0}>()", i) : string.Format("SizeOf{0} = UnsafeUtility.SizeOf<IntPtr>()", i))#>,
 <#
     }
 #>
@@ -304,6 +292,13 @@ static string GetArrayType(Category category)
     return "void*";
 }
 
+static string GetAddressOf(Category category)
+{
+    if (category == Category.C)
+        return "Unsafe.AsPointer";
+    return "UnsafeUtility.AddressOf";
+}
+
 static string GetDelegateName(Category[] categories, bool hasEntity)
 {
     var parts = string.Join("", categories.Select(c => c.ToString()));
@@ -314,7 +309,7 @@ string[] Param =
 {
     "ref T{0} d{0}",               // ref ComponentData
     "in T{0} i{0}",                // in ComponentData
-    "ref WrapRef<T{0}> c{0}",                   // class
+    "ref T{0} c{0}",                   // class
     "ref DynamicBuffer<T{0}> b{0}",    // IBufferElementData
     "in DynamicBuffer<T{0}> k{0}", // in IBufferElementData
     "ref T{0} s{0}",                   // ISharedComponentData
@@ -385,7 +380,7 @@ string[] ArrayCopy =
 {
     "UnsafeUtility.MemCpy(Address{0}, (byte*) Array{0} + m_EntityIndex * SizeOf{0}, SizeOf{0});", // ref ComponentData
     "UnsafeUtility.MemCpy(Address{0}, (byte*) Array{0} + m_EntityIndex * SizeOf{0}, SizeOf{0});", // in ComponentData
-    "WrapRef<T{0}>.MemCpy(Array{0}[m_EntityIndex], Address{0}, SizeOf{0});", // class
+    "var tmp{0} = Array{0}[m_EntityIndex]; Unsafe.CopyBlock(Address{0}, Unsafe.AsPointer(ref tmp{0}), (uint) SizeOf{0});", // class
     "var tmp{0} = Array{0}[m_EntityIndex]; UnsafeUtility.MemCpy(Address{0}, UnsafeUtility.AddressOf(ref tmp{0}), SizeOf{0});", // IBufferElementData
     "UnsafeUtility.MemCpy(Address{0}, (byte*) Array{0} + m_EntityIndex * SizeOf{0}, SizeOf{0});", // in IBufferElementData
     "UnsafeUtility.MemCpy(Address{0}, UnsafeUtility.AddressOf(ref Array{0}), SizeOf{0});", // ISharedComponentData

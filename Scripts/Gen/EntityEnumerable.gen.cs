@@ -11,6 +11,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.ComponentModel;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
@@ -19,19 +20,6 @@ using Unity.Entities;
 
 namespace StormiumTeam.Shared.Gen
 {
-    public unsafe struct WrapRef<T> where T : class
-    {
-        public T Object;
-
-        public static void MemCpy(T origin, void* destination, int size)
-        {
-            var tmp = default(WrapRef<T>);
-            tmp.Object = origin;
-
-            UnsafeUtility.MemCpy(destination, UnsafeUtility.AddressOf(ref tmp), size);
-        }
-    }
-
     public static class EntityEnumerableExt
     {
         public static EntityEnumerable_D<T0> ToEnumerator_D<T0>(this ComponentSystemBase system, EntityQuery query, ref T0 d0)
@@ -39,7 +27,7 @@ namespace StormiumTeam.Shared.Gen
         { 
             return new EntityEnumerable_D<T0>(system, query, ref d0);
         }
-        public static EntityEnumerable_C<T0> ToEnumerator_C<T0>(this ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0)
+        public static EntityEnumerable_C<T0> ToEnumerator_C<T0>(this ComponentSystemBase system, EntityQuery query, ref T0 c0)
             where T0 : class
         { 
             return new EntityEnumerable_C<T0>(system, query, ref c0);
@@ -94,20 +82,20 @@ namespace StormiumTeam.Shared.Gen
         { 
             return new EntityEnumerable_DDDDDD<T0, T1, T2, T3, T4, T5>(system, query, ref d0, ref d1, ref d2, ref d3, ref d4, ref d5);
         }
-        public static EntityEnumerable_CD<T0, T1> ToEnumerator_CD<T0, T1>(this ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0, ref T1 d1)
+        public static EntityEnumerable_CD<T0, T1> ToEnumerator_CD<T0, T1>(this ComponentSystemBase system, EntityQuery query, ref T0 c0, ref T1 d1)
             where T0 : class
             where T1 : struct, IComponentData
         { 
             return new EntityEnumerable_CD<T0, T1>(system, query, ref c0, ref d1);
         }
-        public static EntityEnumerable_CDD<T0, T1, T2> ToEnumerator_CDD<T0, T1, T2>(this ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0, ref T1 d1, ref T2 d2)
+        public static EntityEnumerable_CDD<T0, T1, T2> ToEnumerator_CDD<T0, T1, T2>(this ComponentSystemBase system, EntityQuery query, ref T0 c0, ref T1 d1, ref T2 d2)
             where T0 : class
             where T1 : struct, IComponentData
             where T2 : struct, IComponentData
         { 
             return new EntityEnumerable_CDD<T0, T1, T2>(system, query, ref c0, ref d1, ref d2);
         }
-        public static EntityEnumerable_CDDD<T0, T1, T2, T3> ToEnumerator_CDDD<T0, T1, T2, T3>(this ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0, ref T1 d1, ref T2 d2, ref T3 d3)
+        public static EntityEnumerable_CDDD<T0, T1, T2, T3> ToEnumerator_CDDD<T0, T1, T2, T3>(this ComponentSystemBase system, EntityQuery query, ref T0 c0, ref T1 d1, ref T2 d2, ref T3 d3)
             where T0 : class
             where T1 : struct, IComponentData
             where T2 : struct, IComponentData
@@ -115,7 +103,7 @@ namespace StormiumTeam.Shared.Gen
         { 
             return new EntityEnumerable_CDDD<T0, T1, T2, T3>(system, query, ref c0, ref d1, ref d2, ref d3);
         }
-        public static EntityEnumerable_CDDDD<T0, T1, T2, T3, T4> ToEnumerator_CDDDD<T0, T1, T2, T3, T4>(this ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0, ref T1 d1, ref T2 d2, ref T3 d3, ref T4 d4)
+        public static EntityEnumerable_CDDDD<T0, T1, T2, T3, T4> ToEnumerator_CDDDD<T0, T1, T2, T3, T4>(this ComponentSystemBase system, EntityQuery query, ref T0 c0, ref T1 d1, ref T2 d2, ref T3 d3, ref T4 d4)
             where T0 : class
             where T1 : struct, IComponentData
             where T2 : struct, IComponentData
@@ -124,7 +112,7 @@ namespace StormiumTeam.Shared.Gen
         { 
             return new EntityEnumerable_CDDDD<T0, T1, T2, T3, T4>(system, query, ref c0, ref d1, ref d2, ref d3, ref d4);
         }
-        public static EntityEnumerable_CDDDDD<T0, T1, T2, T3, T4, T5> ToEnumerator_CDDDDD<T0, T1, T2, T3, T4, T5>(this ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0, ref T1 d1, ref T2 d2, ref T3 d3, ref T4 d4, ref T5 d5)
+        public static EntityEnumerable_CDDDDD<T0, T1, T2, T3, T4, T5> ToEnumerator_CDDDDD<T0, T1, T2, T3, T4, T5>(this ComponentSystemBase system, EntityQuery query, ref T0 c0, ref T1 d1, ref T2 d2, ref T3 d3, ref T4 d4, ref T5 d5)
             where T0 : class
             where T1 : struct, IComponentData
             where T2 : struct, IComponentData
@@ -214,20 +202,20 @@ namespace StormiumTeam.Shared.Gen
         { 
             return new EntityEnumerable_SDDDDD<T0, T1, T2, T3, T4, T5>(system, query, ref s0, ref d1, ref d2, ref d3, ref d4, ref d5);
         }
-        public static EntityEnumerable_DC<T0, T1> ToEnumerator_DC<T0, T1>(this ComponentSystemBase system, EntityQuery query, ref T0 d0, ref WrapRef<T1> c1)
+        public static EntityEnumerable_DC<T0, T1> ToEnumerator_DC<T0, T1>(this ComponentSystemBase system, EntityQuery query, ref T0 d0, ref T1 c1)
             where T0 : struct, IComponentData
             where T1 : class
         { 
             return new EntityEnumerable_DC<T0, T1>(system, query, ref d0, ref c1);
         }
-        public static EntityEnumerable_DCC<T0, T1, T2> ToEnumerator_DCC<T0, T1, T2>(this ComponentSystemBase system, EntityQuery query, ref T0 d0, ref WrapRef<T1> c1, ref WrapRef<T2> c2)
+        public static EntityEnumerable_DCC<T0, T1, T2> ToEnumerator_DCC<T0, T1, T2>(this ComponentSystemBase system, EntityQuery query, ref T0 d0, ref T1 c1, ref T2 c2)
             where T0 : struct, IComponentData
             where T1 : class
             where T2 : class
         { 
             return new EntityEnumerable_DCC<T0, T1, T2>(system, query, ref d0, ref c1, ref c2);
         }
-        public static EntityEnumerable_DCCC<T0, T1, T2, T3> ToEnumerator_DCCC<T0, T1, T2, T3>(this ComponentSystemBase system, EntityQuery query, ref T0 d0, ref WrapRef<T1> c1, ref WrapRef<T2> c2, ref WrapRef<T3> c3)
+        public static EntityEnumerable_DCCC<T0, T1, T2, T3> ToEnumerator_DCCC<T0, T1, T2, T3>(this ComponentSystemBase system, EntityQuery query, ref T0 d0, ref T1 c1, ref T2 c2, ref T3 c3)
             where T0 : struct, IComponentData
             where T1 : class
             where T2 : class
@@ -235,7 +223,7 @@ namespace StormiumTeam.Shared.Gen
         { 
             return new EntityEnumerable_DCCC<T0, T1, T2, T3>(system, query, ref d0, ref c1, ref c2, ref c3);
         }
-        public static EntityEnumerable_DCCCC<T0, T1, T2, T3, T4> ToEnumerator_DCCCC<T0, T1, T2, T3, T4>(this ComponentSystemBase system, EntityQuery query, ref T0 d0, ref WrapRef<T1> c1, ref WrapRef<T2> c2, ref WrapRef<T3> c3, ref WrapRef<T4> c4)
+        public static EntityEnumerable_DCCCC<T0, T1, T2, T3, T4> ToEnumerator_DCCCC<T0, T1, T2, T3, T4>(this ComponentSystemBase system, EntityQuery query, ref T0 d0, ref T1 c1, ref T2 c2, ref T3 c3, ref T4 c4)
             where T0 : struct, IComponentData
             where T1 : class
             where T2 : class
@@ -244,7 +232,7 @@ namespace StormiumTeam.Shared.Gen
         { 
             return new EntityEnumerable_DCCCC<T0, T1, T2, T3, T4>(system, query, ref d0, ref c1, ref c2, ref c3, ref c4);
         }
-        public static EntityEnumerable_DCCCCC<T0, T1, T2, T3, T4, T5> ToEnumerator_DCCCCC<T0, T1, T2, T3, T4, T5>(this ComponentSystemBase system, EntityQuery query, ref T0 d0, ref WrapRef<T1> c1, ref WrapRef<T2> c2, ref WrapRef<T3> c3, ref WrapRef<T4> c4, ref WrapRef<T5> c5)
+        public static EntityEnumerable_DCCCCC<T0, T1, T2, T3, T4, T5> ToEnumerator_DCCCCC<T0, T1, T2, T3, T4, T5>(this ComponentSystemBase system, EntityQuery query, ref T0 d0, ref T1 c1, ref T2 c2, ref T3 c3, ref T4 c4, ref T5 c5)
             where T0 : struct, IComponentData
             where T1 : class
             where T2 : class
@@ -254,20 +242,20 @@ namespace StormiumTeam.Shared.Gen
         { 
             return new EntityEnumerable_DCCCCC<T0, T1, T2, T3, T4, T5>(system, query, ref d0, ref c1, ref c2, ref c3, ref c4, ref c5);
         }
-        public static EntityEnumerable_CC<T0, T1> ToEnumerator_CC<T0, T1>(this ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0, ref WrapRef<T1> c1)
+        public static EntityEnumerable_CC<T0, T1> ToEnumerator_CC<T0, T1>(this ComponentSystemBase system, EntityQuery query, ref T0 c0, ref T1 c1)
             where T0 : class
             where T1 : class
         { 
             return new EntityEnumerable_CC<T0, T1>(system, query, ref c0, ref c1);
         }
-        public static EntityEnumerable_CCC<T0, T1, T2> ToEnumerator_CCC<T0, T1, T2>(this ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0, ref WrapRef<T1> c1, ref WrapRef<T2> c2)
+        public static EntityEnumerable_CCC<T0, T1, T2> ToEnumerator_CCC<T0, T1, T2>(this ComponentSystemBase system, EntityQuery query, ref T0 c0, ref T1 c1, ref T2 c2)
             where T0 : class
             where T1 : class
             where T2 : class
         { 
             return new EntityEnumerable_CCC<T0, T1, T2>(system, query, ref c0, ref c1, ref c2);
         }
-        public static EntityEnumerable_CCCC<T0, T1, T2, T3> ToEnumerator_CCCC<T0, T1, T2, T3>(this ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0, ref WrapRef<T1> c1, ref WrapRef<T2> c2, ref WrapRef<T3> c3)
+        public static EntityEnumerable_CCCC<T0, T1, T2, T3> ToEnumerator_CCCC<T0, T1, T2, T3>(this ComponentSystemBase system, EntityQuery query, ref T0 c0, ref T1 c1, ref T2 c2, ref T3 c3)
             where T0 : class
             where T1 : class
             where T2 : class
@@ -275,7 +263,7 @@ namespace StormiumTeam.Shared.Gen
         { 
             return new EntityEnumerable_CCCC<T0, T1, T2, T3>(system, query, ref c0, ref c1, ref c2, ref c3);
         }
-        public static EntityEnumerable_CCCCC<T0, T1, T2, T3, T4> ToEnumerator_CCCCC<T0, T1, T2, T3, T4>(this ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0, ref WrapRef<T1> c1, ref WrapRef<T2> c2, ref WrapRef<T3> c3, ref WrapRef<T4> c4)
+        public static EntityEnumerable_CCCCC<T0, T1, T2, T3, T4> ToEnumerator_CCCCC<T0, T1, T2, T3, T4>(this ComponentSystemBase system, EntityQuery query, ref T0 c0, ref T1 c1, ref T2 c2, ref T3 c3, ref T4 c4)
             where T0 : class
             where T1 : class
             where T2 : class
@@ -284,7 +272,7 @@ namespace StormiumTeam.Shared.Gen
         { 
             return new EntityEnumerable_CCCCC<T0, T1, T2, T3, T4>(system, query, ref c0, ref c1, ref c2, ref c3, ref c4);
         }
-        public static EntityEnumerable_CCCCCC<T0, T1, T2, T3, T4, T5> ToEnumerator_CCCCCC<T0, T1, T2, T3, T4, T5>(this ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0, ref WrapRef<T1> c1, ref WrapRef<T2> c2, ref WrapRef<T3> c3, ref WrapRef<T4> c4, ref WrapRef<T5> c5)
+        public static EntityEnumerable_CCCCCC<T0, T1, T2, T3, T4, T5> ToEnumerator_CCCCCC<T0, T1, T2, T3, T4, T5>(this ComponentSystemBase system, EntityQuery query, ref T0 c0, ref T1 c1, ref T2 c2, ref T3 c3, ref T4 c4, ref T5 c5)
             where T0 : class
             where T1 : class
             where T2 : class
@@ -294,20 +282,20 @@ namespace StormiumTeam.Shared.Gen
         { 
             return new EntityEnumerable_CCCCCC<T0, T1, T2, T3, T4, T5>(system, query, ref c0, ref c1, ref c2, ref c3, ref c4, ref c5);
         }
-        public static EntityEnumerable_BC<T0, T1> ToEnumerator_BC<T0, T1>(this ComponentSystemBase system, EntityQuery query, ref DynamicBuffer<T0> b0, ref WrapRef<T1> c1)
+        public static EntityEnumerable_BC<T0, T1> ToEnumerator_BC<T0, T1>(this ComponentSystemBase system, EntityQuery query, ref DynamicBuffer<T0> b0, ref T1 c1)
             where T0 : struct, IBufferElementData
             where T1 : class
         { 
             return new EntityEnumerable_BC<T0, T1>(system, query, ref b0, ref c1);
         }
-        public static EntityEnumerable_BCC<T0, T1, T2> ToEnumerator_BCC<T0, T1, T2>(this ComponentSystemBase system, EntityQuery query, ref DynamicBuffer<T0> b0, ref WrapRef<T1> c1, ref WrapRef<T2> c2)
+        public static EntityEnumerable_BCC<T0, T1, T2> ToEnumerator_BCC<T0, T1, T2>(this ComponentSystemBase system, EntityQuery query, ref DynamicBuffer<T0> b0, ref T1 c1, ref T2 c2)
             where T0 : struct, IBufferElementData
             where T1 : class
             where T2 : class
         { 
             return new EntityEnumerable_BCC<T0, T1, T2>(system, query, ref b0, ref c1, ref c2);
         }
-        public static EntityEnumerable_BCCC<T0, T1, T2, T3> ToEnumerator_BCCC<T0, T1, T2, T3>(this ComponentSystemBase system, EntityQuery query, ref DynamicBuffer<T0> b0, ref WrapRef<T1> c1, ref WrapRef<T2> c2, ref WrapRef<T3> c3)
+        public static EntityEnumerable_BCCC<T0, T1, T2, T3> ToEnumerator_BCCC<T0, T1, T2, T3>(this ComponentSystemBase system, EntityQuery query, ref DynamicBuffer<T0> b0, ref T1 c1, ref T2 c2, ref T3 c3)
             where T0 : struct, IBufferElementData
             where T1 : class
             where T2 : class
@@ -315,7 +303,7 @@ namespace StormiumTeam.Shared.Gen
         { 
             return new EntityEnumerable_BCCC<T0, T1, T2, T3>(system, query, ref b0, ref c1, ref c2, ref c3);
         }
-        public static EntityEnumerable_BCCCC<T0, T1, T2, T3, T4> ToEnumerator_BCCCC<T0, T1, T2, T3, T4>(this ComponentSystemBase system, EntityQuery query, ref DynamicBuffer<T0> b0, ref WrapRef<T1> c1, ref WrapRef<T2> c2, ref WrapRef<T3> c3, ref WrapRef<T4> c4)
+        public static EntityEnumerable_BCCCC<T0, T1, T2, T3, T4> ToEnumerator_BCCCC<T0, T1, T2, T3, T4>(this ComponentSystemBase system, EntityQuery query, ref DynamicBuffer<T0> b0, ref T1 c1, ref T2 c2, ref T3 c3, ref T4 c4)
             where T0 : struct, IBufferElementData
             where T1 : class
             where T2 : class
@@ -324,7 +312,7 @@ namespace StormiumTeam.Shared.Gen
         { 
             return new EntityEnumerable_BCCCC<T0, T1, T2, T3, T4>(system, query, ref b0, ref c1, ref c2, ref c3, ref c4);
         }
-        public static EntityEnumerable_BCCCCC<T0, T1, T2, T3, T4, T5> ToEnumerator_BCCCCC<T0, T1, T2, T3, T4, T5>(this ComponentSystemBase system, EntityQuery query, ref DynamicBuffer<T0> b0, ref WrapRef<T1> c1, ref WrapRef<T2> c2, ref WrapRef<T3> c3, ref WrapRef<T4> c4, ref WrapRef<T5> c5)
+        public static EntityEnumerable_BCCCCC<T0, T1, T2, T3, T4, T5> ToEnumerator_BCCCCC<T0, T1, T2, T3, T4, T5>(this ComponentSystemBase system, EntityQuery query, ref DynamicBuffer<T0> b0, ref T1 c1, ref T2 c2, ref T3 c3, ref T4 c4, ref T5 c5)
             where T0 : struct, IBufferElementData
             where T1 : class
             where T2 : class
@@ -334,20 +322,20 @@ namespace StormiumTeam.Shared.Gen
         { 
             return new EntityEnumerable_BCCCCC<T0, T1, T2, T3, T4, T5>(system, query, ref b0, ref c1, ref c2, ref c3, ref c4, ref c5);
         }
-        public static EntityEnumerable_SC<T0, T1> ToEnumerator_SC<T0, T1>(this ComponentSystemBase system, EntityQuery query, ref T0 s0, ref WrapRef<T1> c1)
+        public static EntityEnumerable_SC<T0, T1> ToEnumerator_SC<T0, T1>(this ComponentSystemBase system, EntityQuery query, ref T0 s0, ref T1 c1)
             where T0 : struct, ISharedComponentData
             where T1 : class
         { 
             return new EntityEnumerable_SC<T0, T1>(system, query, ref s0, ref c1);
         }
-        public static EntityEnumerable_SCC<T0, T1, T2> ToEnumerator_SCC<T0, T1, T2>(this ComponentSystemBase system, EntityQuery query, ref T0 s0, ref WrapRef<T1> c1, ref WrapRef<T2> c2)
+        public static EntityEnumerable_SCC<T0, T1, T2> ToEnumerator_SCC<T0, T1, T2>(this ComponentSystemBase system, EntityQuery query, ref T0 s0, ref T1 c1, ref T2 c2)
             where T0 : struct, ISharedComponentData
             where T1 : class
             where T2 : class
         { 
             return new EntityEnumerable_SCC<T0, T1, T2>(system, query, ref s0, ref c1, ref c2);
         }
-        public static EntityEnumerable_SCCC<T0, T1, T2, T3> ToEnumerator_SCCC<T0, T1, T2, T3>(this ComponentSystemBase system, EntityQuery query, ref T0 s0, ref WrapRef<T1> c1, ref WrapRef<T2> c2, ref WrapRef<T3> c3)
+        public static EntityEnumerable_SCCC<T0, T1, T2, T3> ToEnumerator_SCCC<T0, T1, T2, T3>(this ComponentSystemBase system, EntityQuery query, ref T0 s0, ref T1 c1, ref T2 c2, ref T3 c3)
             where T0 : struct, ISharedComponentData
             where T1 : class
             where T2 : class
@@ -355,7 +343,7 @@ namespace StormiumTeam.Shared.Gen
         { 
             return new EntityEnumerable_SCCC<T0, T1, T2, T3>(system, query, ref s0, ref c1, ref c2, ref c3);
         }
-        public static EntityEnumerable_SCCCC<T0, T1, T2, T3, T4> ToEnumerator_SCCCC<T0, T1, T2, T3, T4>(this ComponentSystemBase system, EntityQuery query, ref T0 s0, ref WrapRef<T1> c1, ref WrapRef<T2> c2, ref WrapRef<T3> c3, ref WrapRef<T4> c4)
+        public static EntityEnumerable_SCCCC<T0, T1, T2, T3, T4> ToEnumerator_SCCCC<T0, T1, T2, T3, T4>(this ComponentSystemBase system, EntityQuery query, ref T0 s0, ref T1 c1, ref T2 c2, ref T3 c3, ref T4 c4)
             where T0 : struct, ISharedComponentData
             where T1 : class
             where T2 : class
@@ -364,7 +352,7 @@ namespace StormiumTeam.Shared.Gen
         { 
             return new EntityEnumerable_SCCCC<T0, T1, T2, T3, T4>(system, query, ref s0, ref c1, ref c2, ref c3, ref c4);
         }
-        public static EntityEnumerable_SCCCCC<T0, T1, T2, T3, T4, T5> ToEnumerator_SCCCCC<T0, T1, T2, T3, T4, T5>(this ComponentSystemBase system, EntityQuery query, ref T0 s0, ref WrapRef<T1> c1, ref WrapRef<T2> c2, ref WrapRef<T3> c3, ref WrapRef<T4> c4, ref WrapRef<T5> c5)
+        public static EntityEnumerable_SCCCCC<T0, T1, T2, T3, T4, T5> ToEnumerator_SCCCCC<T0, T1, T2, T3, T4, T5>(this ComponentSystemBase system, EntityQuery query, ref T0 s0, ref T1 c1, ref T2 c2, ref T3 c3, ref T4 c4, ref T5 c5)
             where T0 : struct, ISharedComponentData
             where T1 : class
             where T2 : class
@@ -414,20 +402,20 @@ namespace StormiumTeam.Shared.Gen
         { 
             return new EntityEnumerable_DBBBBB<T0, T1, T2, T3, T4, T5>(system, query, ref d0, ref b1, ref b2, ref b3, ref b4, ref b5);
         }
-        public static EntityEnumerable_CB<T0, T1> ToEnumerator_CB<T0, T1>(this ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0, ref DynamicBuffer<T1> b1)
+        public static EntityEnumerable_CB<T0, T1> ToEnumerator_CB<T0, T1>(this ComponentSystemBase system, EntityQuery query, ref T0 c0, ref DynamicBuffer<T1> b1)
             where T0 : class
             where T1 : struct, IBufferElementData
         { 
             return new EntityEnumerable_CB<T0, T1>(system, query, ref c0, ref b1);
         }
-        public static EntityEnumerable_CBB<T0, T1, T2> ToEnumerator_CBB<T0, T1, T2>(this ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0, ref DynamicBuffer<T1> b1, ref DynamicBuffer<T2> b2)
+        public static EntityEnumerable_CBB<T0, T1, T2> ToEnumerator_CBB<T0, T1, T2>(this ComponentSystemBase system, EntityQuery query, ref T0 c0, ref DynamicBuffer<T1> b1, ref DynamicBuffer<T2> b2)
             where T0 : class
             where T1 : struct, IBufferElementData
             where T2 : struct, IBufferElementData
         { 
             return new EntityEnumerable_CBB<T0, T1, T2>(system, query, ref c0, ref b1, ref b2);
         }
-        public static EntityEnumerable_CBBB<T0, T1, T2, T3> ToEnumerator_CBBB<T0, T1, T2, T3>(this ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0, ref DynamicBuffer<T1> b1, ref DynamicBuffer<T2> b2, ref DynamicBuffer<T3> b3)
+        public static EntityEnumerable_CBBB<T0, T1, T2, T3> ToEnumerator_CBBB<T0, T1, T2, T3>(this ComponentSystemBase system, EntityQuery query, ref T0 c0, ref DynamicBuffer<T1> b1, ref DynamicBuffer<T2> b2, ref DynamicBuffer<T3> b3)
             where T0 : class
             where T1 : struct, IBufferElementData
             where T2 : struct, IBufferElementData
@@ -435,7 +423,7 @@ namespace StormiumTeam.Shared.Gen
         { 
             return new EntityEnumerable_CBBB<T0, T1, T2, T3>(system, query, ref c0, ref b1, ref b2, ref b3);
         }
-        public static EntityEnumerable_CBBBB<T0, T1, T2, T3, T4> ToEnumerator_CBBBB<T0, T1, T2, T3, T4>(this ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0, ref DynamicBuffer<T1> b1, ref DynamicBuffer<T2> b2, ref DynamicBuffer<T3> b3, ref DynamicBuffer<T4> b4)
+        public static EntityEnumerable_CBBBB<T0, T1, T2, T3, T4> ToEnumerator_CBBBB<T0, T1, T2, T3, T4>(this ComponentSystemBase system, EntityQuery query, ref T0 c0, ref DynamicBuffer<T1> b1, ref DynamicBuffer<T2> b2, ref DynamicBuffer<T3> b3, ref DynamicBuffer<T4> b4)
             where T0 : class
             where T1 : struct, IBufferElementData
             where T2 : struct, IBufferElementData
@@ -444,7 +432,7 @@ namespace StormiumTeam.Shared.Gen
         { 
             return new EntityEnumerable_CBBBB<T0, T1, T2, T3, T4>(system, query, ref c0, ref b1, ref b2, ref b3, ref b4);
         }
-        public static EntityEnumerable_CBBBBB<T0, T1, T2, T3, T4, T5> ToEnumerator_CBBBBB<T0, T1, T2, T3, T4, T5>(this ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0, ref DynamicBuffer<T1> b1, ref DynamicBuffer<T2> b2, ref DynamicBuffer<T3> b3, ref DynamicBuffer<T4> b4, ref DynamicBuffer<T5> b5)
+        public static EntityEnumerable_CBBBBB<T0, T1, T2, T3, T4, T5> ToEnumerator_CBBBBB<T0, T1, T2, T3, T4, T5>(this ComponentSystemBase system, EntityQuery query, ref T0 c0, ref DynamicBuffer<T1> b1, ref DynamicBuffer<T2> b2, ref DynamicBuffer<T3> b3, ref DynamicBuffer<T4> b4, ref DynamicBuffer<T5> b5)
             where T0 : class
             where T1 : struct, IBufferElementData
             where T2 : struct, IBufferElementData
@@ -729,7 +717,7 @@ namespace StormiumTeam.Shared.Gen
 
         private ComponentSystemBase System;
 
-        public EntityEnumerable_C(ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0)
+        public EntityEnumerable_C(ComponentSystemBase system, EntityQuery query, ref T0 c0)
         {
 			m_Chunks = query.CreateArchetypeChunkArray(Allocator.TempJob);
 
@@ -737,7 +725,7 @@ namespace StormiumTeam.Shared.Gen
 			m_EntityType = system.GetArchetypeChunkEntityType();
 
             ChunkComponentType0 = system.GetArchetypeChunkComponentType<T0>();
-            Address0 = UnsafeUtility.AddressOf(ref c0);
+            Address0 = Unsafe.AsPointer(ref c0);
         }
 
         private NativeArray<ArchetypeChunk> m_Chunks;
@@ -755,7 +743,7 @@ namespace StormiumTeam.Shared.Gen
 
                 ChunkComponentType0 = this.ChunkComponentType0,
                 Address0 = this.Address0,
-                SizeOf0 = UnsafeUtility.SizeOf<WrapRef<T0>>(),
+                SizeOf0 = UnsafeUtility.SizeOf<IntPtr>(),
             };
         }
         private ArchetypeChunkComponentType<T0> ChunkComponentType0;
@@ -794,7 +782,7 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.IndexInChunk = m_EntityIndex;
 
 				UnsafeUtility.MemCpy(UnsafeUtility.AddressOf(ref m_Item.Entity), (byte*) EntityArray + m_EntityIndex * SizeOfEntity, SizeOfEntity);
-                WrapRef<T0>.MemCpy(Array0[m_EntityIndex], Address0, SizeOf0);;
+                var tmp0 = Array0[m_EntityIndex]; Unsafe.CopyBlock(Address0, Unsafe.AsPointer(ref tmp0), (uint) SizeOf0);;
 				m_EntityIndex++;
 
 				return true;
@@ -2144,7 +2132,7 @@ namespace StormiumTeam.Shared.Gen
 
         private ComponentSystemBase System;
 
-        public EntityEnumerable_CD(ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0, ref T1 d1)
+        public EntityEnumerable_CD(ComponentSystemBase system, EntityQuery query, ref T0 c0, ref T1 d1)
         {
 			m_Chunks = query.CreateArchetypeChunkArray(Allocator.TempJob);
 
@@ -2152,7 +2140,7 @@ namespace StormiumTeam.Shared.Gen
 			m_EntityType = system.GetArchetypeChunkEntityType();
 
             ChunkComponentType0 = system.GetArchetypeChunkComponentType<T0>();
-            Address0 = UnsafeUtility.AddressOf(ref c0);
+            Address0 = Unsafe.AsPointer(ref c0);
             ChunkComponentType1 = system.GetArchetypeChunkComponentType<T1>(false);
             Address1 = UnsafeUtility.AddressOf(ref d1);
         }
@@ -2172,7 +2160,7 @@ namespace StormiumTeam.Shared.Gen
 
                 ChunkComponentType0 = this.ChunkComponentType0,
                 Address0 = this.Address0,
-                SizeOf0 = UnsafeUtility.SizeOf<WrapRef<T0>>(),
+                SizeOf0 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType1 = this.ChunkComponentType1,
                 Address1 = this.Address1,
                 SizeOf1 = UnsafeUtility.SizeOf<T1>(),
@@ -2218,7 +2206,7 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.IndexInChunk = m_EntityIndex;
 
 				UnsafeUtility.MemCpy(UnsafeUtility.AddressOf(ref m_Item.Entity), (byte*) EntityArray + m_EntityIndex * SizeOfEntity, SizeOfEntity);
-                WrapRef<T0>.MemCpy(Array0[m_EntityIndex], Address0, SizeOf0);;
+                var tmp0 = Array0[m_EntityIndex]; Unsafe.CopyBlock(Address0, Unsafe.AsPointer(ref tmp0), (uint) SizeOf0);;
                 UnsafeUtility.MemCpy(Address1, (byte*) Array1 + m_EntityIndex * SizeOf1, SizeOf1);;
 				m_EntityIndex++;
 
@@ -2308,7 +2296,7 @@ namespace StormiumTeam.Shared.Gen
 
         private ComponentSystemBase System;
 
-        public EntityEnumerable_CDD(ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0, ref T1 d1, ref T2 d2)
+        public EntityEnumerable_CDD(ComponentSystemBase system, EntityQuery query, ref T0 c0, ref T1 d1, ref T2 d2)
         {
 			m_Chunks = query.CreateArchetypeChunkArray(Allocator.TempJob);
 
@@ -2316,7 +2304,7 @@ namespace StormiumTeam.Shared.Gen
 			m_EntityType = system.GetArchetypeChunkEntityType();
 
             ChunkComponentType0 = system.GetArchetypeChunkComponentType<T0>();
-            Address0 = UnsafeUtility.AddressOf(ref c0);
+            Address0 = Unsafe.AsPointer(ref c0);
             ChunkComponentType1 = system.GetArchetypeChunkComponentType<T1>(false);
             Address1 = UnsafeUtility.AddressOf(ref d1);
             ChunkComponentType2 = system.GetArchetypeChunkComponentType<T2>(false);
@@ -2338,7 +2326,7 @@ namespace StormiumTeam.Shared.Gen
 
                 ChunkComponentType0 = this.ChunkComponentType0,
                 Address0 = this.Address0,
-                SizeOf0 = UnsafeUtility.SizeOf<WrapRef<T0>>(),
+                SizeOf0 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType1 = this.ChunkComponentType1,
                 Address1 = this.Address1,
                 SizeOf1 = UnsafeUtility.SizeOf<T1>(),
@@ -2391,7 +2379,7 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.IndexInChunk = m_EntityIndex;
 
 				UnsafeUtility.MemCpy(UnsafeUtility.AddressOf(ref m_Item.Entity), (byte*) EntityArray + m_EntityIndex * SizeOfEntity, SizeOfEntity);
-                WrapRef<T0>.MemCpy(Array0[m_EntityIndex], Address0, SizeOf0);;
+                var tmp0 = Array0[m_EntityIndex]; Unsafe.CopyBlock(Address0, Unsafe.AsPointer(ref tmp0), (uint) SizeOf0);;
                 UnsafeUtility.MemCpy(Address1, (byte*) Array1 + m_EntityIndex * SizeOf1, SizeOf1);;
                 UnsafeUtility.MemCpy(Address2, (byte*) Array2 + m_EntityIndex * SizeOf2, SizeOf2);;
 				m_EntityIndex++;
@@ -2487,7 +2475,7 @@ namespace StormiumTeam.Shared.Gen
 
         private ComponentSystemBase System;
 
-        public EntityEnumerable_CDDD(ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0, ref T1 d1, ref T2 d2, ref T3 d3)
+        public EntityEnumerable_CDDD(ComponentSystemBase system, EntityQuery query, ref T0 c0, ref T1 d1, ref T2 d2, ref T3 d3)
         {
 			m_Chunks = query.CreateArchetypeChunkArray(Allocator.TempJob);
 
@@ -2495,7 +2483,7 @@ namespace StormiumTeam.Shared.Gen
 			m_EntityType = system.GetArchetypeChunkEntityType();
 
             ChunkComponentType0 = system.GetArchetypeChunkComponentType<T0>();
-            Address0 = UnsafeUtility.AddressOf(ref c0);
+            Address0 = Unsafe.AsPointer(ref c0);
             ChunkComponentType1 = system.GetArchetypeChunkComponentType<T1>(false);
             Address1 = UnsafeUtility.AddressOf(ref d1);
             ChunkComponentType2 = system.GetArchetypeChunkComponentType<T2>(false);
@@ -2519,7 +2507,7 @@ namespace StormiumTeam.Shared.Gen
 
                 ChunkComponentType0 = this.ChunkComponentType0,
                 Address0 = this.Address0,
-                SizeOf0 = UnsafeUtility.SizeOf<WrapRef<T0>>(),
+                SizeOf0 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType1 = this.ChunkComponentType1,
                 Address1 = this.Address1,
                 SizeOf1 = UnsafeUtility.SizeOf<T1>(),
@@ -2579,7 +2567,7 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.IndexInChunk = m_EntityIndex;
 
 				UnsafeUtility.MemCpy(UnsafeUtility.AddressOf(ref m_Item.Entity), (byte*) EntityArray + m_EntityIndex * SizeOfEntity, SizeOfEntity);
-                WrapRef<T0>.MemCpy(Array0[m_EntityIndex], Address0, SizeOf0);;
+                var tmp0 = Array0[m_EntityIndex]; Unsafe.CopyBlock(Address0, Unsafe.AsPointer(ref tmp0), (uint) SizeOf0);;
                 UnsafeUtility.MemCpy(Address1, (byte*) Array1 + m_EntityIndex * SizeOf1, SizeOf1);;
                 UnsafeUtility.MemCpy(Address2, (byte*) Array2 + m_EntityIndex * SizeOf2, SizeOf2);;
                 UnsafeUtility.MemCpy(Address3, (byte*) Array3 + m_EntityIndex * SizeOf3, SizeOf3);;
@@ -2681,7 +2669,7 @@ namespace StormiumTeam.Shared.Gen
 
         private ComponentSystemBase System;
 
-        public EntityEnumerable_CDDDD(ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0, ref T1 d1, ref T2 d2, ref T3 d3, ref T4 d4)
+        public EntityEnumerable_CDDDD(ComponentSystemBase system, EntityQuery query, ref T0 c0, ref T1 d1, ref T2 d2, ref T3 d3, ref T4 d4)
         {
 			m_Chunks = query.CreateArchetypeChunkArray(Allocator.TempJob);
 
@@ -2689,7 +2677,7 @@ namespace StormiumTeam.Shared.Gen
 			m_EntityType = system.GetArchetypeChunkEntityType();
 
             ChunkComponentType0 = system.GetArchetypeChunkComponentType<T0>();
-            Address0 = UnsafeUtility.AddressOf(ref c0);
+            Address0 = Unsafe.AsPointer(ref c0);
             ChunkComponentType1 = system.GetArchetypeChunkComponentType<T1>(false);
             Address1 = UnsafeUtility.AddressOf(ref d1);
             ChunkComponentType2 = system.GetArchetypeChunkComponentType<T2>(false);
@@ -2715,7 +2703,7 @@ namespace StormiumTeam.Shared.Gen
 
                 ChunkComponentType0 = this.ChunkComponentType0,
                 Address0 = this.Address0,
-                SizeOf0 = UnsafeUtility.SizeOf<WrapRef<T0>>(),
+                SizeOf0 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType1 = this.ChunkComponentType1,
                 Address1 = this.Address1,
                 SizeOf1 = UnsafeUtility.SizeOf<T1>(),
@@ -2782,7 +2770,7 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.IndexInChunk = m_EntityIndex;
 
 				UnsafeUtility.MemCpy(UnsafeUtility.AddressOf(ref m_Item.Entity), (byte*) EntityArray + m_EntityIndex * SizeOfEntity, SizeOfEntity);
-                WrapRef<T0>.MemCpy(Array0[m_EntityIndex], Address0, SizeOf0);;
+                var tmp0 = Array0[m_EntityIndex]; Unsafe.CopyBlock(Address0, Unsafe.AsPointer(ref tmp0), (uint) SizeOf0);;
                 UnsafeUtility.MemCpy(Address1, (byte*) Array1 + m_EntityIndex * SizeOf1, SizeOf1);;
                 UnsafeUtility.MemCpy(Address2, (byte*) Array2 + m_EntityIndex * SizeOf2, SizeOf2);;
                 UnsafeUtility.MemCpy(Address3, (byte*) Array3 + m_EntityIndex * SizeOf3, SizeOf3);;
@@ -2890,7 +2878,7 @@ namespace StormiumTeam.Shared.Gen
 
         private ComponentSystemBase System;
 
-        public EntityEnumerable_CDDDDD(ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0, ref T1 d1, ref T2 d2, ref T3 d3, ref T4 d4, ref T5 d5)
+        public EntityEnumerable_CDDDDD(ComponentSystemBase system, EntityQuery query, ref T0 c0, ref T1 d1, ref T2 d2, ref T3 d3, ref T4 d4, ref T5 d5)
         {
 			m_Chunks = query.CreateArchetypeChunkArray(Allocator.TempJob);
 
@@ -2898,7 +2886,7 @@ namespace StormiumTeam.Shared.Gen
 			m_EntityType = system.GetArchetypeChunkEntityType();
 
             ChunkComponentType0 = system.GetArchetypeChunkComponentType<T0>();
-            Address0 = UnsafeUtility.AddressOf(ref c0);
+            Address0 = Unsafe.AsPointer(ref c0);
             ChunkComponentType1 = system.GetArchetypeChunkComponentType<T1>(false);
             Address1 = UnsafeUtility.AddressOf(ref d1);
             ChunkComponentType2 = system.GetArchetypeChunkComponentType<T2>(false);
@@ -2926,7 +2914,7 @@ namespace StormiumTeam.Shared.Gen
 
                 ChunkComponentType0 = this.ChunkComponentType0,
                 Address0 = this.Address0,
-                SizeOf0 = UnsafeUtility.SizeOf<WrapRef<T0>>(),
+                SizeOf0 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType1 = this.ChunkComponentType1,
                 Address1 = this.Address1,
                 SizeOf1 = UnsafeUtility.SizeOf<T1>(),
@@ -3000,7 +2988,7 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.IndexInChunk = m_EntityIndex;
 
 				UnsafeUtility.MemCpy(UnsafeUtility.AddressOf(ref m_Item.Entity), (byte*) EntityArray + m_EntityIndex * SizeOfEntity, SizeOfEntity);
-                WrapRef<T0>.MemCpy(Array0[m_EntityIndex], Address0, SizeOf0);;
+                var tmp0 = Array0[m_EntityIndex]; Unsafe.CopyBlock(Address0, Unsafe.AsPointer(ref tmp0), (uint) SizeOf0);;
                 UnsafeUtility.MemCpy(Address1, (byte*) Array1 + m_EntityIndex * SizeOf1, SizeOf1);;
                 UnsafeUtility.MemCpy(Address2, (byte*) Array2 + m_EntityIndex * SizeOf2, SizeOf2);;
                 UnsafeUtility.MemCpy(Address3, (byte*) Array3 + m_EntityIndex * SizeOf3, SizeOf3);;
@@ -5039,7 +5027,7 @@ namespace StormiumTeam.Shared.Gen
 
         private ComponentSystemBase System;
 
-        public EntityEnumerable_DC(ComponentSystemBase system, EntityQuery query, ref T0 d0, ref WrapRef<T1> c1)
+        public EntityEnumerable_DC(ComponentSystemBase system, EntityQuery query, ref T0 d0, ref T1 c1)
         {
 			m_Chunks = query.CreateArchetypeChunkArray(Allocator.TempJob);
 
@@ -5049,7 +5037,7 @@ namespace StormiumTeam.Shared.Gen
             ChunkComponentType0 = system.GetArchetypeChunkComponentType<T0>(false);
             Address0 = UnsafeUtility.AddressOf(ref d0);
             ChunkComponentType1 = system.GetArchetypeChunkComponentType<T1>();
-            Address1 = UnsafeUtility.AddressOf(ref c1);
+            Address1 = Unsafe.AsPointer(ref c1);
         }
 
         private NativeArray<ArchetypeChunk> m_Chunks;
@@ -5070,7 +5058,7 @@ namespace StormiumTeam.Shared.Gen
                 SizeOf0 = UnsafeUtility.SizeOf<T0>(),
                 ChunkComponentType1 = this.ChunkComponentType1,
                 Address1 = this.Address1,
-                SizeOf1 = UnsafeUtility.SizeOf<WrapRef<T1>>(),
+                SizeOf1 = UnsafeUtility.SizeOf<IntPtr>(),
             };
         }
         private ArchetypeChunkComponentType<T0> ChunkComponentType0;
@@ -5114,7 +5102,7 @@ namespace StormiumTeam.Shared.Gen
 
 				UnsafeUtility.MemCpy(UnsafeUtility.AddressOf(ref m_Item.Entity), (byte*) EntityArray + m_EntityIndex * SizeOfEntity, SizeOfEntity);
                 UnsafeUtility.MemCpy(Address0, (byte*) Array0 + m_EntityIndex * SizeOf0, SizeOf0);;
-                WrapRef<T1>.MemCpy(Array1[m_EntityIndex], Address1, SizeOf1);;
+                var tmp1 = Array1[m_EntityIndex]; Unsafe.CopyBlock(Address1, Unsafe.AsPointer(ref tmp1), (uint) SizeOf1);;
 				m_EntityIndex++;
 
 				return true;
@@ -5203,7 +5191,7 @@ namespace StormiumTeam.Shared.Gen
 
         private ComponentSystemBase System;
 
-        public EntityEnumerable_DCC(ComponentSystemBase system, EntityQuery query, ref T0 d0, ref WrapRef<T1> c1, ref WrapRef<T2> c2)
+        public EntityEnumerable_DCC(ComponentSystemBase system, EntityQuery query, ref T0 d0, ref T1 c1, ref T2 c2)
         {
 			m_Chunks = query.CreateArchetypeChunkArray(Allocator.TempJob);
 
@@ -5213,9 +5201,9 @@ namespace StormiumTeam.Shared.Gen
             ChunkComponentType0 = system.GetArchetypeChunkComponentType<T0>(false);
             Address0 = UnsafeUtility.AddressOf(ref d0);
             ChunkComponentType1 = system.GetArchetypeChunkComponentType<T1>();
-            Address1 = UnsafeUtility.AddressOf(ref c1);
+            Address1 = Unsafe.AsPointer(ref c1);
             ChunkComponentType2 = system.GetArchetypeChunkComponentType<T2>();
-            Address2 = UnsafeUtility.AddressOf(ref c2);
+            Address2 = Unsafe.AsPointer(ref c2);
         }
 
         private NativeArray<ArchetypeChunk> m_Chunks;
@@ -5236,10 +5224,10 @@ namespace StormiumTeam.Shared.Gen
                 SizeOf0 = UnsafeUtility.SizeOf<T0>(),
                 ChunkComponentType1 = this.ChunkComponentType1,
                 Address1 = this.Address1,
-                SizeOf1 = UnsafeUtility.SizeOf<WrapRef<T1>>(),
+                SizeOf1 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType2 = this.ChunkComponentType2,
                 Address2 = this.Address2,
-                SizeOf2 = UnsafeUtility.SizeOf<WrapRef<T2>>(),
+                SizeOf2 = UnsafeUtility.SizeOf<IntPtr>(),
             };
         }
         private ArchetypeChunkComponentType<T0> ChunkComponentType0;
@@ -5286,8 +5274,8 @@ namespace StormiumTeam.Shared.Gen
 
 				UnsafeUtility.MemCpy(UnsafeUtility.AddressOf(ref m_Item.Entity), (byte*) EntityArray + m_EntityIndex * SizeOfEntity, SizeOfEntity);
                 UnsafeUtility.MemCpy(Address0, (byte*) Array0 + m_EntityIndex * SizeOf0, SizeOf0);;
-                WrapRef<T1>.MemCpy(Array1[m_EntityIndex], Address1, SizeOf1);;
-                WrapRef<T2>.MemCpy(Array2[m_EntityIndex], Address2, SizeOf2);;
+                var tmp1 = Array1[m_EntityIndex]; Unsafe.CopyBlock(Address1, Unsafe.AsPointer(ref tmp1), (uint) SizeOf1);;
+                var tmp2 = Array2[m_EntityIndex]; Unsafe.CopyBlock(Address2, Unsafe.AsPointer(ref tmp2), (uint) SizeOf2);;
 				m_EntityIndex++;
 
 				return true;
@@ -5381,7 +5369,7 @@ namespace StormiumTeam.Shared.Gen
 
         private ComponentSystemBase System;
 
-        public EntityEnumerable_DCCC(ComponentSystemBase system, EntityQuery query, ref T0 d0, ref WrapRef<T1> c1, ref WrapRef<T2> c2, ref WrapRef<T3> c3)
+        public EntityEnumerable_DCCC(ComponentSystemBase system, EntityQuery query, ref T0 d0, ref T1 c1, ref T2 c2, ref T3 c3)
         {
 			m_Chunks = query.CreateArchetypeChunkArray(Allocator.TempJob);
 
@@ -5391,11 +5379,11 @@ namespace StormiumTeam.Shared.Gen
             ChunkComponentType0 = system.GetArchetypeChunkComponentType<T0>(false);
             Address0 = UnsafeUtility.AddressOf(ref d0);
             ChunkComponentType1 = system.GetArchetypeChunkComponentType<T1>();
-            Address1 = UnsafeUtility.AddressOf(ref c1);
+            Address1 = Unsafe.AsPointer(ref c1);
             ChunkComponentType2 = system.GetArchetypeChunkComponentType<T2>();
-            Address2 = UnsafeUtility.AddressOf(ref c2);
+            Address2 = Unsafe.AsPointer(ref c2);
             ChunkComponentType3 = system.GetArchetypeChunkComponentType<T3>();
-            Address3 = UnsafeUtility.AddressOf(ref c3);
+            Address3 = Unsafe.AsPointer(ref c3);
         }
 
         private NativeArray<ArchetypeChunk> m_Chunks;
@@ -5416,13 +5404,13 @@ namespace StormiumTeam.Shared.Gen
                 SizeOf0 = UnsafeUtility.SizeOf<T0>(),
                 ChunkComponentType1 = this.ChunkComponentType1,
                 Address1 = this.Address1,
-                SizeOf1 = UnsafeUtility.SizeOf<WrapRef<T1>>(),
+                SizeOf1 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType2 = this.ChunkComponentType2,
                 Address2 = this.Address2,
-                SizeOf2 = UnsafeUtility.SizeOf<WrapRef<T2>>(),
+                SizeOf2 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType3 = this.ChunkComponentType3,
                 Address3 = this.Address3,
-                SizeOf3 = UnsafeUtility.SizeOf<WrapRef<T3>>(),
+                SizeOf3 = UnsafeUtility.SizeOf<IntPtr>(),
             };
         }
         private ArchetypeChunkComponentType<T0> ChunkComponentType0;
@@ -5472,9 +5460,9 @@ namespace StormiumTeam.Shared.Gen
 
 				UnsafeUtility.MemCpy(UnsafeUtility.AddressOf(ref m_Item.Entity), (byte*) EntityArray + m_EntityIndex * SizeOfEntity, SizeOfEntity);
                 UnsafeUtility.MemCpy(Address0, (byte*) Array0 + m_EntityIndex * SizeOf0, SizeOf0);;
-                WrapRef<T1>.MemCpy(Array1[m_EntityIndex], Address1, SizeOf1);;
-                WrapRef<T2>.MemCpy(Array2[m_EntityIndex], Address2, SizeOf2);;
-                WrapRef<T3>.MemCpy(Array3[m_EntityIndex], Address3, SizeOf3);;
+                var tmp1 = Array1[m_EntityIndex]; Unsafe.CopyBlock(Address1, Unsafe.AsPointer(ref tmp1), (uint) SizeOf1);;
+                var tmp2 = Array2[m_EntityIndex]; Unsafe.CopyBlock(Address2, Unsafe.AsPointer(ref tmp2), (uint) SizeOf2);;
+                var tmp3 = Array3[m_EntityIndex]; Unsafe.CopyBlock(Address3, Unsafe.AsPointer(ref tmp3), (uint) SizeOf3);;
 				m_EntityIndex++;
 
 				return true;
@@ -5573,7 +5561,7 @@ namespace StormiumTeam.Shared.Gen
 
         private ComponentSystemBase System;
 
-        public EntityEnumerable_DCCCC(ComponentSystemBase system, EntityQuery query, ref T0 d0, ref WrapRef<T1> c1, ref WrapRef<T2> c2, ref WrapRef<T3> c3, ref WrapRef<T4> c4)
+        public EntityEnumerable_DCCCC(ComponentSystemBase system, EntityQuery query, ref T0 d0, ref T1 c1, ref T2 c2, ref T3 c3, ref T4 c4)
         {
 			m_Chunks = query.CreateArchetypeChunkArray(Allocator.TempJob);
 
@@ -5583,13 +5571,13 @@ namespace StormiumTeam.Shared.Gen
             ChunkComponentType0 = system.GetArchetypeChunkComponentType<T0>(false);
             Address0 = UnsafeUtility.AddressOf(ref d0);
             ChunkComponentType1 = system.GetArchetypeChunkComponentType<T1>();
-            Address1 = UnsafeUtility.AddressOf(ref c1);
+            Address1 = Unsafe.AsPointer(ref c1);
             ChunkComponentType2 = system.GetArchetypeChunkComponentType<T2>();
-            Address2 = UnsafeUtility.AddressOf(ref c2);
+            Address2 = Unsafe.AsPointer(ref c2);
             ChunkComponentType3 = system.GetArchetypeChunkComponentType<T3>();
-            Address3 = UnsafeUtility.AddressOf(ref c3);
+            Address3 = Unsafe.AsPointer(ref c3);
             ChunkComponentType4 = system.GetArchetypeChunkComponentType<T4>();
-            Address4 = UnsafeUtility.AddressOf(ref c4);
+            Address4 = Unsafe.AsPointer(ref c4);
         }
 
         private NativeArray<ArchetypeChunk> m_Chunks;
@@ -5610,16 +5598,16 @@ namespace StormiumTeam.Shared.Gen
                 SizeOf0 = UnsafeUtility.SizeOf<T0>(),
                 ChunkComponentType1 = this.ChunkComponentType1,
                 Address1 = this.Address1,
-                SizeOf1 = UnsafeUtility.SizeOf<WrapRef<T1>>(),
+                SizeOf1 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType2 = this.ChunkComponentType2,
                 Address2 = this.Address2,
-                SizeOf2 = UnsafeUtility.SizeOf<WrapRef<T2>>(),
+                SizeOf2 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType3 = this.ChunkComponentType3,
                 Address3 = this.Address3,
-                SizeOf3 = UnsafeUtility.SizeOf<WrapRef<T3>>(),
+                SizeOf3 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType4 = this.ChunkComponentType4,
                 Address4 = this.Address4,
-                SizeOf4 = UnsafeUtility.SizeOf<WrapRef<T4>>(),
+                SizeOf4 = UnsafeUtility.SizeOf<IntPtr>(),
             };
         }
         private ArchetypeChunkComponentType<T0> ChunkComponentType0;
@@ -5672,10 +5660,10 @@ namespace StormiumTeam.Shared.Gen
 
 				UnsafeUtility.MemCpy(UnsafeUtility.AddressOf(ref m_Item.Entity), (byte*) EntityArray + m_EntityIndex * SizeOfEntity, SizeOfEntity);
                 UnsafeUtility.MemCpy(Address0, (byte*) Array0 + m_EntityIndex * SizeOf0, SizeOf0);;
-                WrapRef<T1>.MemCpy(Array1[m_EntityIndex], Address1, SizeOf1);;
-                WrapRef<T2>.MemCpy(Array2[m_EntityIndex], Address2, SizeOf2);;
-                WrapRef<T3>.MemCpy(Array3[m_EntityIndex], Address3, SizeOf3);;
-                WrapRef<T4>.MemCpy(Array4[m_EntityIndex], Address4, SizeOf4);;
+                var tmp1 = Array1[m_EntityIndex]; Unsafe.CopyBlock(Address1, Unsafe.AsPointer(ref tmp1), (uint) SizeOf1);;
+                var tmp2 = Array2[m_EntityIndex]; Unsafe.CopyBlock(Address2, Unsafe.AsPointer(ref tmp2), (uint) SizeOf2);;
+                var tmp3 = Array3[m_EntityIndex]; Unsafe.CopyBlock(Address3, Unsafe.AsPointer(ref tmp3), (uint) SizeOf3);;
+                var tmp4 = Array4[m_EntityIndex]; Unsafe.CopyBlock(Address4, Unsafe.AsPointer(ref tmp4), (uint) SizeOf4);;
 				m_EntityIndex++;
 
 				return true;
@@ -5779,7 +5767,7 @@ namespace StormiumTeam.Shared.Gen
 
         private ComponentSystemBase System;
 
-        public EntityEnumerable_DCCCCC(ComponentSystemBase system, EntityQuery query, ref T0 d0, ref WrapRef<T1> c1, ref WrapRef<T2> c2, ref WrapRef<T3> c3, ref WrapRef<T4> c4, ref WrapRef<T5> c5)
+        public EntityEnumerable_DCCCCC(ComponentSystemBase system, EntityQuery query, ref T0 d0, ref T1 c1, ref T2 c2, ref T3 c3, ref T4 c4, ref T5 c5)
         {
 			m_Chunks = query.CreateArchetypeChunkArray(Allocator.TempJob);
 
@@ -5789,15 +5777,15 @@ namespace StormiumTeam.Shared.Gen
             ChunkComponentType0 = system.GetArchetypeChunkComponentType<T0>(false);
             Address0 = UnsafeUtility.AddressOf(ref d0);
             ChunkComponentType1 = system.GetArchetypeChunkComponentType<T1>();
-            Address1 = UnsafeUtility.AddressOf(ref c1);
+            Address1 = Unsafe.AsPointer(ref c1);
             ChunkComponentType2 = system.GetArchetypeChunkComponentType<T2>();
-            Address2 = UnsafeUtility.AddressOf(ref c2);
+            Address2 = Unsafe.AsPointer(ref c2);
             ChunkComponentType3 = system.GetArchetypeChunkComponentType<T3>();
-            Address3 = UnsafeUtility.AddressOf(ref c3);
+            Address3 = Unsafe.AsPointer(ref c3);
             ChunkComponentType4 = system.GetArchetypeChunkComponentType<T4>();
-            Address4 = UnsafeUtility.AddressOf(ref c4);
+            Address4 = Unsafe.AsPointer(ref c4);
             ChunkComponentType5 = system.GetArchetypeChunkComponentType<T5>();
-            Address5 = UnsafeUtility.AddressOf(ref c5);
+            Address5 = Unsafe.AsPointer(ref c5);
         }
 
         private NativeArray<ArchetypeChunk> m_Chunks;
@@ -5818,19 +5806,19 @@ namespace StormiumTeam.Shared.Gen
                 SizeOf0 = UnsafeUtility.SizeOf<T0>(),
                 ChunkComponentType1 = this.ChunkComponentType1,
                 Address1 = this.Address1,
-                SizeOf1 = UnsafeUtility.SizeOf<WrapRef<T1>>(),
+                SizeOf1 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType2 = this.ChunkComponentType2,
                 Address2 = this.Address2,
-                SizeOf2 = UnsafeUtility.SizeOf<WrapRef<T2>>(),
+                SizeOf2 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType3 = this.ChunkComponentType3,
                 Address3 = this.Address3,
-                SizeOf3 = UnsafeUtility.SizeOf<WrapRef<T3>>(),
+                SizeOf3 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType4 = this.ChunkComponentType4,
                 Address4 = this.Address4,
-                SizeOf4 = UnsafeUtility.SizeOf<WrapRef<T4>>(),
+                SizeOf4 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType5 = this.ChunkComponentType5,
                 Address5 = this.Address5,
-                SizeOf5 = UnsafeUtility.SizeOf<WrapRef<T5>>(),
+                SizeOf5 = UnsafeUtility.SizeOf<IntPtr>(),
             };
         }
         private ArchetypeChunkComponentType<T0> ChunkComponentType0;
@@ -5886,11 +5874,11 @@ namespace StormiumTeam.Shared.Gen
 
 				UnsafeUtility.MemCpy(UnsafeUtility.AddressOf(ref m_Item.Entity), (byte*) EntityArray + m_EntityIndex * SizeOfEntity, SizeOfEntity);
                 UnsafeUtility.MemCpy(Address0, (byte*) Array0 + m_EntityIndex * SizeOf0, SizeOf0);;
-                WrapRef<T1>.MemCpy(Array1[m_EntityIndex], Address1, SizeOf1);;
-                WrapRef<T2>.MemCpy(Array2[m_EntityIndex], Address2, SizeOf2);;
-                WrapRef<T3>.MemCpy(Array3[m_EntityIndex], Address3, SizeOf3);;
-                WrapRef<T4>.MemCpy(Array4[m_EntityIndex], Address4, SizeOf4);;
-                WrapRef<T5>.MemCpy(Array5[m_EntityIndex], Address5, SizeOf5);;
+                var tmp1 = Array1[m_EntityIndex]; Unsafe.CopyBlock(Address1, Unsafe.AsPointer(ref tmp1), (uint) SizeOf1);;
+                var tmp2 = Array2[m_EntityIndex]; Unsafe.CopyBlock(Address2, Unsafe.AsPointer(ref tmp2), (uint) SizeOf2);;
+                var tmp3 = Array3[m_EntityIndex]; Unsafe.CopyBlock(Address3, Unsafe.AsPointer(ref tmp3), (uint) SizeOf3);;
+                var tmp4 = Array4[m_EntityIndex]; Unsafe.CopyBlock(Address4, Unsafe.AsPointer(ref tmp4), (uint) SizeOf4);;
+                var tmp5 = Array5[m_EntityIndex]; Unsafe.CopyBlock(Address5, Unsafe.AsPointer(ref tmp5), (uint) SizeOf5);;
 				m_EntityIndex++;
 
 				return true;
@@ -5994,7 +5982,7 @@ namespace StormiumTeam.Shared.Gen
 
         private ComponentSystemBase System;
 
-        public EntityEnumerable_CC(ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0, ref WrapRef<T1> c1)
+        public EntityEnumerable_CC(ComponentSystemBase system, EntityQuery query, ref T0 c0, ref T1 c1)
         {
 			m_Chunks = query.CreateArchetypeChunkArray(Allocator.TempJob);
 
@@ -6002,9 +5990,9 @@ namespace StormiumTeam.Shared.Gen
 			m_EntityType = system.GetArchetypeChunkEntityType();
 
             ChunkComponentType0 = system.GetArchetypeChunkComponentType<T0>();
-            Address0 = UnsafeUtility.AddressOf(ref c0);
+            Address0 = Unsafe.AsPointer(ref c0);
             ChunkComponentType1 = system.GetArchetypeChunkComponentType<T1>();
-            Address1 = UnsafeUtility.AddressOf(ref c1);
+            Address1 = Unsafe.AsPointer(ref c1);
         }
 
         private NativeArray<ArchetypeChunk> m_Chunks;
@@ -6022,10 +6010,10 @@ namespace StormiumTeam.Shared.Gen
 
                 ChunkComponentType0 = this.ChunkComponentType0,
                 Address0 = this.Address0,
-                SizeOf0 = UnsafeUtility.SizeOf<WrapRef<T0>>(),
+                SizeOf0 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType1 = this.ChunkComponentType1,
                 Address1 = this.Address1,
-                SizeOf1 = UnsafeUtility.SizeOf<WrapRef<T1>>(),
+                SizeOf1 = UnsafeUtility.SizeOf<IntPtr>(),
             };
         }
         private ArchetypeChunkComponentType<T0> ChunkComponentType0;
@@ -6067,8 +6055,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.IndexInChunk = m_EntityIndex;
 
 				UnsafeUtility.MemCpy(UnsafeUtility.AddressOf(ref m_Item.Entity), (byte*) EntityArray + m_EntityIndex * SizeOfEntity, SizeOfEntity);
-                WrapRef<T0>.MemCpy(Array0[m_EntityIndex], Address0, SizeOf0);;
-                WrapRef<T1>.MemCpy(Array1[m_EntityIndex], Address1, SizeOf1);;
+                var tmp0 = Array0[m_EntityIndex]; Unsafe.CopyBlock(Address0, Unsafe.AsPointer(ref tmp0), (uint) SizeOf0);;
+                var tmp1 = Array1[m_EntityIndex]; Unsafe.CopyBlock(Address1, Unsafe.AsPointer(ref tmp1), (uint) SizeOf1);;
 				m_EntityIndex++;
 
 				return true;
@@ -6157,7 +6145,7 @@ namespace StormiumTeam.Shared.Gen
 
         private ComponentSystemBase System;
 
-        public EntityEnumerable_CCC(ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0, ref WrapRef<T1> c1, ref WrapRef<T2> c2)
+        public EntityEnumerable_CCC(ComponentSystemBase system, EntityQuery query, ref T0 c0, ref T1 c1, ref T2 c2)
         {
 			m_Chunks = query.CreateArchetypeChunkArray(Allocator.TempJob);
 
@@ -6165,11 +6153,11 @@ namespace StormiumTeam.Shared.Gen
 			m_EntityType = system.GetArchetypeChunkEntityType();
 
             ChunkComponentType0 = system.GetArchetypeChunkComponentType<T0>();
-            Address0 = UnsafeUtility.AddressOf(ref c0);
+            Address0 = Unsafe.AsPointer(ref c0);
             ChunkComponentType1 = system.GetArchetypeChunkComponentType<T1>();
-            Address1 = UnsafeUtility.AddressOf(ref c1);
+            Address1 = Unsafe.AsPointer(ref c1);
             ChunkComponentType2 = system.GetArchetypeChunkComponentType<T2>();
-            Address2 = UnsafeUtility.AddressOf(ref c2);
+            Address2 = Unsafe.AsPointer(ref c2);
         }
 
         private NativeArray<ArchetypeChunk> m_Chunks;
@@ -6187,13 +6175,13 @@ namespace StormiumTeam.Shared.Gen
 
                 ChunkComponentType0 = this.ChunkComponentType0,
                 Address0 = this.Address0,
-                SizeOf0 = UnsafeUtility.SizeOf<WrapRef<T0>>(),
+                SizeOf0 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType1 = this.ChunkComponentType1,
                 Address1 = this.Address1,
-                SizeOf1 = UnsafeUtility.SizeOf<WrapRef<T1>>(),
+                SizeOf1 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType2 = this.ChunkComponentType2,
                 Address2 = this.Address2,
-                SizeOf2 = UnsafeUtility.SizeOf<WrapRef<T2>>(),
+                SizeOf2 = UnsafeUtility.SizeOf<IntPtr>(),
             };
         }
         private ArchetypeChunkComponentType<T0> ChunkComponentType0;
@@ -6238,9 +6226,9 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.IndexInChunk = m_EntityIndex;
 
 				UnsafeUtility.MemCpy(UnsafeUtility.AddressOf(ref m_Item.Entity), (byte*) EntityArray + m_EntityIndex * SizeOfEntity, SizeOfEntity);
-                WrapRef<T0>.MemCpy(Array0[m_EntityIndex], Address0, SizeOf0);;
-                WrapRef<T1>.MemCpy(Array1[m_EntityIndex], Address1, SizeOf1);;
-                WrapRef<T2>.MemCpy(Array2[m_EntityIndex], Address2, SizeOf2);;
+                var tmp0 = Array0[m_EntityIndex]; Unsafe.CopyBlock(Address0, Unsafe.AsPointer(ref tmp0), (uint) SizeOf0);;
+                var tmp1 = Array1[m_EntityIndex]; Unsafe.CopyBlock(Address1, Unsafe.AsPointer(ref tmp1), (uint) SizeOf1);;
+                var tmp2 = Array2[m_EntityIndex]; Unsafe.CopyBlock(Address2, Unsafe.AsPointer(ref tmp2), (uint) SizeOf2);;
 				m_EntityIndex++;
 
 				return true;
@@ -6334,7 +6322,7 @@ namespace StormiumTeam.Shared.Gen
 
         private ComponentSystemBase System;
 
-        public EntityEnumerable_CCCC(ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0, ref WrapRef<T1> c1, ref WrapRef<T2> c2, ref WrapRef<T3> c3)
+        public EntityEnumerable_CCCC(ComponentSystemBase system, EntityQuery query, ref T0 c0, ref T1 c1, ref T2 c2, ref T3 c3)
         {
 			m_Chunks = query.CreateArchetypeChunkArray(Allocator.TempJob);
 
@@ -6342,13 +6330,13 @@ namespace StormiumTeam.Shared.Gen
 			m_EntityType = system.GetArchetypeChunkEntityType();
 
             ChunkComponentType0 = system.GetArchetypeChunkComponentType<T0>();
-            Address0 = UnsafeUtility.AddressOf(ref c0);
+            Address0 = Unsafe.AsPointer(ref c0);
             ChunkComponentType1 = system.GetArchetypeChunkComponentType<T1>();
-            Address1 = UnsafeUtility.AddressOf(ref c1);
+            Address1 = Unsafe.AsPointer(ref c1);
             ChunkComponentType2 = system.GetArchetypeChunkComponentType<T2>();
-            Address2 = UnsafeUtility.AddressOf(ref c2);
+            Address2 = Unsafe.AsPointer(ref c2);
             ChunkComponentType3 = system.GetArchetypeChunkComponentType<T3>();
-            Address3 = UnsafeUtility.AddressOf(ref c3);
+            Address3 = Unsafe.AsPointer(ref c3);
         }
 
         private NativeArray<ArchetypeChunk> m_Chunks;
@@ -6366,16 +6354,16 @@ namespace StormiumTeam.Shared.Gen
 
                 ChunkComponentType0 = this.ChunkComponentType0,
                 Address0 = this.Address0,
-                SizeOf0 = UnsafeUtility.SizeOf<WrapRef<T0>>(),
+                SizeOf0 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType1 = this.ChunkComponentType1,
                 Address1 = this.Address1,
-                SizeOf1 = UnsafeUtility.SizeOf<WrapRef<T1>>(),
+                SizeOf1 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType2 = this.ChunkComponentType2,
                 Address2 = this.Address2,
-                SizeOf2 = UnsafeUtility.SizeOf<WrapRef<T2>>(),
+                SizeOf2 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType3 = this.ChunkComponentType3,
                 Address3 = this.Address3,
-                SizeOf3 = UnsafeUtility.SizeOf<WrapRef<T3>>(),
+                SizeOf3 = UnsafeUtility.SizeOf<IntPtr>(),
             };
         }
         private ArchetypeChunkComponentType<T0> ChunkComponentType0;
@@ -6423,10 +6411,10 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.IndexInChunk = m_EntityIndex;
 
 				UnsafeUtility.MemCpy(UnsafeUtility.AddressOf(ref m_Item.Entity), (byte*) EntityArray + m_EntityIndex * SizeOfEntity, SizeOfEntity);
-                WrapRef<T0>.MemCpy(Array0[m_EntityIndex], Address0, SizeOf0);;
-                WrapRef<T1>.MemCpy(Array1[m_EntityIndex], Address1, SizeOf1);;
-                WrapRef<T2>.MemCpy(Array2[m_EntityIndex], Address2, SizeOf2);;
-                WrapRef<T3>.MemCpy(Array3[m_EntityIndex], Address3, SizeOf3);;
+                var tmp0 = Array0[m_EntityIndex]; Unsafe.CopyBlock(Address0, Unsafe.AsPointer(ref tmp0), (uint) SizeOf0);;
+                var tmp1 = Array1[m_EntityIndex]; Unsafe.CopyBlock(Address1, Unsafe.AsPointer(ref tmp1), (uint) SizeOf1);;
+                var tmp2 = Array2[m_EntityIndex]; Unsafe.CopyBlock(Address2, Unsafe.AsPointer(ref tmp2), (uint) SizeOf2);;
+                var tmp3 = Array3[m_EntityIndex]; Unsafe.CopyBlock(Address3, Unsafe.AsPointer(ref tmp3), (uint) SizeOf3);;
 				m_EntityIndex++;
 
 				return true;
@@ -6525,7 +6513,7 @@ namespace StormiumTeam.Shared.Gen
 
         private ComponentSystemBase System;
 
-        public EntityEnumerable_CCCCC(ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0, ref WrapRef<T1> c1, ref WrapRef<T2> c2, ref WrapRef<T3> c3, ref WrapRef<T4> c4)
+        public EntityEnumerable_CCCCC(ComponentSystemBase system, EntityQuery query, ref T0 c0, ref T1 c1, ref T2 c2, ref T3 c3, ref T4 c4)
         {
 			m_Chunks = query.CreateArchetypeChunkArray(Allocator.TempJob);
 
@@ -6533,15 +6521,15 @@ namespace StormiumTeam.Shared.Gen
 			m_EntityType = system.GetArchetypeChunkEntityType();
 
             ChunkComponentType0 = system.GetArchetypeChunkComponentType<T0>();
-            Address0 = UnsafeUtility.AddressOf(ref c0);
+            Address0 = Unsafe.AsPointer(ref c0);
             ChunkComponentType1 = system.GetArchetypeChunkComponentType<T1>();
-            Address1 = UnsafeUtility.AddressOf(ref c1);
+            Address1 = Unsafe.AsPointer(ref c1);
             ChunkComponentType2 = system.GetArchetypeChunkComponentType<T2>();
-            Address2 = UnsafeUtility.AddressOf(ref c2);
+            Address2 = Unsafe.AsPointer(ref c2);
             ChunkComponentType3 = system.GetArchetypeChunkComponentType<T3>();
-            Address3 = UnsafeUtility.AddressOf(ref c3);
+            Address3 = Unsafe.AsPointer(ref c3);
             ChunkComponentType4 = system.GetArchetypeChunkComponentType<T4>();
-            Address4 = UnsafeUtility.AddressOf(ref c4);
+            Address4 = Unsafe.AsPointer(ref c4);
         }
 
         private NativeArray<ArchetypeChunk> m_Chunks;
@@ -6559,19 +6547,19 @@ namespace StormiumTeam.Shared.Gen
 
                 ChunkComponentType0 = this.ChunkComponentType0,
                 Address0 = this.Address0,
-                SizeOf0 = UnsafeUtility.SizeOf<WrapRef<T0>>(),
+                SizeOf0 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType1 = this.ChunkComponentType1,
                 Address1 = this.Address1,
-                SizeOf1 = UnsafeUtility.SizeOf<WrapRef<T1>>(),
+                SizeOf1 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType2 = this.ChunkComponentType2,
                 Address2 = this.Address2,
-                SizeOf2 = UnsafeUtility.SizeOf<WrapRef<T2>>(),
+                SizeOf2 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType3 = this.ChunkComponentType3,
                 Address3 = this.Address3,
-                SizeOf3 = UnsafeUtility.SizeOf<WrapRef<T3>>(),
+                SizeOf3 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType4 = this.ChunkComponentType4,
                 Address4 = this.Address4,
-                SizeOf4 = UnsafeUtility.SizeOf<WrapRef<T4>>(),
+                SizeOf4 = UnsafeUtility.SizeOf<IntPtr>(),
             };
         }
         private ArchetypeChunkComponentType<T0> ChunkComponentType0;
@@ -6622,11 +6610,11 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.IndexInChunk = m_EntityIndex;
 
 				UnsafeUtility.MemCpy(UnsafeUtility.AddressOf(ref m_Item.Entity), (byte*) EntityArray + m_EntityIndex * SizeOfEntity, SizeOfEntity);
-                WrapRef<T0>.MemCpy(Array0[m_EntityIndex], Address0, SizeOf0);;
-                WrapRef<T1>.MemCpy(Array1[m_EntityIndex], Address1, SizeOf1);;
-                WrapRef<T2>.MemCpy(Array2[m_EntityIndex], Address2, SizeOf2);;
-                WrapRef<T3>.MemCpy(Array3[m_EntityIndex], Address3, SizeOf3);;
-                WrapRef<T4>.MemCpy(Array4[m_EntityIndex], Address4, SizeOf4);;
+                var tmp0 = Array0[m_EntityIndex]; Unsafe.CopyBlock(Address0, Unsafe.AsPointer(ref tmp0), (uint) SizeOf0);;
+                var tmp1 = Array1[m_EntityIndex]; Unsafe.CopyBlock(Address1, Unsafe.AsPointer(ref tmp1), (uint) SizeOf1);;
+                var tmp2 = Array2[m_EntityIndex]; Unsafe.CopyBlock(Address2, Unsafe.AsPointer(ref tmp2), (uint) SizeOf2);;
+                var tmp3 = Array3[m_EntityIndex]; Unsafe.CopyBlock(Address3, Unsafe.AsPointer(ref tmp3), (uint) SizeOf3);;
+                var tmp4 = Array4[m_EntityIndex]; Unsafe.CopyBlock(Address4, Unsafe.AsPointer(ref tmp4), (uint) SizeOf4);;
 				m_EntityIndex++;
 
 				return true;
@@ -6730,7 +6718,7 @@ namespace StormiumTeam.Shared.Gen
 
         private ComponentSystemBase System;
 
-        public EntityEnumerable_CCCCCC(ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0, ref WrapRef<T1> c1, ref WrapRef<T2> c2, ref WrapRef<T3> c3, ref WrapRef<T4> c4, ref WrapRef<T5> c5)
+        public EntityEnumerable_CCCCCC(ComponentSystemBase system, EntityQuery query, ref T0 c0, ref T1 c1, ref T2 c2, ref T3 c3, ref T4 c4, ref T5 c5)
         {
 			m_Chunks = query.CreateArchetypeChunkArray(Allocator.TempJob);
 
@@ -6738,17 +6726,17 @@ namespace StormiumTeam.Shared.Gen
 			m_EntityType = system.GetArchetypeChunkEntityType();
 
             ChunkComponentType0 = system.GetArchetypeChunkComponentType<T0>();
-            Address0 = UnsafeUtility.AddressOf(ref c0);
+            Address0 = Unsafe.AsPointer(ref c0);
             ChunkComponentType1 = system.GetArchetypeChunkComponentType<T1>();
-            Address1 = UnsafeUtility.AddressOf(ref c1);
+            Address1 = Unsafe.AsPointer(ref c1);
             ChunkComponentType2 = system.GetArchetypeChunkComponentType<T2>();
-            Address2 = UnsafeUtility.AddressOf(ref c2);
+            Address2 = Unsafe.AsPointer(ref c2);
             ChunkComponentType3 = system.GetArchetypeChunkComponentType<T3>();
-            Address3 = UnsafeUtility.AddressOf(ref c3);
+            Address3 = Unsafe.AsPointer(ref c3);
             ChunkComponentType4 = system.GetArchetypeChunkComponentType<T4>();
-            Address4 = UnsafeUtility.AddressOf(ref c4);
+            Address4 = Unsafe.AsPointer(ref c4);
             ChunkComponentType5 = system.GetArchetypeChunkComponentType<T5>();
-            Address5 = UnsafeUtility.AddressOf(ref c5);
+            Address5 = Unsafe.AsPointer(ref c5);
         }
 
         private NativeArray<ArchetypeChunk> m_Chunks;
@@ -6766,22 +6754,22 @@ namespace StormiumTeam.Shared.Gen
 
                 ChunkComponentType0 = this.ChunkComponentType0,
                 Address0 = this.Address0,
-                SizeOf0 = UnsafeUtility.SizeOf<WrapRef<T0>>(),
+                SizeOf0 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType1 = this.ChunkComponentType1,
                 Address1 = this.Address1,
-                SizeOf1 = UnsafeUtility.SizeOf<WrapRef<T1>>(),
+                SizeOf1 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType2 = this.ChunkComponentType2,
                 Address2 = this.Address2,
-                SizeOf2 = UnsafeUtility.SizeOf<WrapRef<T2>>(),
+                SizeOf2 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType3 = this.ChunkComponentType3,
                 Address3 = this.Address3,
-                SizeOf3 = UnsafeUtility.SizeOf<WrapRef<T3>>(),
+                SizeOf3 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType4 = this.ChunkComponentType4,
                 Address4 = this.Address4,
-                SizeOf4 = UnsafeUtility.SizeOf<WrapRef<T4>>(),
+                SizeOf4 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType5 = this.ChunkComponentType5,
                 Address5 = this.Address5,
-                SizeOf5 = UnsafeUtility.SizeOf<WrapRef<T5>>(),
+                SizeOf5 = UnsafeUtility.SizeOf<IntPtr>(),
             };
         }
         private ArchetypeChunkComponentType<T0> ChunkComponentType0;
@@ -6835,12 +6823,12 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.IndexInChunk = m_EntityIndex;
 
 				UnsafeUtility.MemCpy(UnsafeUtility.AddressOf(ref m_Item.Entity), (byte*) EntityArray + m_EntityIndex * SizeOfEntity, SizeOfEntity);
-                WrapRef<T0>.MemCpy(Array0[m_EntityIndex], Address0, SizeOf0);;
-                WrapRef<T1>.MemCpy(Array1[m_EntityIndex], Address1, SizeOf1);;
-                WrapRef<T2>.MemCpy(Array2[m_EntityIndex], Address2, SizeOf2);;
-                WrapRef<T3>.MemCpy(Array3[m_EntityIndex], Address3, SizeOf3);;
-                WrapRef<T4>.MemCpy(Array4[m_EntityIndex], Address4, SizeOf4);;
-                WrapRef<T5>.MemCpy(Array5[m_EntityIndex], Address5, SizeOf5);;
+                var tmp0 = Array0[m_EntityIndex]; Unsafe.CopyBlock(Address0, Unsafe.AsPointer(ref tmp0), (uint) SizeOf0);;
+                var tmp1 = Array1[m_EntityIndex]; Unsafe.CopyBlock(Address1, Unsafe.AsPointer(ref tmp1), (uint) SizeOf1);;
+                var tmp2 = Array2[m_EntityIndex]; Unsafe.CopyBlock(Address2, Unsafe.AsPointer(ref tmp2), (uint) SizeOf2);;
+                var tmp3 = Array3[m_EntityIndex]; Unsafe.CopyBlock(Address3, Unsafe.AsPointer(ref tmp3), (uint) SizeOf3);;
+                var tmp4 = Array4[m_EntityIndex]; Unsafe.CopyBlock(Address4, Unsafe.AsPointer(ref tmp4), (uint) SizeOf4);;
+                var tmp5 = Array5[m_EntityIndex]; Unsafe.CopyBlock(Address5, Unsafe.AsPointer(ref tmp5), (uint) SizeOf5);;
 				m_EntityIndex++;
 
 				return true;
@@ -6944,7 +6932,7 @@ namespace StormiumTeam.Shared.Gen
 
         private ComponentSystemBase System;
 
-        public EntityEnumerable_BC(ComponentSystemBase system, EntityQuery query, ref DynamicBuffer<T0> b0, ref WrapRef<T1> c1)
+        public EntityEnumerable_BC(ComponentSystemBase system, EntityQuery query, ref DynamicBuffer<T0> b0, ref T1 c1)
         {
 			m_Chunks = query.CreateArchetypeChunkArray(Allocator.TempJob);
 
@@ -6954,7 +6942,7 @@ namespace StormiumTeam.Shared.Gen
             ChunkComponentType0 = system.GetArchetypeChunkBufferType<T0>(false);
             Address0 = UnsafeUtility.AddressOf(ref b0);
             ChunkComponentType1 = system.GetArchetypeChunkComponentType<T1>();
-            Address1 = UnsafeUtility.AddressOf(ref c1);
+            Address1 = Unsafe.AsPointer(ref c1);
         }
 
         private NativeArray<ArchetypeChunk> m_Chunks;
@@ -6975,7 +6963,7 @@ namespace StormiumTeam.Shared.Gen
                 SizeOf0 = UnsafeUtility.SizeOf<T0>(),
                 ChunkComponentType1 = this.ChunkComponentType1,
                 Address1 = this.Address1,
-                SizeOf1 = UnsafeUtility.SizeOf<WrapRef<T1>>(),
+                SizeOf1 = UnsafeUtility.SizeOf<IntPtr>(),
             };
         }
         private ArchetypeChunkBufferType<T0> ChunkComponentType0;
@@ -7018,7 +7006,7 @@ namespace StormiumTeam.Shared.Gen
 
 				UnsafeUtility.MemCpy(UnsafeUtility.AddressOf(ref m_Item.Entity), (byte*) EntityArray + m_EntityIndex * SizeOfEntity, SizeOfEntity);
                 var tmp0 = Array0[m_EntityIndex]; UnsafeUtility.MemCpy(Address0, UnsafeUtility.AddressOf(ref tmp0), SizeOf0);;
-                WrapRef<T1>.MemCpy(Array1[m_EntityIndex], Address1, SizeOf1);;
+                var tmp1 = Array1[m_EntityIndex]; Unsafe.CopyBlock(Address1, Unsafe.AsPointer(ref tmp1), (uint) SizeOf1);;
 				m_EntityIndex++;
 
 				return true;
@@ -7107,7 +7095,7 @@ namespace StormiumTeam.Shared.Gen
 
         private ComponentSystemBase System;
 
-        public EntityEnumerable_BCC(ComponentSystemBase system, EntityQuery query, ref DynamicBuffer<T0> b0, ref WrapRef<T1> c1, ref WrapRef<T2> c2)
+        public EntityEnumerable_BCC(ComponentSystemBase system, EntityQuery query, ref DynamicBuffer<T0> b0, ref T1 c1, ref T2 c2)
         {
 			m_Chunks = query.CreateArchetypeChunkArray(Allocator.TempJob);
 
@@ -7117,9 +7105,9 @@ namespace StormiumTeam.Shared.Gen
             ChunkComponentType0 = system.GetArchetypeChunkBufferType<T0>(false);
             Address0 = UnsafeUtility.AddressOf(ref b0);
             ChunkComponentType1 = system.GetArchetypeChunkComponentType<T1>();
-            Address1 = UnsafeUtility.AddressOf(ref c1);
+            Address1 = Unsafe.AsPointer(ref c1);
             ChunkComponentType2 = system.GetArchetypeChunkComponentType<T2>();
-            Address2 = UnsafeUtility.AddressOf(ref c2);
+            Address2 = Unsafe.AsPointer(ref c2);
         }
 
         private NativeArray<ArchetypeChunk> m_Chunks;
@@ -7140,10 +7128,10 @@ namespace StormiumTeam.Shared.Gen
                 SizeOf0 = UnsafeUtility.SizeOf<T0>(),
                 ChunkComponentType1 = this.ChunkComponentType1,
                 Address1 = this.Address1,
-                SizeOf1 = UnsafeUtility.SizeOf<WrapRef<T1>>(),
+                SizeOf1 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType2 = this.ChunkComponentType2,
                 Address2 = this.Address2,
-                SizeOf2 = UnsafeUtility.SizeOf<WrapRef<T2>>(),
+                SizeOf2 = UnsafeUtility.SizeOf<IntPtr>(),
             };
         }
         private ArchetypeChunkBufferType<T0> ChunkComponentType0;
@@ -7189,8 +7177,8 @@ namespace StormiumTeam.Shared.Gen
 
 				UnsafeUtility.MemCpy(UnsafeUtility.AddressOf(ref m_Item.Entity), (byte*) EntityArray + m_EntityIndex * SizeOfEntity, SizeOfEntity);
                 var tmp0 = Array0[m_EntityIndex]; UnsafeUtility.MemCpy(Address0, UnsafeUtility.AddressOf(ref tmp0), SizeOf0);;
-                WrapRef<T1>.MemCpy(Array1[m_EntityIndex], Address1, SizeOf1);;
-                WrapRef<T2>.MemCpy(Array2[m_EntityIndex], Address2, SizeOf2);;
+                var tmp1 = Array1[m_EntityIndex]; Unsafe.CopyBlock(Address1, Unsafe.AsPointer(ref tmp1), (uint) SizeOf1);;
+                var tmp2 = Array2[m_EntityIndex]; Unsafe.CopyBlock(Address2, Unsafe.AsPointer(ref tmp2), (uint) SizeOf2);;
 				m_EntityIndex++;
 
 				return true;
@@ -7284,7 +7272,7 @@ namespace StormiumTeam.Shared.Gen
 
         private ComponentSystemBase System;
 
-        public EntityEnumerable_BCCC(ComponentSystemBase system, EntityQuery query, ref DynamicBuffer<T0> b0, ref WrapRef<T1> c1, ref WrapRef<T2> c2, ref WrapRef<T3> c3)
+        public EntityEnumerable_BCCC(ComponentSystemBase system, EntityQuery query, ref DynamicBuffer<T0> b0, ref T1 c1, ref T2 c2, ref T3 c3)
         {
 			m_Chunks = query.CreateArchetypeChunkArray(Allocator.TempJob);
 
@@ -7294,11 +7282,11 @@ namespace StormiumTeam.Shared.Gen
             ChunkComponentType0 = system.GetArchetypeChunkBufferType<T0>(false);
             Address0 = UnsafeUtility.AddressOf(ref b0);
             ChunkComponentType1 = system.GetArchetypeChunkComponentType<T1>();
-            Address1 = UnsafeUtility.AddressOf(ref c1);
+            Address1 = Unsafe.AsPointer(ref c1);
             ChunkComponentType2 = system.GetArchetypeChunkComponentType<T2>();
-            Address2 = UnsafeUtility.AddressOf(ref c2);
+            Address2 = Unsafe.AsPointer(ref c2);
             ChunkComponentType3 = system.GetArchetypeChunkComponentType<T3>();
-            Address3 = UnsafeUtility.AddressOf(ref c3);
+            Address3 = Unsafe.AsPointer(ref c3);
         }
 
         private NativeArray<ArchetypeChunk> m_Chunks;
@@ -7319,13 +7307,13 @@ namespace StormiumTeam.Shared.Gen
                 SizeOf0 = UnsafeUtility.SizeOf<T0>(),
                 ChunkComponentType1 = this.ChunkComponentType1,
                 Address1 = this.Address1,
-                SizeOf1 = UnsafeUtility.SizeOf<WrapRef<T1>>(),
+                SizeOf1 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType2 = this.ChunkComponentType2,
                 Address2 = this.Address2,
-                SizeOf2 = UnsafeUtility.SizeOf<WrapRef<T2>>(),
+                SizeOf2 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType3 = this.ChunkComponentType3,
                 Address3 = this.Address3,
-                SizeOf3 = UnsafeUtility.SizeOf<WrapRef<T3>>(),
+                SizeOf3 = UnsafeUtility.SizeOf<IntPtr>(),
             };
         }
         private ArchetypeChunkBufferType<T0> ChunkComponentType0;
@@ -7374,9 +7362,9 @@ namespace StormiumTeam.Shared.Gen
 
 				UnsafeUtility.MemCpy(UnsafeUtility.AddressOf(ref m_Item.Entity), (byte*) EntityArray + m_EntityIndex * SizeOfEntity, SizeOfEntity);
                 var tmp0 = Array0[m_EntityIndex]; UnsafeUtility.MemCpy(Address0, UnsafeUtility.AddressOf(ref tmp0), SizeOf0);;
-                WrapRef<T1>.MemCpy(Array1[m_EntityIndex], Address1, SizeOf1);;
-                WrapRef<T2>.MemCpy(Array2[m_EntityIndex], Address2, SizeOf2);;
-                WrapRef<T3>.MemCpy(Array3[m_EntityIndex], Address3, SizeOf3);;
+                var tmp1 = Array1[m_EntityIndex]; Unsafe.CopyBlock(Address1, Unsafe.AsPointer(ref tmp1), (uint) SizeOf1);;
+                var tmp2 = Array2[m_EntityIndex]; Unsafe.CopyBlock(Address2, Unsafe.AsPointer(ref tmp2), (uint) SizeOf2);;
+                var tmp3 = Array3[m_EntityIndex]; Unsafe.CopyBlock(Address3, Unsafe.AsPointer(ref tmp3), (uint) SizeOf3);;
 				m_EntityIndex++;
 
 				return true;
@@ -7475,7 +7463,7 @@ namespace StormiumTeam.Shared.Gen
 
         private ComponentSystemBase System;
 
-        public EntityEnumerable_BCCCC(ComponentSystemBase system, EntityQuery query, ref DynamicBuffer<T0> b0, ref WrapRef<T1> c1, ref WrapRef<T2> c2, ref WrapRef<T3> c3, ref WrapRef<T4> c4)
+        public EntityEnumerable_BCCCC(ComponentSystemBase system, EntityQuery query, ref DynamicBuffer<T0> b0, ref T1 c1, ref T2 c2, ref T3 c3, ref T4 c4)
         {
 			m_Chunks = query.CreateArchetypeChunkArray(Allocator.TempJob);
 
@@ -7485,13 +7473,13 @@ namespace StormiumTeam.Shared.Gen
             ChunkComponentType0 = system.GetArchetypeChunkBufferType<T0>(false);
             Address0 = UnsafeUtility.AddressOf(ref b0);
             ChunkComponentType1 = system.GetArchetypeChunkComponentType<T1>();
-            Address1 = UnsafeUtility.AddressOf(ref c1);
+            Address1 = Unsafe.AsPointer(ref c1);
             ChunkComponentType2 = system.GetArchetypeChunkComponentType<T2>();
-            Address2 = UnsafeUtility.AddressOf(ref c2);
+            Address2 = Unsafe.AsPointer(ref c2);
             ChunkComponentType3 = system.GetArchetypeChunkComponentType<T3>();
-            Address3 = UnsafeUtility.AddressOf(ref c3);
+            Address3 = Unsafe.AsPointer(ref c3);
             ChunkComponentType4 = system.GetArchetypeChunkComponentType<T4>();
-            Address4 = UnsafeUtility.AddressOf(ref c4);
+            Address4 = Unsafe.AsPointer(ref c4);
         }
 
         private NativeArray<ArchetypeChunk> m_Chunks;
@@ -7512,16 +7500,16 @@ namespace StormiumTeam.Shared.Gen
                 SizeOf0 = UnsafeUtility.SizeOf<T0>(),
                 ChunkComponentType1 = this.ChunkComponentType1,
                 Address1 = this.Address1,
-                SizeOf1 = UnsafeUtility.SizeOf<WrapRef<T1>>(),
+                SizeOf1 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType2 = this.ChunkComponentType2,
                 Address2 = this.Address2,
-                SizeOf2 = UnsafeUtility.SizeOf<WrapRef<T2>>(),
+                SizeOf2 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType3 = this.ChunkComponentType3,
                 Address3 = this.Address3,
-                SizeOf3 = UnsafeUtility.SizeOf<WrapRef<T3>>(),
+                SizeOf3 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType4 = this.ChunkComponentType4,
                 Address4 = this.Address4,
-                SizeOf4 = UnsafeUtility.SizeOf<WrapRef<T4>>(),
+                SizeOf4 = UnsafeUtility.SizeOf<IntPtr>(),
             };
         }
         private ArchetypeChunkBufferType<T0> ChunkComponentType0;
@@ -7573,10 +7561,10 @@ namespace StormiumTeam.Shared.Gen
 
 				UnsafeUtility.MemCpy(UnsafeUtility.AddressOf(ref m_Item.Entity), (byte*) EntityArray + m_EntityIndex * SizeOfEntity, SizeOfEntity);
                 var tmp0 = Array0[m_EntityIndex]; UnsafeUtility.MemCpy(Address0, UnsafeUtility.AddressOf(ref tmp0), SizeOf0);;
-                WrapRef<T1>.MemCpy(Array1[m_EntityIndex], Address1, SizeOf1);;
-                WrapRef<T2>.MemCpy(Array2[m_EntityIndex], Address2, SizeOf2);;
-                WrapRef<T3>.MemCpy(Array3[m_EntityIndex], Address3, SizeOf3);;
-                WrapRef<T4>.MemCpy(Array4[m_EntityIndex], Address4, SizeOf4);;
+                var tmp1 = Array1[m_EntityIndex]; Unsafe.CopyBlock(Address1, Unsafe.AsPointer(ref tmp1), (uint) SizeOf1);;
+                var tmp2 = Array2[m_EntityIndex]; Unsafe.CopyBlock(Address2, Unsafe.AsPointer(ref tmp2), (uint) SizeOf2);;
+                var tmp3 = Array3[m_EntityIndex]; Unsafe.CopyBlock(Address3, Unsafe.AsPointer(ref tmp3), (uint) SizeOf3);;
+                var tmp4 = Array4[m_EntityIndex]; Unsafe.CopyBlock(Address4, Unsafe.AsPointer(ref tmp4), (uint) SizeOf4);;
 				m_EntityIndex++;
 
 				return true;
@@ -7680,7 +7668,7 @@ namespace StormiumTeam.Shared.Gen
 
         private ComponentSystemBase System;
 
-        public EntityEnumerable_BCCCCC(ComponentSystemBase system, EntityQuery query, ref DynamicBuffer<T0> b0, ref WrapRef<T1> c1, ref WrapRef<T2> c2, ref WrapRef<T3> c3, ref WrapRef<T4> c4, ref WrapRef<T5> c5)
+        public EntityEnumerable_BCCCCC(ComponentSystemBase system, EntityQuery query, ref DynamicBuffer<T0> b0, ref T1 c1, ref T2 c2, ref T3 c3, ref T4 c4, ref T5 c5)
         {
 			m_Chunks = query.CreateArchetypeChunkArray(Allocator.TempJob);
 
@@ -7690,15 +7678,15 @@ namespace StormiumTeam.Shared.Gen
             ChunkComponentType0 = system.GetArchetypeChunkBufferType<T0>(false);
             Address0 = UnsafeUtility.AddressOf(ref b0);
             ChunkComponentType1 = system.GetArchetypeChunkComponentType<T1>();
-            Address1 = UnsafeUtility.AddressOf(ref c1);
+            Address1 = Unsafe.AsPointer(ref c1);
             ChunkComponentType2 = system.GetArchetypeChunkComponentType<T2>();
-            Address2 = UnsafeUtility.AddressOf(ref c2);
+            Address2 = Unsafe.AsPointer(ref c2);
             ChunkComponentType3 = system.GetArchetypeChunkComponentType<T3>();
-            Address3 = UnsafeUtility.AddressOf(ref c3);
+            Address3 = Unsafe.AsPointer(ref c3);
             ChunkComponentType4 = system.GetArchetypeChunkComponentType<T4>();
-            Address4 = UnsafeUtility.AddressOf(ref c4);
+            Address4 = Unsafe.AsPointer(ref c4);
             ChunkComponentType5 = system.GetArchetypeChunkComponentType<T5>();
-            Address5 = UnsafeUtility.AddressOf(ref c5);
+            Address5 = Unsafe.AsPointer(ref c5);
         }
 
         private NativeArray<ArchetypeChunk> m_Chunks;
@@ -7719,19 +7707,19 @@ namespace StormiumTeam.Shared.Gen
                 SizeOf0 = UnsafeUtility.SizeOf<T0>(),
                 ChunkComponentType1 = this.ChunkComponentType1,
                 Address1 = this.Address1,
-                SizeOf1 = UnsafeUtility.SizeOf<WrapRef<T1>>(),
+                SizeOf1 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType2 = this.ChunkComponentType2,
                 Address2 = this.Address2,
-                SizeOf2 = UnsafeUtility.SizeOf<WrapRef<T2>>(),
+                SizeOf2 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType3 = this.ChunkComponentType3,
                 Address3 = this.Address3,
-                SizeOf3 = UnsafeUtility.SizeOf<WrapRef<T3>>(),
+                SizeOf3 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType4 = this.ChunkComponentType4,
                 Address4 = this.Address4,
-                SizeOf4 = UnsafeUtility.SizeOf<WrapRef<T4>>(),
+                SizeOf4 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType5 = this.ChunkComponentType5,
                 Address5 = this.Address5,
-                SizeOf5 = UnsafeUtility.SizeOf<WrapRef<T5>>(),
+                SizeOf5 = UnsafeUtility.SizeOf<IntPtr>(),
             };
         }
         private ArchetypeChunkBufferType<T0> ChunkComponentType0;
@@ -7786,11 +7774,11 @@ namespace StormiumTeam.Shared.Gen
 
 				UnsafeUtility.MemCpy(UnsafeUtility.AddressOf(ref m_Item.Entity), (byte*) EntityArray + m_EntityIndex * SizeOfEntity, SizeOfEntity);
                 var tmp0 = Array0[m_EntityIndex]; UnsafeUtility.MemCpy(Address0, UnsafeUtility.AddressOf(ref tmp0), SizeOf0);;
-                WrapRef<T1>.MemCpy(Array1[m_EntityIndex], Address1, SizeOf1);;
-                WrapRef<T2>.MemCpy(Array2[m_EntityIndex], Address2, SizeOf2);;
-                WrapRef<T3>.MemCpy(Array3[m_EntityIndex], Address3, SizeOf3);;
-                WrapRef<T4>.MemCpy(Array4[m_EntityIndex], Address4, SizeOf4);;
-                WrapRef<T5>.MemCpy(Array5[m_EntityIndex], Address5, SizeOf5);;
+                var tmp1 = Array1[m_EntityIndex]; Unsafe.CopyBlock(Address1, Unsafe.AsPointer(ref tmp1), (uint) SizeOf1);;
+                var tmp2 = Array2[m_EntityIndex]; Unsafe.CopyBlock(Address2, Unsafe.AsPointer(ref tmp2), (uint) SizeOf2);;
+                var tmp3 = Array3[m_EntityIndex]; Unsafe.CopyBlock(Address3, Unsafe.AsPointer(ref tmp3), (uint) SizeOf3);;
+                var tmp4 = Array4[m_EntityIndex]; Unsafe.CopyBlock(Address4, Unsafe.AsPointer(ref tmp4), (uint) SizeOf4);;
+                var tmp5 = Array5[m_EntityIndex]; Unsafe.CopyBlock(Address5, Unsafe.AsPointer(ref tmp5), (uint) SizeOf5);;
 				m_EntityIndex++;
 
 				return true;
@@ -7894,7 +7882,7 @@ namespace StormiumTeam.Shared.Gen
 
         private ComponentSystemBase System;
 
-        public EntityEnumerable_SC(ComponentSystemBase system, EntityQuery query, ref T0 s0, ref WrapRef<T1> c1)
+        public EntityEnumerable_SC(ComponentSystemBase system, EntityQuery query, ref T0 s0, ref T1 c1)
         {
 			m_Chunks = query.CreateArchetypeChunkArray(Allocator.TempJob);
 
@@ -7904,7 +7892,7 @@ namespace StormiumTeam.Shared.Gen
             ChunkComponentType0 = system.GetArchetypeChunkSharedComponentType<T0>();
             Address0 = UnsafeUtility.AddressOf(ref s0);
             ChunkComponentType1 = system.GetArchetypeChunkComponentType<T1>();
-            Address1 = UnsafeUtility.AddressOf(ref c1);
+            Address1 = Unsafe.AsPointer(ref c1);
         }
 
         private NativeArray<ArchetypeChunk> m_Chunks;
@@ -7925,7 +7913,7 @@ namespace StormiumTeam.Shared.Gen
                 SizeOf0 = UnsafeUtility.SizeOf<T0>(),
                 ChunkComponentType1 = this.ChunkComponentType1,
                 Address1 = this.Address1,
-                SizeOf1 = UnsafeUtility.SizeOf<WrapRef<T1>>(),
+                SizeOf1 = UnsafeUtility.SizeOf<IntPtr>(),
             };
         }
         private ArchetypeChunkSharedComponentType<T0> ChunkComponentType0;
@@ -7968,7 +7956,7 @@ namespace StormiumTeam.Shared.Gen
 
 				UnsafeUtility.MemCpy(UnsafeUtility.AddressOf(ref m_Item.Entity), (byte*) EntityArray + m_EntityIndex * SizeOfEntity, SizeOfEntity);
                 UnsafeUtility.MemCpy(Address0, UnsafeUtility.AddressOf(ref Array0), SizeOf0);;
-                WrapRef<T1>.MemCpy(Array1[m_EntityIndex], Address1, SizeOf1);;
+                var tmp1 = Array1[m_EntityIndex]; Unsafe.CopyBlock(Address1, Unsafe.AsPointer(ref tmp1), (uint) SizeOf1);;
 				m_EntityIndex++;
 
 				return true;
@@ -8057,7 +8045,7 @@ namespace StormiumTeam.Shared.Gen
 
         private ComponentSystemBase System;
 
-        public EntityEnumerable_SCC(ComponentSystemBase system, EntityQuery query, ref T0 s0, ref WrapRef<T1> c1, ref WrapRef<T2> c2)
+        public EntityEnumerable_SCC(ComponentSystemBase system, EntityQuery query, ref T0 s0, ref T1 c1, ref T2 c2)
         {
 			m_Chunks = query.CreateArchetypeChunkArray(Allocator.TempJob);
 
@@ -8067,9 +8055,9 @@ namespace StormiumTeam.Shared.Gen
             ChunkComponentType0 = system.GetArchetypeChunkSharedComponentType<T0>();
             Address0 = UnsafeUtility.AddressOf(ref s0);
             ChunkComponentType1 = system.GetArchetypeChunkComponentType<T1>();
-            Address1 = UnsafeUtility.AddressOf(ref c1);
+            Address1 = Unsafe.AsPointer(ref c1);
             ChunkComponentType2 = system.GetArchetypeChunkComponentType<T2>();
-            Address2 = UnsafeUtility.AddressOf(ref c2);
+            Address2 = Unsafe.AsPointer(ref c2);
         }
 
         private NativeArray<ArchetypeChunk> m_Chunks;
@@ -8090,10 +8078,10 @@ namespace StormiumTeam.Shared.Gen
                 SizeOf0 = UnsafeUtility.SizeOf<T0>(),
                 ChunkComponentType1 = this.ChunkComponentType1,
                 Address1 = this.Address1,
-                SizeOf1 = UnsafeUtility.SizeOf<WrapRef<T1>>(),
+                SizeOf1 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType2 = this.ChunkComponentType2,
                 Address2 = this.Address2,
-                SizeOf2 = UnsafeUtility.SizeOf<WrapRef<T2>>(),
+                SizeOf2 = UnsafeUtility.SizeOf<IntPtr>(),
             };
         }
         private ArchetypeChunkSharedComponentType<T0> ChunkComponentType0;
@@ -8139,8 +8127,8 @@ namespace StormiumTeam.Shared.Gen
 
 				UnsafeUtility.MemCpy(UnsafeUtility.AddressOf(ref m_Item.Entity), (byte*) EntityArray + m_EntityIndex * SizeOfEntity, SizeOfEntity);
                 UnsafeUtility.MemCpy(Address0, UnsafeUtility.AddressOf(ref Array0), SizeOf0);;
-                WrapRef<T1>.MemCpy(Array1[m_EntityIndex], Address1, SizeOf1);;
-                WrapRef<T2>.MemCpy(Array2[m_EntityIndex], Address2, SizeOf2);;
+                var tmp1 = Array1[m_EntityIndex]; Unsafe.CopyBlock(Address1, Unsafe.AsPointer(ref tmp1), (uint) SizeOf1);;
+                var tmp2 = Array2[m_EntityIndex]; Unsafe.CopyBlock(Address2, Unsafe.AsPointer(ref tmp2), (uint) SizeOf2);;
 				m_EntityIndex++;
 
 				return true;
@@ -8234,7 +8222,7 @@ namespace StormiumTeam.Shared.Gen
 
         private ComponentSystemBase System;
 
-        public EntityEnumerable_SCCC(ComponentSystemBase system, EntityQuery query, ref T0 s0, ref WrapRef<T1> c1, ref WrapRef<T2> c2, ref WrapRef<T3> c3)
+        public EntityEnumerable_SCCC(ComponentSystemBase system, EntityQuery query, ref T0 s0, ref T1 c1, ref T2 c2, ref T3 c3)
         {
 			m_Chunks = query.CreateArchetypeChunkArray(Allocator.TempJob);
 
@@ -8244,11 +8232,11 @@ namespace StormiumTeam.Shared.Gen
             ChunkComponentType0 = system.GetArchetypeChunkSharedComponentType<T0>();
             Address0 = UnsafeUtility.AddressOf(ref s0);
             ChunkComponentType1 = system.GetArchetypeChunkComponentType<T1>();
-            Address1 = UnsafeUtility.AddressOf(ref c1);
+            Address1 = Unsafe.AsPointer(ref c1);
             ChunkComponentType2 = system.GetArchetypeChunkComponentType<T2>();
-            Address2 = UnsafeUtility.AddressOf(ref c2);
+            Address2 = Unsafe.AsPointer(ref c2);
             ChunkComponentType3 = system.GetArchetypeChunkComponentType<T3>();
-            Address3 = UnsafeUtility.AddressOf(ref c3);
+            Address3 = Unsafe.AsPointer(ref c3);
         }
 
         private NativeArray<ArchetypeChunk> m_Chunks;
@@ -8269,13 +8257,13 @@ namespace StormiumTeam.Shared.Gen
                 SizeOf0 = UnsafeUtility.SizeOf<T0>(),
                 ChunkComponentType1 = this.ChunkComponentType1,
                 Address1 = this.Address1,
-                SizeOf1 = UnsafeUtility.SizeOf<WrapRef<T1>>(),
+                SizeOf1 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType2 = this.ChunkComponentType2,
                 Address2 = this.Address2,
-                SizeOf2 = UnsafeUtility.SizeOf<WrapRef<T2>>(),
+                SizeOf2 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType3 = this.ChunkComponentType3,
                 Address3 = this.Address3,
-                SizeOf3 = UnsafeUtility.SizeOf<WrapRef<T3>>(),
+                SizeOf3 = UnsafeUtility.SizeOf<IntPtr>(),
             };
         }
         private ArchetypeChunkSharedComponentType<T0> ChunkComponentType0;
@@ -8324,9 +8312,9 @@ namespace StormiumTeam.Shared.Gen
 
 				UnsafeUtility.MemCpy(UnsafeUtility.AddressOf(ref m_Item.Entity), (byte*) EntityArray + m_EntityIndex * SizeOfEntity, SizeOfEntity);
                 UnsafeUtility.MemCpy(Address0, UnsafeUtility.AddressOf(ref Array0), SizeOf0);;
-                WrapRef<T1>.MemCpy(Array1[m_EntityIndex], Address1, SizeOf1);;
-                WrapRef<T2>.MemCpy(Array2[m_EntityIndex], Address2, SizeOf2);;
-                WrapRef<T3>.MemCpy(Array3[m_EntityIndex], Address3, SizeOf3);;
+                var tmp1 = Array1[m_EntityIndex]; Unsafe.CopyBlock(Address1, Unsafe.AsPointer(ref tmp1), (uint) SizeOf1);;
+                var tmp2 = Array2[m_EntityIndex]; Unsafe.CopyBlock(Address2, Unsafe.AsPointer(ref tmp2), (uint) SizeOf2);;
+                var tmp3 = Array3[m_EntityIndex]; Unsafe.CopyBlock(Address3, Unsafe.AsPointer(ref tmp3), (uint) SizeOf3);;
 				m_EntityIndex++;
 
 				return true;
@@ -8425,7 +8413,7 @@ namespace StormiumTeam.Shared.Gen
 
         private ComponentSystemBase System;
 
-        public EntityEnumerable_SCCCC(ComponentSystemBase system, EntityQuery query, ref T0 s0, ref WrapRef<T1> c1, ref WrapRef<T2> c2, ref WrapRef<T3> c3, ref WrapRef<T4> c4)
+        public EntityEnumerable_SCCCC(ComponentSystemBase system, EntityQuery query, ref T0 s0, ref T1 c1, ref T2 c2, ref T3 c3, ref T4 c4)
         {
 			m_Chunks = query.CreateArchetypeChunkArray(Allocator.TempJob);
 
@@ -8435,13 +8423,13 @@ namespace StormiumTeam.Shared.Gen
             ChunkComponentType0 = system.GetArchetypeChunkSharedComponentType<T0>();
             Address0 = UnsafeUtility.AddressOf(ref s0);
             ChunkComponentType1 = system.GetArchetypeChunkComponentType<T1>();
-            Address1 = UnsafeUtility.AddressOf(ref c1);
+            Address1 = Unsafe.AsPointer(ref c1);
             ChunkComponentType2 = system.GetArchetypeChunkComponentType<T2>();
-            Address2 = UnsafeUtility.AddressOf(ref c2);
+            Address2 = Unsafe.AsPointer(ref c2);
             ChunkComponentType3 = system.GetArchetypeChunkComponentType<T3>();
-            Address3 = UnsafeUtility.AddressOf(ref c3);
+            Address3 = Unsafe.AsPointer(ref c3);
             ChunkComponentType4 = system.GetArchetypeChunkComponentType<T4>();
-            Address4 = UnsafeUtility.AddressOf(ref c4);
+            Address4 = Unsafe.AsPointer(ref c4);
         }
 
         private NativeArray<ArchetypeChunk> m_Chunks;
@@ -8462,16 +8450,16 @@ namespace StormiumTeam.Shared.Gen
                 SizeOf0 = UnsafeUtility.SizeOf<T0>(),
                 ChunkComponentType1 = this.ChunkComponentType1,
                 Address1 = this.Address1,
-                SizeOf1 = UnsafeUtility.SizeOf<WrapRef<T1>>(),
+                SizeOf1 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType2 = this.ChunkComponentType2,
                 Address2 = this.Address2,
-                SizeOf2 = UnsafeUtility.SizeOf<WrapRef<T2>>(),
+                SizeOf2 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType3 = this.ChunkComponentType3,
                 Address3 = this.Address3,
-                SizeOf3 = UnsafeUtility.SizeOf<WrapRef<T3>>(),
+                SizeOf3 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType4 = this.ChunkComponentType4,
                 Address4 = this.Address4,
-                SizeOf4 = UnsafeUtility.SizeOf<WrapRef<T4>>(),
+                SizeOf4 = UnsafeUtility.SizeOf<IntPtr>(),
             };
         }
         private ArchetypeChunkSharedComponentType<T0> ChunkComponentType0;
@@ -8523,10 +8511,10 @@ namespace StormiumTeam.Shared.Gen
 
 				UnsafeUtility.MemCpy(UnsafeUtility.AddressOf(ref m_Item.Entity), (byte*) EntityArray + m_EntityIndex * SizeOfEntity, SizeOfEntity);
                 UnsafeUtility.MemCpy(Address0, UnsafeUtility.AddressOf(ref Array0), SizeOf0);;
-                WrapRef<T1>.MemCpy(Array1[m_EntityIndex], Address1, SizeOf1);;
-                WrapRef<T2>.MemCpy(Array2[m_EntityIndex], Address2, SizeOf2);;
-                WrapRef<T3>.MemCpy(Array3[m_EntityIndex], Address3, SizeOf3);;
-                WrapRef<T4>.MemCpy(Array4[m_EntityIndex], Address4, SizeOf4);;
+                var tmp1 = Array1[m_EntityIndex]; Unsafe.CopyBlock(Address1, Unsafe.AsPointer(ref tmp1), (uint) SizeOf1);;
+                var tmp2 = Array2[m_EntityIndex]; Unsafe.CopyBlock(Address2, Unsafe.AsPointer(ref tmp2), (uint) SizeOf2);;
+                var tmp3 = Array3[m_EntityIndex]; Unsafe.CopyBlock(Address3, Unsafe.AsPointer(ref tmp3), (uint) SizeOf3);;
+                var tmp4 = Array4[m_EntityIndex]; Unsafe.CopyBlock(Address4, Unsafe.AsPointer(ref tmp4), (uint) SizeOf4);;
 				m_EntityIndex++;
 
 				return true;
@@ -8630,7 +8618,7 @@ namespace StormiumTeam.Shared.Gen
 
         private ComponentSystemBase System;
 
-        public EntityEnumerable_SCCCCC(ComponentSystemBase system, EntityQuery query, ref T0 s0, ref WrapRef<T1> c1, ref WrapRef<T2> c2, ref WrapRef<T3> c3, ref WrapRef<T4> c4, ref WrapRef<T5> c5)
+        public EntityEnumerable_SCCCCC(ComponentSystemBase system, EntityQuery query, ref T0 s0, ref T1 c1, ref T2 c2, ref T3 c3, ref T4 c4, ref T5 c5)
         {
 			m_Chunks = query.CreateArchetypeChunkArray(Allocator.TempJob);
 
@@ -8640,15 +8628,15 @@ namespace StormiumTeam.Shared.Gen
             ChunkComponentType0 = system.GetArchetypeChunkSharedComponentType<T0>();
             Address0 = UnsafeUtility.AddressOf(ref s0);
             ChunkComponentType1 = system.GetArchetypeChunkComponentType<T1>();
-            Address1 = UnsafeUtility.AddressOf(ref c1);
+            Address1 = Unsafe.AsPointer(ref c1);
             ChunkComponentType2 = system.GetArchetypeChunkComponentType<T2>();
-            Address2 = UnsafeUtility.AddressOf(ref c2);
+            Address2 = Unsafe.AsPointer(ref c2);
             ChunkComponentType3 = system.GetArchetypeChunkComponentType<T3>();
-            Address3 = UnsafeUtility.AddressOf(ref c3);
+            Address3 = Unsafe.AsPointer(ref c3);
             ChunkComponentType4 = system.GetArchetypeChunkComponentType<T4>();
-            Address4 = UnsafeUtility.AddressOf(ref c4);
+            Address4 = Unsafe.AsPointer(ref c4);
             ChunkComponentType5 = system.GetArchetypeChunkComponentType<T5>();
-            Address5 = UnsafeUtility.AddressOf(ref c5);
+            Address5 = Unsafe.AsPointer(ref c5);
         }
 
         private NativeArray<ArchetypeChunk> m_Chunks;
@@ -8669,19 +8657,19 @@ namespace StormiumTeam.Shared.Gen
                 SizeOf0 = UnsafeUtility.SizeOf<T0>(),
                 ChunkComponentType1 = this.ChunkComponentType1,
                 Address1 = this.Address1,
-                SizeOf1 = UnsafeUtility.SizeOf<WrapRef<T1>>(),
+                SizeOf1 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType2 = this.ChunkComponentType2,
                 Address2 = this.Address2,
-                SizeOf2 = UnsafeUtility.SizeOf<WrapRef<T2>>(),
+                SizeOf2 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType3 = this.ChunkComponentType3,
                 Address3 = this.Address3,
-                SizeOf3 = UnsafeUtility.SizeOf<WrapRef<T3>>(),
+                SizeOf3 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType4 = this.ChunkComponentType4,
                 Address4 = this.Address4,
-                SizeOf4 = UnsafeUtility.SizeOf<WrapRef<T4>>(),
+                SizeOf4 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType5 = this.ChunkComponentType5,
                 Address5 = this.Address5,
-                SizeOf5 = UnsafeUtility.SizeOf<WrapRef<T5>>(),
+                SizeOf5 = UnsafeUtility.SizeOf<IntPtr>(),
             };
         }
         private ArchetypeChunkSharedComponentType<T0> ChunkComponentType0;
@@ -8736,11 +8724,11 @@ namespace StormiumTeam.Shared.Gen
 
 				UnsafeUtility.MemCpy(UnsafeUtility.AddressOf(ref m_Item.Entity), (byte*) EntityArray + m_EntityIndex * SizeOfEntity, SizeOfEntity);
                 UnsafeUtility.MemCpy(Address0, UnsafeUtility.AddressOf(ref Array0), SizeOf0);;
-                WrapRef<T1>.MemCpy(Array1[m_EntityIndex], Address1, SizeOf1);;
-                WrapRef<T2>.MemCpy(Array2[m_EntityIndex], Address2, SizeOf2);;
-                WrapRef<T3>.MemCpy(Array3[m_EntityIndex], Address3, SizeOf3);;
-                WrapRef<T4>.MemCpy(Array4[m_EntityIndex], Address4, SizeOf4);;
-                WrapRef<T5>.MemCpy(Array5[m_EntityIndex], Address5, SizeOf5);;
+                var tmp1 = Array1[m_EntityIndex]; Unsafe.CopyBlock(Address1, Unsafe.AsPointer(ref tmp1), (uint) SizeOf1);;
+                var tmp2 = Array2[m_EntityIndex]; Unsafe.CopyBlock(Address2, Unsafe.AsPointer(ref tmp2), (uint) SizeOf2);;
+                var tmp3 = Array3[m_EntityIndex]; Unsafe.CopyBlock(Address3, Unsafe.AsPointer(ref tmp3), (uint) SizeOf3);;
+                var tmp4 = Array4[m_EntityIndex]; Unsafe.CopyBlock(Address4, Unsafe.AsPointer(ref tmp4), (uint) SizeOf4);;
+                var tmp5 = Array5[m_EntityIndex]; Unsafe.CopyBlock(Address5, Unsafe.AsPointer(ref tmp5), (uint) SizeOf5);;
 				m_EntityIndex++;
 
 				return true;
@@ -9799,7 +9787,7 @@ namespace StormiumTeam.Shared.Gen
 
         private ComponentSystemBase System;
 
-        public EntityEnumerable_CB(ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0, ref DynamicBuffer<T1> b1)
+        public EntityEnumerable_CB(ComponentSystemBase system, EntityQuery query, ref T0 c0, ref DynamicBuffer<T1> b1)
         {
 			m_Chunks = query.CreateArchetypeChunkArray(Allocator.TempJob);
 
@@ -9807,7 +9795,7 @@ namespace StormiumTeam.Shared.Gen
 			m_EntityType = system.GetArchetypeChunkEntityType();
 
             ChunkComponentType0 = system.GetArchetypeChunkComponentType<T0>();
-            Address0 = UnsafeUtility.AddressOf(ref c0);
+            Address0 = Unsafe.AsPointer(ref c0);
             ChunkComponentType1 = system.GetArchetypeChunkBufferType<T1>(false);
             Address1 = UnsafeUtility.AddressOf(ref b1);
         }
@@ -9827,7 +9815,7 @@ namespace StormiumTeam.Shared.Gen
 
                 ChunkComponentType0 = this.ChunkComponentType0,
                 Address0 = this.Address0,
-                SizeOf0 = UnsafeUtility.SizeOf<WrapRef<T0>>(),
+                SizeOf0 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType1 = this.ChunkComponentType1,
                 Address1 = this.Address1,
                 SizeOf1 = UnsafeUtility.SizeOf<T1>(),
@@ -9872,7 +9860,7 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.IndexInChunk = m_EntityIndex;
 
 				UnsafeUtility.MemCpy(UnsafeUtility.AddressOf(ref m_Item.Entity), (byte*) EntityArray + m_EntityIndex * SizeOfEntity, SizeOfEntity);
-                WrapRef<T0>.MemCpy(Array0[m_EntityIndex], Address0, SizeOf0);;
+                var tmp0 = Array0[m_EntityIndex]; Unsafe.CopyBlock(Address0, Unsafe.AsPointer(ref tmp0), (uint) SizeOf0);;
                 var tmp1 = Array1[m_EntityIndex]; UnsafeUtility.MemCpy(Address1, UnsafeUtility.AddressOf(ref tmp1), SizeOf1);;
 				m_EntityIndex++;
 
@@ -9962,7 +9950,7 @@ namespace StormiumTeam.Shared.Gen
 
         private ComponentSystemBase System;
 
-        public EntityEnumerable_CBB(ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0, ref DynamicBuffer<T1> b1, ref DynamicBuffer<T2> b2)
+        public EntityEnumerable_CBB(ComponentSystemBase system, EntityQuery query, ref T0 c0, ref DynamicBuffer<T1> b1, ref DynamicBuffer<T2> b2)
         {
 			m_Chunks = query.CreateArchetypeChunkArray(Allocator.TempJob);
 
@@ -9970,7 +9958,7 @@ namespace StormiumTeam.Shared.Gen
 			m_EntityType = system.GetArchetypeChunkEntityType();
 
             ChunkComponentType0 = system.GetArchetypeChunkComponentType<T0>();
-            Address0 = UnsafeUtility.AddressOf(ref c0);
+            Address0 = Unsafe.AsPointer(ref c0);
             ChunkComponentType1 = system.GetArchetypeChunkBufferType<T1>(false);
             Address1 = UnsafeUtility.AddressOf(ref b1);
             ChunkComponentType2 = system.GetArchetypeChunkBufferType<T2>(false);
@@ -9992,7 +9980,7 @@ namespace StormiumTeam.Shared.Gen
 
                 ChunkComponentType0 = this.ChunkComponentType0,
                 Address0 = this.Address0,
-                SizeOf0 = UnsafeUtility.SizeOf<WrapRef<T0>>(),
+                SizeOf0 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType1 = this.ChunkComponentType1,
                 Address1 = this.Address1,
                 SizeOf1 = UnsafeUtility.SizeOf<T1>(),
@@ -10043,7 +10031,7 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.IndexInChunk = m_EntityIndex;
 
 				UnsafeUtility.MemCpy(UnsafeUtility.AddressOf(ref m_Item.Entity), (byte*) EntityArray + m_EntityIndex * SizeOfEntity, SizeOfEntity);
-                WrapRef<T0>.MemCpy(Array0[m_EntityIndex], Address0, SizeOf0);;
+                var tmp0 = Array0[m_EntityIndex]; Unsafe.CopyBlock(Address0, Unsafe.AsPointer(ref tmp0), (uint) SizeOf0);;
                 var tmp1 = Array1[m_EntityIndex]; UnsafeUtility.MemCpy(Address1, UnsafeUtility.AddressOf(ref tmp1), SizeOf1);;
                 var tmp2 = Array2[m_EntityIndex]; UnsafeUtility.MemCpy(Address2, UnsafeUtility.AddressOf(ref tmp2), SizeOf2);;
 				m_EntityIndex++;
@@ -10139,7 +10127,7 @@ namespace StormiumTeam.Shared.Gen
 
         private ComponentSystemBase System;
 
-        public EntityEnumerable_CBBB(ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0, ref DynamicBuffer<T1> b1, ref DynamicBuffer<T2> b2, ref DynamicBuffer<T3> b3)
+        public EntityEnumerable_CBBB(ComponentSystemBase system, EntityQuery query, ref T0 c0, ref DynamicBuffer<T1> b1, ref DynamicBuffer<T2> b2, ref DynamicBuffer<T3> b3)
         {
 			m_Chunks = query.CreateArchetypeChunkArray(Allocator.TempJob);
 
@@ -10147,7 +10135,7 @@ namespace StormiumTeam.Shared.Gen
 			m_EntityType = system.GetArchetypeChunkEntityType();
 
             ChunkComponentType0 = system.GetArchetypeChunkComponentType<T0>();
-            Address0 = UnsafeUtility.AddressOf(ref c0);
+            Address0 = Unsafe.AsPointer(ref c0);
             ChunkComponentType1 = system.GetArchetypeChunkBufferType<T1>(false);
             Address1 = UnsafeUtility.AddressOf(ref b1);
             ChunkComponentType2 = system.GetArchetypeChunkBufferType<T2>(false);
@@ -10171,7 +10159,7 @@ namespace StormiumTeam.Shared.Gen
 
                 ChunkComponentType0 = this.ChunkComponentType0,
                 Address0 = this.Address0,
-                SizeOf0 = UnsafeUtility.SizeOf<WrapRef<T0>>(),
+                SizeOf0 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType1 = this.ChunkComponentType1,
                 Address1 = this.Address1,
                 SizeOf1 = UnsafeUtility.SizeOf<T1>(),
@@ -10228,7 +10216,7 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.IndexInChunk = m_EntityIndex;
 
 				UnsafeUtility.MemCpy(UnsafeUtility.AddressOf(ref m_Item.Entity), (byte*) EntityArray + m_EntityIndex * SizeOfEntity, SizeOfEntity);
-                WrapRef<T0>.MemCpy(Array0[m_EntityIndex], Address0, SizeOf0);;
+                var tmp0 = Array0[m_EntityIndex]; Unsafe.CopyBlock(Address0, Unsafe.AsPointer(ref tmp0), (uint) SizeOf0);;
                 var tmp1 = Array1[m_EntityIndex]; UnsafeUtility.MemCpy(Address1, UnsafeUtility.AddressOf(ref tmp1), SizeOf1);;
                 var tmp2 = Array2[m_EntityIndex]; UnsafeUtility.MemCpy(Address2, UnsafeUtility.AddressOf(ref tmp2), SizeOf2);;
                 var tmp3 = Array3[m_EntityIndex]; UnsafeUtility.MemCpy(Address3, UnsafeUtility.AddressOf(ref tmp3), SizeOf3);;
@@ -10330,7 +10318,7 @@ namespace StormiumTeam.Shared.Gen
 
         private ComponentSystemBase System;
 
-        public EntityEnumerable_CBBBB(ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0, ref DynamicBuffer<T1> b1, ref DynamicBuffer<T2> b2, ref DynamicBuffer<T3> b3, ref DynamicBuffer<T4> b4)
+        public EntityEnumerable_CBBBB(ComponentSystemBase system, EntityQuery query, ref T0 c0, ref DynamicBuffer<T1> b1, ref DynamicBuffer<T2> b2, ref DynamicBuffer<T3> b3, ref DynamicBuffer<T4> b4)
         {
 			m_Chunks = query.CreateArchetypeChunkArray(Allocator.TempJob);
 
@@ -10338,7 +10326,7 @@ namespace StormiumTeam.Shared.Gen
 			m_EntityType = system.GetArchetypeChunkEntityType();
 
             ChunkComponentType0 = system.GetArchetypeChunkComponentType<T0>();
-            Address0 = UnsafeUtility.AddressOf(ref c0);
+            Address0 = Unsafe.AsPointer(ref c0);
             ChunkComponentType1 = system.GetArchetypeChunkBufferType<T1>(false);
             Address1 = UnsafeUtility.AddressOf(ref b1);
             ChunkComponentType2 = system.GetArchetypeChunkBufferType<T2>(false);
@@ -10364,7 +10352,7 @@ namespace StormiumTeam.Shared.Gen
 
                 ChunkComponentType0 = this.ChunkComponentType0,
                 Address0 = this.Address0,
-                SizeOf0 = UnsafeUtility.SizeOf<WrapRef<T0>>(),
+                SizeOf0 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType1 = this.ChunkComponentType1,
                 Address1 = this.Address1,
                 SizeOf1 = UnsafeUtility.SizeOf<T1>(),
@@ -10427,7 +10415,7 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.IndexInChunk = m_EntityIndex;
 
 				UnsafeUtility.MemCpy(UnsafeUtility.AddressOf(ref m_Item.Entity), (byte*) EntityArray + m_EntityIndex * SizeOfEntity, SizeOfEntity);
-                WrapRef<T0>.MemCpy(Array0[m_EntityIndex], Address0, SizeOf0);;
+                var tmp0 = Array0[m_EntityIndex]; Unsafe.CopyBlock(Address0, Unsafe.AsPointer(ref tmp0), (uint) SizeOf0);;
                 var tmp1 = Array1[m_EntityIndex]; UnsafeUtility.MemCpy(Address1, UnsafeUtility.AddressOf(ref tmp1), SizeOf1);;
                 var tmp2 = Array2[m_EntityIndex]; UnsafeUtility.MemCpy(Address2, UnsafeUtility.AddressOf(ref tmp2), SizeOf2);;
                 var tmp3 = Array3[m_EntityIndex]; UnsafeUtility.MemCpy(Address3, UnsafeUtility.AddressOf(ref tmp3), SizeOf3);;
@@ -10535,7 +10523,7 @@ namespace StormiumTeam.Shared.Gen
 
         private ComponentSystemBase System;
 
-        public EntityEnumerable_CBBBBB(ComponentSystemBase system, EntityQuery query, ref WrapRef<T0> c0, ref DynamicBuffer<T1> b1, ref DynamicBuffer<T2> b2, ref DynamicBuffer<T3> b3, ref DynamicBuffer<T4> b4, ref DynamicBuffer<T5> b5)
+        public EntityEnumerable_CBBBBB(ComponentSystemBase system, EntityQuery query, ref T0 c0, ref DynamicBuffer<T1> b1, ref DynamicBuffer<T2> b2, ref DynamicBuffer<T3> b3, ref DynamicBuffer<T4> b4, ref DynamicBuffer<T5> b5)
         {
 			m_Chunks = query.CreateArchetypeChunkArray(Allocator.TempJob);
 
@@ -10543,7 +10531,7 @@ namespace StormiumTeam.Shared.Gen
 			m_EntityType = system.GetArchetypeChunkEntityType();
 
             ChunkComponentType0 = system.GetArchetypeChunkComponentType<T0>();
-            Address0 = UnsafeUtility.AddressOf(ref c0);
+            Address0 = Unsafe.AsPointer(ref c0);
             ChunkComponentType1 = system.GetArchetypeChunkBufferType<T1>(false);
             Address1 = UnsafeUtility.AddressOf(ref b1);
             ChunkComponentType2 = system.GetArchetypeChunkBufferType<T2>(false);
@@ -10571,7 +10559,7 @@ namespace StormiumTeam.Shared.Gen
 
                 ChunkComponentType0 = this.ChunkComponentType0,
                 Address0 = this.Address0,
-                SizeOf0 = UnsafeUtility.SizeOf<WrapRef<T0>>(),
+                SizeOf0 = UnsafeUtility.SizeOf<IntPtr>(),
                 ChunkComponentType1 = this.ChunkComponentType1,
                 Address1 = this.Address1,
                 SizeOf1 = UnsafeUtility.SizeOf<T1>(),
@@ -10640,7 +10628,7 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.IndexInChunk = m_EntityIndex;
 
 				UnsafeUtility.MemCpy(UnsafeUtility.AddressOf(ref m_Item.Entity), (byte*) EntityArray + m_EntityIndex * SizeOfEntity, SizeOfEntity);
-                WrapRef<T0>.MemCpy(Array0[m_EntityIndex], Address0, SizeOf0);;
+                var tmp0 = Array0[m_EntityIndex]; Unsafe.CopyBlock(Address0, Unsafe.AsPointer(ref tmp0), (uint) SizeOf0);;
                 var tmp1 = Array1[m_EntityIndex]; UnsafeUtility.MemCpy(Address1, UnsafeUtility.AddressOf(ref tmp1), SizeOf1);;
                 var tmp2 = Array2[m_EntityIndex]; UnsafeUtility.MemCpy(Address2, UnsafeUtility.AddressOf(ref tmp2), SizeOf2);;
                 var tmp3 = Array3[m_EntityIndex]; UnsafeUtility.MemCpy(Address3, UnsafeUtility.AddressOf(ref tmp3), SizeOf3);;
