@@ -55,6 +55,7 @@ namespace package.stormiumteam.shared
     public unsafe struct UnsafeAllocationLength<T> : IDisposable
         where T : struct
     {
+        [NativeDisableUnsafePtrRestriction]
         public void*     Data;
         public int Length;
         public Allocator Allocator;
@@ -62,7 +63,7 @@ namespace package.stormiumteam.shared
         public UnsafeAllocationLength(Allocator allocator, int length)
         {
             Allocator = allocator;
-            Data      = UnsafeUtility.Malloc(length, UnsafeUtility.AlignOf<T>(), allocator);
+            Data      = UnsafeUtility.Malloc(length * UnsafeUtility.SizeOf<T>(), UnsafeUtility.AlignOf<T>(), allocator);
             Length = length;
         }
 

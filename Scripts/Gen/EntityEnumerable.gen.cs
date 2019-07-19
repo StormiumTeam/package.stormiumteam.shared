@@ -605,6 +605,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
                     UnsafeUtility.MemCpy((byte*) Array0 + (m_EntityIndex - 1) * SizeOf0, Address0, SizeOf0);
 				}
 
@@ -621,6 +623,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -754,6 +758,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -769,6 +775,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -902,6 +910,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -917,6 +927,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -1050,6 +1062,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -1065,6 +1079,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -1206,6 +1222,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
                     UnsafeUtility.MemCpy((byte*) Array0 + (m_EntityIndex - 1) * SizeOf0, Address0, SizeOf0);
                     UnsafeUtility.MemCpy((byte*) Array1 + (m_EntityIndex - 1) * SizeOf1, Address1, SizeOf1);
 				}
@@ -1223,6 +1241,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -1378,6 +1398,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
                     UnsafeUtility.MemCpy((byte*) Array0 + (m_EntityIndex - 1) * SizeOf0, Address0, SizeOf0);
                     UnsafeUtility.MemCpy((byte*) Array1 + (m_EntityIndex - 1) * SizeOf1, Address1, SizeOf1);
                     UnsafeUtility.MemCpy((byte*) Array2 + (m_EntityIndex - 1) * SizeOf2, Address2, SizeOf2);
@@ -1396,6 +1418,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -1565,6 +1589,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
                     UnsafeUtility.MemCpy((byte*) Array0 + (m_EntityIndex - 1) * SizeOf0, Address0, SizeOf0);
                     UnsafeUtility.MemCpy((byte*) Array1 + (m_EntityIndex - 1) * SizeOf1, Address1, SizeOf1);
                     UnsafeUtility.MemCpy((byte*) Array2 + (m_EntityIndex - 1) * SizeOf2, Address2, SizeOf2);
@@ -1584,6 +1610,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -1767,6 +1795,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
                     UnsafeUtility.MemCpy((byte*) Array0 + (m_EntityIndex - 1) * SizeOf0, Address0, SizeOf0);
                     UnsafeUtility.MemCpy((byte*) Array1 + (m_EntityIndex - 1) * SizeOf1, Address1, SizeOf1);
                     UnsafeUtility.MemCpy((byte*) Array2 + (m_EntityIndex - 1) * SizeOf2, Address2, SizeOf2);
@@ -1787,6 +1817,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -1984,6 +2016,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
                     UnsafeUtility.MemCpy((byte*) Array0 + (m_EntityIndex - 1) * SizeOf0, Address0, SizeOf0);
                     UnsafeUtility.MemCpy((byte*) Array1 + (m_EntityIndex - 1) * SizeOf1, Address1, SizeOf1);
                     UnsafeUtility.MemCpy((byte*) Array2 + (m_EntityIndex - 1) * SizeOf2, Address2, SizeOf2);
@@ -2005,6 +2039,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -2176,6 +2212,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
                     UnsafeUtility.MemCpy((byte*) Array1 + (m_EntityIndex - 1) * SizeOf1, Address1, SizeOf1);
 				}
 
@@ -2192,6 +2230,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -2347,6 +2387,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
                     UnsafeUtility.MemCpy((byte*) Array1 + (m_EntityIndex - 1) * SizeOf1, Address1, SizeOf1);
                     UnsafeUtility.MemCpy((byte*) Array2 + (m_EntityIndex - 1) * SizeOf2, Address2, SizeOf2);
 				}
@@ -2364,6 +2406,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -2533,6 +2577,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
                     UnsafeUtility.MemCpy((byte*) Array1 + (m_EntityIndex - 1) * SizeOf1, Address1, SizeOf1);
                     UnsafeUtility.MemCpy((byte*) Array2 + (m_EntityIndex - 1) * SizeOf2, Address2, SizeOf2);
                     UnsafeUtility.MemCpy((byte*) Array3 + (m_EntityIndex - 1) * SizeOf3, Address3, SizeOf3);
@@ -2551,6 +2597,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -2734,6 +2782,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
                     UnsafeUtility.MemCpy((byte*) Array1 + (m_EntityIndex - 1) * SizeOf1, Address1, SizeOf1);
                     UnsafeUtility.MemCpy((byte*) Array2 + (m_EntityIndex - 1) * SizeOf2, Address2, SizeOf2);
                     UnsafeUtility.MemCpy((byte*) Array3 + (m_EntityIndex - 1) * SizeOf3, Address3, SizeOf3);
@@ -2753,6 +2803,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -2950,6 +3002,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
                     UnsafeUtility.MemCpy((byte*) Array1 + (m_EntityIndex - 1) * SizeOf1, Address1, SizeOf1);
                     UnsafeUtility.MemCpy((byte*) Array2 + (m_EntityIndex - 1) * SizeOf2, Address2, SizeOf2);
                     UnsafeUtility.MemCpy((byte*) Array3 + (m_EntityIndex - 1) * SizeOf3, Address3, SizeOf3);
@@ -2970,6 +3024,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -3141,6 +3197,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
                     UnsafeUtility.MemCpy((byte*) Array1 + (m_EntityIndex - 1) * SizeOf1, Address1, SizeOf1);
 				}
 
@@ -3157,6 +3215,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -3312,6 +3372,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
                     UnsafeUtility.MemCpy((byte*) Array1 + (m_EntityIndex - 1) * SizeOf1, Address1, SizeOf1);
                     UnsafeUtility.MemCpy((byte*) Array2 + (m_EntityIndex - 1) * SizeOf2, Address2, SizeOf2);
 				}
@@ -3329,6 +3391,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -3498,6 +3562,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
                     UnsafeUtility.MemCpy((byte*) Array1 + (m_EntityIndex - 1) * SizeOf1, Address1, SizeOf1);
                     UnsafeUtility.MemCpy((byte*) Array2 + (m_EntityIndex - 1) * SizeOf2, Address2, SizeOf2);
                     UnsafeUtility.MemCpy((byte*) Array3 + (m_EntityIndex - 1) * SizeOf3, Address3, SizeOf3);
@@ -3516,6 +3582,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -3699,6 +3767,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
                     UnsafeUtility.MemCpy((byte*) Array1 + (m_EntityIndex - 1) * SizeOf1, Address1, SizeOf1);
                     UnsafeUtility.MemCpy((byte*) Array2 + (m_EntityIndex - 1) * SizeOf2, Address2, SizeOf2);
                     UnsafeUtility.MemCpy((byte*) Array3 + (m_EntityIndex - 1) * SizeOf3, Address3, SizeOf3);
@@ -3718,6 +3788,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -3915,6 +3987,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
                     UnsafeUtility.MemCpy((byte*) Array1 + (m_EntityIndex - 1) * SizeOf1, Address1, SizeOf1);
                     UnsafeUtility.MemCpy((byte*) Array2 + (m_EntityIndex - 1) * SizeOf2, Address2, SizeOf2);
                     UnsafeUtility.MemCpy((byte*) Array3 + (m_EntityIndex - 1) * SizeOf3, Address3, SizeOf3);
@@ -3935,6 +4009,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -4106,6 +4182,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
                     UnsafeUtility.MemCpy((byte*) Array1 + (m_EntityIndex - 1) * SizeOf1, Address1, SizeOf1);
 				}
 
@@ -4122,6 +4200,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -4277,6 +4357,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
                     UnsafeUtility.MemCpy((byte*) Array1 + (m_EntityIndex - 1) * SizeOf1, Address1, SizeOf1);
                     UnsafeUtility.MemCpy((byte*) Array2 + (m_EntityIndex - 1) * SizeOf2, Address2, SizeOf2);
 				}
@@ -4294,6 +4376,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -4463,6 +4547,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
                     UnsafeUtility.MemCpy((byte*) Array1 + (m_EntityIndex - 1) * SizeOf1, Address1, SizeOf1);
                     UnsafeUtility.MemCpy((byte*) Array2 + (m_EntityIndex - 1) * SizeOf2, Address2, SizeOf2);
                     UnsafeUtility.MemCpy((byte*) Array3 + (m_EntityIndex - 1) * SizeOf3, Address3, SizeOf3);
@@ -4481,6 +4567,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -4664,6 +4752,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
                     UnsafeUtility.MemCpy((byte*) Array1 + (m_EntityIndex - 1) * SizeOf1, Address1, SizeOf1);
                     UnsafeUtility.MemCpy((byte*) Array2 + (m_EntityIndex - 1) * SizeOf2, Address2, SizeOf2);
                     UnsafeUtility.MemCpy((byte*) Array3 + (m_EntityIndex - 1) * SizeOf3, Address3, SizeOf3);
@@ -4683,6 +4773,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -4880,6 +4972,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
                     UnsafeUtility.MemCpy((byte*) Array1 + (m_EntityIndex - 1) * SizeOf1, Address1, SizeOf1);
                     UnsafeUtility.MemCpy((byte*) Array2 + (m_EntityIndex - 1) * SizeOf2, Address2, SizeOf2);
                     UnsafeUtility.MemCpy((byte*) Array3 + (m_EntityIndex - 1) * SizeOf3, Address3, SizeOf3);
@@ -4900,6 +4994,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -5071,6 +5167,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
                     UnsafeUtility.MemCpy((byte*) Array0 + (m_EntityIndex - 1) * SizeOf0, Address0, SizeOf0);
 				}
 
@@ -5087,6 +5185,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -5242,6 +5342,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
                     UnsafeUtility.MemCpy((byte*) Array0 + (m_EntityIndex - 1) * SizeOf0, Address0, SizeOf0);
 				}
 
@@ -5258,6 +5360,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -5427,6 +5531,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
                     UnsafeUtility.MemCpy((byte*) Array0 + (m_EntityIndex - 1) * SizeOf0, Address0, SizeOf0);
 				}
 
@@ -5443,6 +5549,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -5626,6 +5734,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
                     UnsafeUtility.MemCpy((byte*) Array0 + (m_EntityIndex - 1) * SizeOf0, Address0, SizeOf0);
 				}
 
@@ -5642,6 +5752,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -5839,6 +5951,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
                     UnsafeUtility.MemCpy((byte*) Array0 + (m_EntityIndex - 1) * SizeOf0, Address0, SizeOf0);
 				}
 
@@ -5855,6 +5969,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -6026,6 +6142,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -6041,6 +6159,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -6196,6 +6316,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -6211,6 +6333,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -6380,6 +6504,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -6395,6 +6521,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -6578,6 +6706,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -6593,6 +6723,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -6790,6 +6922,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -6805,6 +6939,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -6976,6 +7112,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -6991,6 +7129,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -7146,6 +7286,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -7161,6 +7303,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -7330,6 +7474,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -7345,6 +7491,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -7528,6 +7676,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -7543,6 +7693,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -7740,6 +7892,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -7755,6 +7909,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -7926,6 +8082,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -7941,6 +8099,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -8096,6 +8256,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -8111,6 +8273,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -8280,6 +8444,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -8295,6 +8461,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -8478,6 +8646,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -8493,6 +8663,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -8690,6 +8862,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -8705,6 +8879,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -8876,6 +9052,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
                     UnsafeUtility.MemCpy((byte*) Array0 + (m_EntityIndex - 1) * SizeOf0, Address0, SizeOf0);
 				}
 
@@ -8892,6 +9070,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -9047,6 +9227,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
                     UnsafeUtility.MemCpy((byte*) Array0 + (m_EntityIndex - 1) * SizeOf0, Address0, SizeOf0);
 				}
 
@@ -9063,6 +9245,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -9232,6 +9416,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
                     UnsafeUtility.MemCpy((byte*) Array0 + (m_EntityIndex - 1) * SizeOf0, Address0, SizeOf0);
 				}
 
@@ -9248,6 +9434,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -9431,6 +9619,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
                     UnsafeUtility.MemCpy((byte*) Array0 + (m_EntityIndex - 1) * SizeOf0, Address0, SizeOf0);
 				}
 
@@ -9447,6 +9637,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -9644,6 +9836,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
                     UnsafeUtility.MemCpy((byte*) Array0 + (m_EntityIndex - 1) * SizeOf0, Address0, SizeOf0);
 				}
 
@@ -9660,6 +9854,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -9831,6 +10027,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -9846,6 +10044,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -10001,6 +10201,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -10016,6 +10218,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -10185,6 +10389,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -10200,6 +10406,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -10383,6 +10591,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -10398,6 +10608,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -10595,6 +10807,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -10610,6 +10824,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -10781,6 +10997,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -10796,6 +11014,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -10951,6 +11171,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -10966,6 +11188,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -11135,6 +11359,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -11150,6 +11376,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -11333,6 +11561,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -11348,6 +11578,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -11545,6 +11777,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -11560,6 +11794,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -11731,6 +11967,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -11746,6 +11984,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -11901,6 +12141,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -11916,6 +12158,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -12085,6 +12329,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -12100,6 +12346,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -12283,6 +12531,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -12298,6 +12548,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
@@ -12495,6 +12747,8 @@ namespace StormiumTeam.Shared.Gen
 			{
 				if (m_Item.Chunk != default)
 				{
+                    if (m_Item.Chunk.Invalid())
+                        throw new InvalidOperationException("Invalid Chunks");
 				}
 
 				if (m_ChunkIndex >= Chunks.Length)
@@ -12510,6 +12764,8 @@ namespace StormiumTeam.Shared.Gen
 				m_Item.Chunk = Chunks[m_ChunkIndex];
 				if (m_Item.Chunk == default)
 					return false;
+                if (m_Item.Chunk.Invalid())
+                    throw new InvalidOperationException("Invalid Chunks");
 
 				if (previousChunk != m_Item.Chunk)
 				{
