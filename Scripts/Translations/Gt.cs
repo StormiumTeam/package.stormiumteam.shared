@@ -53,8 +53,10 @@ namespace StormiumTeam.Shared
 			};
 			Current = m_Languages[0];
 
-			var localTest = LoadLocal("lobby");
-			Debug.Log("LocalTest: " + localTest._("Join", "Room"));
+			var lobby = LoadLocal("lobby");
+
+			Debug.Log(lobby["Join", "Room"]);
+			Debug.Log(lobby._("Join", "Room"));
 		}
 
 		protected override void OnUpdate()
@@ -158,5 +160,7 @@ namespace StormiumTeam.Shared
 				}
 			}
 		}
+
+		public string this[string id, string context = null, string plural = null] => _(id, context, plural);
 	}
 }
