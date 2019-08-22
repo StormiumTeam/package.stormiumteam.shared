@@ -52,11 +52,6 @@ namespace StormiumTeam.Shared
 				new Language("fr", "Français")
 			};
 			Current = m_Languages[0];
-
-			var lobby = LoadLocal("lobby");
-
-			Debug.Log(lobby["Join", "Room"]);
-			Debug.Log(lobby._("Join", "Room"));
 		}
 
 		protected override void OnUpdate()

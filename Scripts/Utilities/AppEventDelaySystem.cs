@@ -1,5 +1,4 @@
-﻿using package.stormiumteam.shared.ecs;
-using Unity.Entities;
+﻿using Unity.Entities;
 
 namespace package.stormiumteam.shared
 {
