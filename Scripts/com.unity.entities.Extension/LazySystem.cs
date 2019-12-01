@@ -1,6 +1,5 @@
 #define LAZY_USE_WORLD_ACTIVE
 
-using System;
 using System.Runtime.CompilerServices;
 using Unity.Entities;
 
