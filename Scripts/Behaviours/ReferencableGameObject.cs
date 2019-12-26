@@ -4,161 +4,155 @@ using UnityEngine;
 
 namespace package.stormiumteam.shared
 {
-    public class ReferencableGameObject : MonoBehaviour
-    {
-        public struct Result<T>
-        {
-            public bool HasValue;
-            public T Value;
-            
-            public Result(T value, bool hasValue)
-            {
-                Value = value;
-                HasValue = hasValue;
-            }
+	public class ReferencableGameObject : MonoBehaviour
+	{
+		private static readonly FastDictionary<int, ReferencableGameObject> s_GameObjects =
+			new FastDictionary<int, ReferencableGameObject>();
 
-            public static implicit operator T(Result<T> r)
-            {
-                return r.Value;
-            }
-        }
-        
-        private static FastDictionary<int, ReferencableGameObject> s_GameObjects =
-            new FastDictionary<int, ReferencableGameObject>();
+		private List<Component> m_Components = new List<Component>();
+		private GameObject      m_FastPathGameObject;
 
-        private List<Component> m_Components = new List<Component>();
+		private bool m_WasCreated;
 
-        public ReadOnlyCollection<Component> Components => new ReadOnlyCollection<Component>(m_Components);
+		public ReadOnlyCollection<Component> Components => new ReadOnlyCollection<Component>(m_Components);
 
-        private bool       m_WasCreated = false;
-        private GameObject m_FastPathGameObject;
+		private void OnCreate()
+		{
+			if (m_WasCreated)
+				return;
+			m_WasCreated         = true;
+			m_FastPathGameObject = gameObject;
 
-        private void OnCreate()
-        {
-            if (m_WasCreated)
-                return;
-            m_WasCreated         = true;
-            m_FastPathGameObject = gameObject;
+			m_Components = new List<Component>(GetComponents<Component>());
 
-            m_Components = new List<Component>(GetComponents<Component>());
+			RegisterReferencable();
+		}
 
-            RegisterReferencable();
-        }
+		private void Awake()
+		{
+			OnCreate();
+		}
 
-        private void Awake()
-        {
-            OnCreate();
-        }
+		private void OnEnable()
+		{
+			OnCreate();
+		}
 
-        private void OnEnable()
-        {
-            OnCreate();
-        }
+		public void Refresh()
+		{
+			m_Components = new List<Component>(GetComponents<Component>());
+		}
 
-        public void Refresh()
-        {
-            m_Components = new List<Component>(GetComponents<Component>());
-        }
+		public T AddComponent<T>()
+			where T : Component
+		{
+			var component = m_FastPathGameObject.AddComponent<T>();
 
-        public T AddComponent<T>()
-            where T : Component
-        {
-            var component = m_FastPathGameObject.AddComponent<T>();
-            
-            m_Components.Add(component);
+			m_Components.Add(component);
 
-            return component;
-        }
+			return component;
+		}
 
-        public T GetOrAddComponent<T>()
-            where T : Component
-        {
-            var result = GetComponentFast<T>();
-            return result.HasValue ? result.Value : AddComponent<T>();
-        }
+		public T GetOrAddComponent<T>()
+			where T : Component
+		{
+			var result = GetComponentFast<T>();
+			return result.HasValue ? result.Value : AddComponent<T>();
+		}
 
-        public Result<T> GetComponentFast<T>()
-            where T : Component
-        {
-            var length = m_Components.Count;
-            for (int i = 0; i != length; i++)
-            {
-                if (m_Components[i] == null)
-                    continue;
-                
-                if (m_Components[i].GetType().IsSubclassOf(typeof(T)))
-                {
-                    return new Result<T>((T) m_Components[i], true);
-                }
-            }
+		public Result<T> GetComponentFast<T>()
+			where T : Component
+		{
+			var length = m_Components.Count;
+			for (var i = 0; i != length; i++)
+			{
+				if (m_Components[i] == null)
+					continue;
 
-            var comp = GetComponent<T>();
-            if (comp != null)
-            {
-                Refresh();
-                return new Result<T>(comp, true);
-            }
+				if (m_Components[i].GetType().IsSubclassOf(typeof(T))) return new Result<T>((T) m_Components[i], true);
+			}
 
-            return new Result<T>(null, false);
-        }
+			var comp = GetComponent<T>();
+			if (comp != null)
+			{
+				Refresh();
+				return new Result<T>(comp, true);
+			}
 
-        private void RegisterReferencable()
-        {
-            s_GameObjects[m_FastPathGameObject.GetInstanceID()] = this;
-        }
+			return new Result<T>(null, false);
+		}
 
-        public new static T GetComponent<T>(GameObject gameObject, bool createReferencable = true)
-            where T : Component
-        {
-            ReferencableGameObject referencableGameObject;
-            if (!Application.isPlaying)
-            {
-                referencableGameObject = gameObject.GetComponent<ReferencableGameObject>();
-                if (referencableGameObject == null && createReferencable)
-                    gameObject.AddComponent<ReferencableGameObject>();
-                return referencableGameObject == null
-                    ? gameObject.GetComponent<T>()
-                    : referencableGameObject.GetComponentFast<T>().Value;
-            }
+		private void RegisterReferencable()
+		{
+			s_GameObjects[m_FastPathGameObject.GetInstanceID()] = this;
+		}
 
-            s_GameObjects.FastTryGet(gameObject.GetInstanceID(), out referencableGameObject);
-            if (referencableGameObject == null)
-            {
-                referencableGameObject = gameObject.GetComponent<ReferencableGameObject>();
-                if (referencableGameObject == null)
-                {
-                    if (!createReferencable)
-                    {
-                        return gameObject.GetComponent<T>();
-                    }
+		public static T GetComponent<T>(GameObject gameObject, bool createReferencable = true)
+			where T : Component
+		{
+			ReferencableGameObject referencableGameObject;
+			if (!Application.isPlaying)
+			{
+				referencableGameObject = gameObject.GetComponent<ReferencableGameObject>();
+				if (referencableGameObject == null && createReferencable)
+					gameObject.AddComponent<ReferencableGameObject>();
+				return referencableGameObject == null
+					? gameObject.GetComponent<T>()
+					: referencableGameObject.GetComponentFast<T>().Value;
+			}
 
-                    referencableGameObject = gameObject.AddComponent<ReferencableGameObject>();
-                    referencableGameObject.OnCreate();
-                }
-            }
+			s_GameObjects.FastTryGet(gameObject.GetInstanceID(), out referencableGameObject);
+			if (referencableGameObject == null)
+			{
+				referencableGameObject = gameObject.GetComponent<ReferencableGameObject>();
+				if (referencableGameObject == null)
+				{
+					if (!createReferencable) return gameObject.GetComponent<T>();
 
-            return referencableGameObject.GetComponentFast<T>().Value;
-        }
-        
-        public static T GetComponent<T>(int referenceId, bool createReferencable = true)
-            where T : Component
-        {
-            ReferencableGameObject referencableGameObject;
-            s_GameObjects.FastTryGet(referenceId, out referencableGameObject);
-            if (referencableGameObject == null)    
-            {
-                Debug.LogError("Not found");
-                return null;
-            }
+					referencableGameObject = gameObject.AddComponent<ReferencableGameObject>();
+					referencableGameObject.OnCreate();
+				}
+			}
 
-            return referencableGameObject.GetComponentFast<T>().Value;
-        }
+			return referencableGameObject.GetComponentFast<T>().Value;
+		}
 
-        public static GameObject FromId(int gameObjectId)
-        {
-            ReferencableGameObject referencableGameObject;
-            s_GameObjects.FastTryGet(gameObjectId, out referencableGameObject);
-            return referencableGameObject.m_FastPathGameObject;
-        }
-    }
+		public static T GetComponent<T>(int referenceId, bool createReferencable = true)
+			where T : Component
+		{
+			ReferencableGameObject referencableGameObject;
+			s_GameObjects.FastTryGet(referenceId, out referencableGameObject);
+			if (referencableGameObject == null)
+			{
+				Debug.LogError("Not found");
+				return null;
+			}
+
+			return referencableGameObject.GetComponentFast<T>().Value;
+		}
+
+		public static GameObject FromId(int gameObjectId)
+		{
+			ReferencableGameObject referencableGameObject;
+			s_GameObjects.FastTryGet(gameObjectId, out referencableGameObject);
+			return referencableGameObject.m_FastPathGameObject;
+		}
+
+		public struct Result<T>
+		{
+			public bool HasValue;
+			public T    Value;
+
+			public Result(T value, bool hasValue)
+			{
+				Value    = value;
+				HasValue = hasValue;
+			}
+
+			public static implicit operator T(Result<T> r)
+			{
+				return r.Value;
+			}
+		}
+	}
 }

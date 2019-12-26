@@ -8,106 +8,98 @@ using UnityEngine;
 
 namespace package.stormiumteam.shared.modding
 {
-    public abstract class ModComponentSystem : ComponentSystem
-    {
-	    public ModWorld ModWorld;
+	public abstract class ModComponentSystem : ComponentSystem
+	{
+		public ModWorld ModWorld;
 
-        internal void AddManagerForMod(ModWorld modWorld)
-        {
-	        ModWorld = modWorld;
-        }
-    }
-
-    public class ModWorld
-    {
-        // Well, it somewhat copy the same code of Entity/World.cs
-	    public CModInfo Mod { get; private set; }
-
-	    [NotNull]
-	    private static MethodInfo s_DestroyInstance;
-
-	    [NotNull]
-	    private static MethodInfo s_CreateInstance;
-	    
-        public IEnumerable<ModComponentSystem> BehaviourManagers =>
-            new ReadOnlyCollection<ModComponentSystem>(m_BehaviourManagers);
-
-        private List<ModComponentSystem> m_BehaviourManagers = new List<ModComponentSystem>();
-
-        //@TODO: What about multiple managers of the same type...
-        Dictionary<Type, ModComponentSystem> m_BehaviourManagerLookup =
-            new Dictionary<Type, ModComponentSystem>();
-	    
-	    static FastDictionary<int, ModWorld> s_WorldsModIdLookup =
-		    new FastDictionary<int, ModWorld>();
-
-        int m_DefaultCapacity = 10;
-        bool m_AllowGetManager = true;
-
-        public int Version { get { return m_Version; } }
-        int m_Version = 0;
-	    
-	    internal static readonly List<ModWorld> AllWorlds = new List<ModWorld>();
-
-        int GetCapacityForType(Type type)
-        {
-            return m_DefaultCapacity;
-        }
-
-        public void SetDefaultCapacity(int value)
-        {
-            m_DefaultCapacity = value;
-        }
-
-	    static ModWorld()
-	    {
-		    // ReSharper disable AssignNullToNotNullAttribute
-		    s_DestroyInstance = typeof(ComponentSystemBase)
-			    .GetMethod("DestroyInstance", BindingFlags.NonPublic
-			                                   | BindingFlags.Instance);
-		    s_CreateInstance = typeof(ComponentSystemBase)
-			    .GetMethod("CreateInstance", BindingFlags.NonPublic
-			                                      | BindingFlags.Instance);
-
-		    Debug.Assert(s_DestroyInstance != null, "s_DestroyInstance == null");
-		    Debug.Assert(s_CreateInstance != null, "s_CreateInstance == null");
-		    // ReSharper restore AssignNullToNotNullAttribute
-	    }
-
-	    public static ModWorld GetOrCreate(CModInfo modInfo)
-	    {
-		    if (s_WorldsModIdLookup.TryGetValue(modInfo.Id, out var world))
-		    {
-			    return world;
-		    }
-
-		    return new ModWorld(modInfo);
-	    }
-
-        public ModWorld(CModInfo modInfo)
-        {
-	        Mod = modInfo;
-	        
-	        s_WorldsModIdLookup[Mod.Id] = this;
-	        AllWorlds.Add(this);
-        }
-
-        public bool IsCreated
-        {
-            get { return m_BehaviourManagers != null; }
-        }
-
-	    public static void DisposeAll()
-	    {
-		    while (AllWorlds.Count != 0)
-			    AllWorlds[0].Dispose();
-	    }
-
-        public void Dispose()
+		internal void AddManagerForMod(ModWorld modWorld)
 		{
-		    if (!IsCreated)
-		        throw new System.ArgumentException("World is already disposed");
-			
+			ModWorld = modWorld;
+		}
+	}
+
+	public class ModWorld
+	{
+		[NotNull]
+		private static readonly MethodInfo s_DestroyInstance;
+
+		[NotNull]
+		private static readonly MethodInfo s_CreateInstance;
+
+		private static readonly FastDictionary<int, ModWorld> s_WorldsModIdLookup =
+			new FastDictionary<int, ModWorld>();
+
+		internal static readonly List<ModWorld> AllWorlds         = new List<ModWorld>();
+		private                  bool           m_AllowGetManager = true;
+
+		//@TODO: What about multiple managers of the same type...
+		private Dictionary<Type, ModComponentSystem> m_BehaviourManagerLookup =
+			new Dictionary<Type, ModComponentSystem>();
+
+		private List<ModComponentSystem> m_BehaviourManagers = new List<ModComponentSystem>();
+
+		private int m_DefaultCapacity = 10;
+
+		static ModWorld()
+		{
+			// ReSharper disable AssignNullToNotNullAttribute
+			s_DestroyInstance = typeof(ComponentSystemBase)
+				.GetMethod("DestroyInstance", BindingFlags.NonPublic
+				                              | BindingFlags.Instance);
+			s_CreateInstance = typeof(ComponentSystemBase)
+				.GetMethod("CreateInstance", BindingFlags.NonPublic
+				                             | BindingFlags.Instance);
+
+			Debug.Assert(s_DestroyInstance != null, "s_DestroyInstance == null");
+			Debug.Assert(s_CreateInstance != null, "s_CreateInstance == null");
+			// ReSharper restore AssignNullToNotNullAttribute
+		}
+
+		public ModWorld(CModInfo modInfo)
+		{
+			Mod = modInfo;
+
+			s_WorldsModIdLookup[Mod.Id] = this;
+			AllWorlds.Add(this);
+		}
+
+		// Well, it somewhat copy the same code of Entity/World.cs
+		public CModInfo Mod { get; }
+
+		public IEnumerable<ModComponentSystem> BehaviourManagers => new ReadOnlyCollection<ModComponentSystem>(m_BehaviourManagers);
+
+		public int Version { get; private set; }
+
+		public bool IsCreated => m_BehaviourManagers != null;
+
+		private int GetCapacityForType(Type type)
+		{
+			return m_DefaultCapacity;
+		}
+
+		public void SetDefaultCapacity(int value)
+		{
+			m_DefaultCapacity = value;
+		}
+
+		public static ModWorld GetOrCreate(CModInfo modInfo)
+		{
+			if (s_WorldsModIdLookup.TryGetValue(modInfo.Id, out var world)) return world;
+
+			return new ModWorld(modInfo);
+		}
+
+		public static void DisposeAll()
+		{
+			while (AllWorlds.Count != 0)
+				AllWorlds[0].Dispose();
+		}
+
+		public void Dispose()
+		{
+			if (!IsCreated)
+				throw new ArgumentException("World is already disposed");
+
 			if (AllWorlds.Contains(this))
 				AllWorlds.Remove(this);
 
@@ -116,7 +108,6 @@ namespace package.stormiumteam.shared.modding
 
 			m_AllowGetManager = false;
 			foreach (var behaviourManager in m_BehaviourManagers)
-			{
 				try
 				{
 					DestroyManager(behaviourManager);
@@ -125,19 +116,18 @@ namespace package.stormiumteam.shared.modding
 				{
 					Debug.LogException(e);
 				}
-			}
-		    
+
 			m_BehaviourManagers.Clear();
 			m_BehaviourManagerLookup.Clear();
-			
-			m_BehaviourManagers = null;
+
+			m_BehaviourManagers      = null;
 			m_BehaviourManagerLookup = null;
 		}
 
-	    //
-	    // Internal
-	    //
-	    ModComponentSystem CreateManagerInternal (Type type, int capacity, object[] constructorArguments)
+		//
+		// Internal
+		//
+		private ModComponentSystem CreateManagerInternal(Type type, int capacity, object[] constructorArguments)
 		{
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
 			if (!m_AllowGetManager)
@@ -151,112 +141,108 @@ namespace package.stormiumteam.shared.modding
 			}
 #endif
 
-		    m_AllowGetManager = true;
-		    ModComponentSystem manager;
-		    try
-		    {
-		        manager = Activator.CreateInstance(type, constructorArguments) as ModComponentSystem;
+			m_AllowGetManager = true;
+			ModComponentSystem manager;
+			try
+			{
+				manager = Activator.CreateInstance(type, constructorArguments) as ModComponentSystem;
+			}
+			catch
+			{
+				m_AllowGetManager = false;
+				throw;
+			}
 
-		    }
-		    catch
-		    {
-		        m_AllowGetManager = false;
-		        throw;
-		    }
+			m_BehaviourManagers.Add(manager);
+			AddTypeLookup(type, manager);
 
-			m_BehaviourManagers.Add (manager);
-		    AddTypeLookup(type, manager);
+			try
+			{
+				manager.AddManagerForMod(this);
+				CreateManagerExtraInternal(manager, capacity);
+			}
+			catch
+			{
+				RemoveManagerInteral(manager);
+				throw;
+			}
 
-		    try
-		    {
-			    manager.AddManagerForMod(this);
-		        CreateManagerExtraInternal(manager, capacity);
-
-		    }
-		    catch
-		    {
-		        RemoveManagerInteral(manager);
-		        throw;
-		    }
-
-		    ++m_Version;
+			++Version;
 			return manager;
 		}
 
-	    ModComponentSystem GetExistingSystemInternal (Type type)
+		private ModComponentSystem GetExistingSystemInternal(Type type)
 		{
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
-		    if (!IsCreated)
-		        throw new ArgumentException("During destruction ");
+			if (!IsCreated)
+				throw new ArgumentException("During destruction ");
 			if (!m_AllowGetManager)
 				throw new ArgumentException("During destruction of a system you are not allowed to get or create more systems.");
 #endif
 
-			ModComponentSystem manager ;
+			ModComponentSystem manager;
 			if (m_BehaviourManagerLookup.TryGetValue(type, out manager))
 				return manager;
 
 			return null;
 		}
 
-	    ModComponentSystem GetOrCreateSystemInternal (Type type)
+		private ModComponentSystem GetOrCreateSystemInternal(Type type)
 		{
 			var manager = GetExistingSystemInternal(type);
 
 			return manager ?? CreateManagerInternal(type, GetCapacityForType(type), null);
 		}
 
-	    void AddTypeLookup(Type type, ModComponentSystem manager)
-	    {
-	        while (type != typeof(ComponentSystemBase))
-	        {
-	            if (!m_BehaviourManagerLookup.ContainsKey(type))
-	                m_BehaviourManagerLookup.Add(type, manager);
-
-	            type = type.BaseType;
-	        }
-	    }
-
-	    void RemoveManagerInteral(ModComponentSystem manager)
+		private void AddTypeLookup(Type type, ModComponentSystem manager)
 		{
-			if (!m_BehaviourManagers.Remove(manager))
-				throw new ArgumentException($"manager does not exist in the world");
-		    ++m_Version;
-
-			var type = manager.GetType();
 			while (type != typeof(ComponentSystemBase))
 			{
-			    if (m_BehaviourManagerLookup[type] == manager)
-			    {
-			        m_BehaviourManagerLookup.Remove(type);
-
-			        foreach (var otherManager in m_BehaviourManagers)
-			        {
-			            if (otherManager.GetType().IsSubclassOf(type))
-			                AddTypeLookup(otherManager.GetType(), otherManager);
-			        }
-			    }
+				if (!m_BehaviourManagerLookup.ContainsKey(type))
+					m_BehaviourManagerLookup.Add(type, manager);
 
 				type = type.BaseType;
 			}
 		}
 
-	    //
-	    // Extra internal
-	    //
-	    void RemoveManagerExtraInternal(ModComponentSystem manager)
-	    {
-		    s_DestroyInstance.Invoke(manager, null);
-	    }
-	    
-	    void CreateManagerExtraInternal(ModComponentSystem manager, int capacity)
-	    {
-		    s_CreateInstance.Invoke(manager, new object[]{ World.Active, capacity });
-	    }
+		private void RemoveManagerInteral(ModComponentSystem manager)
+		{
+			if (!m_BehaviourManagers.Remove(manager))
+				throw new ArgumentException("manager does not exist in the world");
+			++Version;
 
-	    //
-	    // Public
-	    //
+			var type = manager.GetType();
+			while (type != typeof(ComponentSystemBase))
+			{
+				if (m_BehaviourManagerLookup[type] == manager)
+				{
+					m_BehaviourManagerLookup.Remove(type);
+
+					foreach (var otherManager in m_BehaviourManagers)
+						if (otherManager.GetType().IsSubclassOf(type))
+							AddTypeLookup(otherManager.GetType(), otherManager);
+				}
+
+				type = type.BaseType;
+			}
+		}
+
+		//
+		// Extra internal
+		//
+		private void RemoveManagerExtraInternal(ModComponentSystem manager)
+		{
+			s_DestroyInstance.Invoke(manager, null);
+		}
+
+		private void CreateManagerExtraInternal(ModComponentSystem manager, int capacity)
+		{
+			s_CreateInstance.Invoke(manager, new object[] {World.Active, capacity});
+		}
+
+		//
+		// Public
+		//
 		public ModComponentSystem CreateManager(Type type, params object[] constructorArgumnents)
 		{
 			return CreateManagerInternal(type, GetCapacityForType(type), constructorArgumnents);
@@ -264,27 +250,27 @@ namespace package.stormiumteam.shared.modding
 
 		public T CreateManager<T>(params object[] constructorArgumnents) where T : ModComponentSystem
 		{
-			return (T)CreateManagerInternal(typeof(T), GetCapacityForType(typeof(T)), constructorArgumnents);
+			return (T) CreateManagerInternal(typeof(T), GetCapacityForType(typeof(T)), constructorArgumnents);
 		}
 
-		public T GetOrCreateSystem<T> () where T : ModComponentSystem
+		public T GetOrCreateSystem<T>() where T : ModComponentSystem
 		{
-			return (T)GetOrCreateSystemInternal (typeof(T));
+			return (T) GetOrCreateSystemInternal(typeof(T));
 		}
 
 		public ModComponentSystem GetOrCreateSystem(Type type)
 		{
-			return GetOrCreateSystemInternal (type);
+			return GetOrCreateSystemInternal(type);
 		}
 
-		public T GetExistingSystem<T> () where T : ModComponentSystem
+		public T GetExistingSystem<T>() where T : ModComponentSystem
 		{
-			return (T)GetExistingSystemInternal (typeof(T));
+			return (T) GetExistingSystemInternal(typeof(T));
 		}
 
 		public ModComponentSystem GetExistingSystem(Type type)
 		{
-			return GetExistingSystemInternal (type);
+			return GetExistingSystemInternal(type);
 		}
 
 		public void DestroyManager(ModComponentSystem manager)
@@ -292,5 +278,5 @@ namespace package.stormiumteam.shared.modding
 			RemoveManagerInteral(manager);
 			RemoveManagerExtraInternal(manager);
 		}
-    }
+	}
 }

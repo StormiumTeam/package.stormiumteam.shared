@@ -8,7 +8,7 @@ namespace package.stormiumteam.shared
 		// ------------
 		// SET GET
 		// ------------
-		
+
 		//
 		// BYTE
 		//
@@ -66,7 +66,7 @@ namespace package.stormiumteam.shared
 		{
 			return (byte) math.select(0, 1, (curr & (1 << pos)) != 0);
 		}
-		
+
 		//
 		// UNSIGNED INT
 		//
@@ -99,7 +99,7 @@ namespace package.stormiumteam.shared
 		// -------------
 		// RANGE
 		// -------------
-		
+
 		//
 		// BYTE
 		//
@@ -117,12 +117,12 @@ namespace package.stormiumteam.shared
 			if (size != 2)
 				throw new NotImplementedException("Only support size of 2");
 
-			byte newByte = default(byte);
+			byte newByte = default;
 
 			newByte |= (byte) (GetBitAt(curr, pos) << pos);
-			newByte |= (byte) (GetBitAt(curr, (byte) (pos + 1)) << pos + 1);
+			newByte |= (byte) (GetBitAt(curr, (byte) (pos + 1)) << (pos + 1));
 
 			return (byte) (newByte >> pos);
 		}
-	} 
+	}
 }

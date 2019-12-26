@@ -19,7 +19,7 @@ namespace package.stormiumteam.shared.ecs
 			hasComponent = false;
 			return defaultValue;
 		}
-		
+
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static unsafe void TrySet<T>(this ComponentDataFromEntity<T> cdfe, Entity entity, T value, bool compareChange)
 			where T : struct, IComponentData
@@ -35,6 +35,7 @@ namespace package.stormiumteam.shared.ecs
 						return;
 					}
 				}
+
 				cdfe[entity] = value;
 			}
 		}
@@ -44,10 +45,10 @@ namespace package.stormiumteam.shared.ecs
 			where T : struct, IComponentData
 		{
 			ComponentUpdater<T> updater;
-			updater.cdfe = cdfe;
-			updater.entity = entity;
-			updater.possess = cdfe.Exists(entity);
-			updater.original = updater.possess ? cdfe[entity] : default(T);
+			updater.cdfe     = cdfe;
+			updater.entity   = entity;
+			updater.possess  = cdfe.Exists(entity);
+			updater.original = updater.possess ? cdfe[entity] : default;
 
 			return updater;
 		}
@@ -57,9 +58,9 @@ namespace package.stormiumteam.shared.ecs
 		where T : struct, IComponentData
 	{
 		public ComponentDataFromEntity<T> cdfe;
-		public Entity entity;
-		public bool possess;
-		public T original;
+		public Entity                     entity;
+		public bool                       possess;
+		public T                          original;
 
 		public ComponentUpdater<T> Out(out T val, T defaultVal = default)
 		{
@@ -82,10 +83,7 @@ namespace package.stormiumteam.shared.ecs
 			if (!possess)
 				return;
 
-			if (UnsafeUtility.MemCmp(UnsafeUtility.AddressOf(ref original), UnsafeUtility.AddressOf(ref value), UnsafeUtility.SizeOf<T>()) != 0)
-			{
-				cdfe[entity] = value;
-			}
+			if (UnsafeUtility.MemCmp(UnsafeUtility.AddressOf(ref original), UnsafeUtility.AddressOf(ref value), UnsafeUtility.SizeOf<T>()) != 0) cdfe[entity] = value;
 		}
 	}
 }

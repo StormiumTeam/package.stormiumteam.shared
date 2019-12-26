@@ -2,88 +2,89 @@
 
 namespace package.stormiumteam.console
 {
-    public class ConsoleInput
-    {
-        //public delegate void InputText( string strInput );
-        public event Action<string> OnInputText;
-        public string               prefix = string.Empty;
-        public string               inputString;
+	public class ConsoleInput
+	{
+		public string inputString;
 
-        public void ClearLine()
-        {
-            Console.CursorLeft = 0;
-            Console.Write(new string(' ', Console.BufferWidth));
-            Console.CursorTop--;
-            Console.CursorLeft = 0;
-        }
+		public string prefix = string.Empty;
 
-        public void RedrawInputLine(bool force)
-        {
-            if (!force && inputString.Length == 0) return;
+		//public delegate void InputText( string strInput );
+		public event Action<string> OnInputText;
 
-            if (Console.CursorLeft >= 0)
-                ClearLine();
+		public void ClearLine()
+		{
+			Console.CursorLeft = 0;
+			Console.Write(new string(' ', Console.BufferWidth));
+			Console.CursorTop--;
+			Console.CursorLeft = 0;
+		}
 
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write(prefix);
-            Console.Write(inputString);
-        }
+		public void RedrawInputLine(bool force)
+		{
+			if (!force && inputString.Length == 0) return;
 
-        internal void OnBackspace()
-        {
-            if (inputString.Length < 1) return;
+			if (Console.CursorLeft >= 0)
+				ClearLine();
 
-            inputString = inputString.Substring(0, inputString.Length - 1);
-            RedrawInputLine(true);
-        }
+			Console.ForegroundColor = ConsoleColor.Green;
+			Console.Write(prefix);
+			Console.Write(inputString);
+		}
 
-        internal void OnEscape()
-        {
-            ClearLine();
-            inputString = "";
-        }
+		internal void OnBackspace()
+		{
+			if (inputString.Length < 1) return;
 
-        internal void OnEnter()
-        {
-            ClearLine();
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("> " + inputString);
+			inputString = inputString.Substring(0, inputString.Length - 1);
+			RedrawInputLine(true);
+		}
 
-            var strtext = inputString;
-            inputString = "";
+		internal void OnEscape()
+		{
+			ClearLine();
+			inputString = "";
+		}
 
-            OnInputText?.Invoke(strtext);
-        }
+		internal void OnEnter()
+		{
+			ClearLine();
+			Console.ForegroundColor = ConsoleColor.Green;
+			Console.WriteLine("> " + inputString);
 
-        public void Update()
-        {
-            if (!Console.KeyAvailable) return;
-            var key = Console.ReadKey();
+			var strtext = inputString;
+			inputString = "";
 
-            if (key.Key == ConsoleKey.Enter)
-            {
-                OnEnter();
-                return;
-            }
+			OnInputText?.Invoke(strtext);
+		}
 
-            if (key.Key == ConsoleKey.Backspace)
-            {
-                OnBackspace();
-                return;
-            }
+		public void Update()
+		{
+			if (!Console.KeyAvailable) return;
+			var key = Console.ReadKey();
 
-            if (key.Key == ConsoleKey.Escape)
-            {
-                OnEscape();
-                return;
-            }
+			if (key.Key == ConsoleKey.Enter)
+			{
+				OnEnter();
+				return;
+			}
 
-            if (key.KeyChar != '\u0000')
-            {
-                inputString += key.KeyChar;
-                RedrawInputLine(false);
-                return;
-            }
-        }
-    }
+			if (key.Key == ConsoleKey.Backspace)
+			{
+				OnBackspace();
+				return;
+			}
+
+			if (key.Key == ConsoleKey.Escape)
+			{
+				OnEscape();
+				return;
+			}
+
+			if (key.KeyChar != '\u0000')
+			{
+				inputString += key.KeyChar;
+				RedrawInputLine(false);
+			}
+		}
+	}
 }

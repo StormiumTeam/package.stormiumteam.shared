@@ -2,81 +2,80 @@
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using Unity.Entities;
 using UnityEngine;
-using Assembly = System.Reflection.Assembly;
 
 namespace package.stormiumteam.shared.modding
 {
-    public class CModInfo
-    {
-        [AttributeUsage(AttributeTargets.Field)]
-        public class InjectAttribute : Attribute {}
-        
-        private Assembly[] m_Assemblies;
+	public class CModInfo
+	{
+		private Assembly[] m_Assemblies;
 
-        public int Id { get; }
+		public CModInfo(SModInfoData data, int id)
+		{
+			Data = data;
+			Id   = id;
 
-        public SModInfoData Data { get; }
-        public string StreamingPath => Application.streamingAssetsPath + "\\" + NameId;
+			if (NameId.Contains('/')
+			    || NameId.Contains('\\')
+			    || NameId.Contains('?')
+			    || NameId.Contains(':')
+			    || NameId.Contains('|')
+			    || NameId.Contains('*')
+			    || NameId.Contains('<')
+			    || NameId.Contains('>'))
+				throw new Exception($"Name id {NameId} got invalid characters");
 
-        public string DisplayName => Data.DisplayName;
-        public string NameId => Data.NameId;
+			// Create the path to the project...
+			if (!Directory.Exists(StreamingPath))
+				Directory.CreateDirectory(StreamingPath);
+		}
 
-        public ReadOnlyCollection<Assembly> AttachedAssemblies
-            => new ReadOnlyCollection<Assembly>(m_Assemblies);
+		public int Id { get; }
 
-        public CModInfo(SModInfoData data, int id)
-        {
-            Data = data;
-            Id = id;
+		public SModInfoData Data          { get; }
+		public string       StreamingPath => Application.streamingAssetsPath + "\\" + NameId;
 
-            if (NameId.Contains('/')
-                || NameId.Contains('\\')
-                || NameId.Contains('?')
-                || NameId.Contains(':')
-                || NameId.Contains('|')
-                || NameId.Contains('*')
-                || NameId.Contains('<')
-                || NameId.Contains('>'))
-            {
-                throw new Exception($"Name id {NameId} got invalid characters");
-            }
-            
-            // Create the path to the project...
-            if (!Directory.Exists(StreamingPath))
-            Directory.CreateDirectory(StreamingPath);
-        }
+		public string DisplayName => Data.DisplayName;
+		public string NameId      => Data.NameId;
 
-        public static CModInfo CurrentMod
-        {
-            get
-            {
-                var assembly = Assembly.GetCallingAssembly();
-                return World.Active.GetOrCreateSystem<CModManager>().GetAssemblyMod(assembly);
-            }
-        }
+		public ReadOnlyCollection<Assembly> AttachedAssemblies => new ReadOnlyCollection<Assembly>(m_Assemblies);
 
-        public static ModWorld CurrentModWorld
-        {
-            get
-            {
-                var assembly = Assembly.GetCallingAssembly();
-                return World.Active.GetOrCreateSystem<CModManager>().GetAssemblyMod(assembly).GetWorld();
-            }
-        }
-    }
+		public static CModInfo CurrentMod
+		{
+			get
+			{
+				var assembly = Assembly.GetCallingAssembly();
+				return World.Active.GetOrCreateSystem<CModManager>().GetAssemblyMod(assembly);
+			}
+		}
 
-    public static class CModInfoExtensions
-    {
-        public static ModWorld GetWorld(this CModInfo modInfo)
-        {
-            return World.Active.GetOrCreateSystem<CModManager>().GetModWorld(modInfo);
-        }
+		public static ModWorld CurrentModWorld
+		{
+			get
+			{
+				var assembly = Assembly.GetCallingAssembly();
+				return World.Active.GetOrCreateSystem<CModManager>().GetAssemblyMod(assembly).GetWorld();
+			}
+		}
 
-        /* TODO: public static ModInputManager GetInputManager(this CModInfo modInfo)
-        {
-            return modInfo.GetWorld().GetOrCreateSystem<ModInputManager>();
-        }*/
-    }
+		[AttributeUsage(AttributeTargets.Field)]
+		public class InjectAttribute : Attribute
+		{
+		}
+	}
+
+	public static class CModInfoExtensions
+	{
+		public static ModWorld GetWorld(this CModInfo modInfo)
+		{
+			return World.Active.GetOrCreateSystem<CModManager>().GetModWorld(modInfo);
+		}
+
+		/* TODO: public static ModInputManager GetInputManager(this CModInfo modInfo)
+		{
+		    return modInfo.GetWorld().GetOrCreateSystem<ModInputManager>();
+		}*/
+	}
 }

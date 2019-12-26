@@ -24,7 +24,9 @@ namespace package.stormiumteam.shared.ecs
 				em.SetComponentData(entity, data);
 			}
 			else
+			{
 				em.AddComponentData(entity, data);
+			}
 		}
 	}
 }

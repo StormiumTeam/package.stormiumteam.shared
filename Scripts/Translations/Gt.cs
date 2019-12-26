@@ -9,34 +9,17 @@ namespace StormiumTeam.Shared
 {
 	public class LocalizationSystem : ComponentSystem
 	{
-		public class Language
-		{
-			public bool IsDefault;
-
-			public string Id;
-			public string Name;
-
-			public Language(string id, string name)
-			{
-				Id   = id;
-				Name = name;
-			}
-		}
+		private Language       m_CurrentLanguage;
+		private List<Language> m_Languages;
 
 		private Dictionary<string, Localization> m_LocalizationFromName;
-		private List<Language>                   m_Languages;
-
-		private Language m_CurrentLanguage;
 
 		public Language Current
 		{
 			get => m_CurrentLanguage;
 			set
 			{
-				foreach (var local in m_LocalizationFromName)
-				{
-					local.Value.SetLanguage(value);
-				}
+				foreach (var local in m_LocalizationFromName) local.Value.SetLanguage(value);
 
 				m_CurrentLanguage = value;
 			}
@@ -55,7 +38,6 @@ namespace StormiumTeam.Shared
 
 		protected override void OnUpdate()
 		{
-
 		}
 
 		public Localization LoadLocal(string name)
@@ -70,36 +52,27 @@ namespace StormiumTeam.Shared
 
 			return localization;
 		}
+
+		public class Language
+		{
+			public string Id;
+			public bool   IsDefault;
+			public string Name;
+
+			public Language(string id, string name)
+			{
+				Id   = id;
+				Name = name;
+			}
+		}
 	}
 
 	public sealed class Localization
 	{
-		public class LocalizedString
-		{
-			public string    LanguageId;
-			public POCatalog Catalog;
-		}
+		private LocalizedString             m_CurrentTable;
+		private LocalizationSystem.Language m_Language;
 
-		private Dictionary<string, LocalizedString> m_LocalizedStrings;
-		private LocalizationSystem.Language         m_Language;
-		private LocalizedString                     m_CurrentTable;
-
-		public string Name { get; private set; }
-
-		internal void SetLanguage(LocalizationSystem.Language language)
-		{
-			m_Language = language;
-
-			m_CurrentTable = m_LocalizedStrings[m_Language.Id];
-		}
-
-		public string _(string id, string context = null, string plural = null)
-		{
-			if (m_Language == null)
-				throw new InvalidOperationException("No current language defined...");
-			
-			return m_CurrentTable.Catalog.GetTranslation(new POKey(id, plural, context));
-		}
+		private readonly Dictionary<string, LocalizedString> m_LocalizedStrings;
 
 		public Localization(List<LocalizationSystem.Language> languages, string name, string customPath = null)
 		{
@@ -117,7 +90,9 @@ namespace StormiumTeam.Shared
 
 				var parser = new POParser();
 				using (var stream = File.OpenText(string.Format(pathResult, lang.Id, name)))
+				{
 					result = parser.Parse(stream);
+				}
 
 				result.Catalog.Language = lang.Id;
 				m_LocalizedStrings[lang.Id] = new LocalizedString
@@ -127,13 +102,8 @@ namespace StormiumTeam.Shared
 				};
 
 				if (lang.IsDefault && defLang == null)
-				{
 					defLang = lang;
-				}
-				else if (lang.IsDefault)
-				{
-					throw new Exception("There is already a default language!");
-				}
+				else if (lang.IsDefault) throw new Exception("There is already a default language!");
 			}
 
 			if (defLang == null)
@@ -155,6 +125,29 @@ namespace StormiumTeam.Shared
 			}
 		}
 
+		public string Name { get; private set; }
+
 		public string this[string id, string context = null, string plural = null] => _(id, context, plural);
+
+		internal void SetLanguage(LocalizationSystem.Language language)
+		{
+			m_Language = language;
+
+			m_CurrentTable = m_LocalizedStrings[m_Language.Id];
+		}
+
+		public string _(string id, string context = null, string plural = null)
+		{
+			if (m_Language == null)
+				throw new InvalidOperationException("No current language defined...");
+
+			return m_CurrentTable.Catalog.GetTranslation(new POKey(id, plural, context));
+		}
+
+		public class LocalizedString
+		{
+			public POCatalog Catalog;
+			public string    LanguageId;
+		}
 	}
 }

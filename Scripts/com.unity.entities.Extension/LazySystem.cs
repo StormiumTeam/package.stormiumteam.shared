@@ -32,7 +32,7 @@ namespace package.stormiumteam.shared.ecs
 				return Value;
 
 			m_Initialized = true;
-			return Value = (getOrCreate ? world.GetOrCreateSystem<T>() : world.GetExistingSystem<T>());
+			return Value = getOrCreate ? world.GetOrCreateSystem<T>() : world.GetExistingSystem<T>();
 		}
 	}
 

@@ -13,7 +13,7 @@ namespace StormiumTeam.Shared
 			Version = version;
 		}
 	}
-    
+
 	public sealed class PatternNameAttribute : Attribute
 	{
 		public string Value;

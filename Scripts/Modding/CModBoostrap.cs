@@ -3,25 +3,25 @@
 namespace package.stormiumteam.shared.modding
 {
     /// <summary>
-    /// This is the entry point for mods.
+    ///     This is the entry point for mods.
     /// </summary>
     public abstract class CModBootstrap
-    {
-        public CModInfo ModInfo { get; private set; }
+	{
+		public CModInfo ModInfo { get; private set; }
 
-        internal void RegisterInternal()
-        {
-            Debug.Log($"[MOD] New mod {ModInfo.DisplayName} ({ModInfo.NameId}) was registered!");
-            
-            OnRegister();
-        }
+		internal void RegisterInternal()
+		{
+			Debug.Log($"[MOD] New mod {ModInfo.DisplayName} ({ModInfo.NameId}) was registered!");
 
-        protected abstract void OnRegister();
-        protected abstract void OnUnregister();
+			OnRegister();
+		}
 
-        internal void SetModInfoInternal(CModInfo modInfo)
-        {
-            ModInfo = modInfo;
-        }
-    }
+		protected abstract void OnRegister();
+		protected abstract void OnUnregister();
+
+		internal void SetModInfoInternal(CModInfo modInfo)
+		{
+			ModInfo = modInfo;
+		}
+	}
 }

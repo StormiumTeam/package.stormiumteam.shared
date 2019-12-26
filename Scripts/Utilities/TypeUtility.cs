@@ -14,15 +14,9 @@ namespace StormiumTeam.Shared
 		private static string SpecifiedTypeName(Type type, Queue<Type> args)
 		{
 			var name = type.Name;
-			if (type.IsGenericParameter)
-			{
-				return name;
-			}
+			if (type.IsGenericParameter) return name;
 
-			if (type.IsNested)
-			{
-				name = $"{SpecifiedTypeName(type.DeclaringType, args)}.{name}";
-			}
+			if (type.IsNested) name = $"{SpecifiedTypeName(type.DeclaringType, args)}.{name}";
 
 			if (type.IsGenericType)
 			{
@@ -39,10 +33,7 @@ namespace StormiumTeam.Shared
 					genericTypeNames.Append(SpecifiedTypeName(args.Dequeue()));
 				}
 
-				if (genericTypeNames.Length > 0)
-				{
-					name = $"{name}<{genericTypeNames}>";
-				}
+				if (genericTypeNames.Length > 0) name = $"{name}<{genericTypeNames}>";
 			}
 
 			return name;
