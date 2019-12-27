@@ -28,5 +28,19 @@ namespace package.stormiumteam.shared.ecs
 				em.AddComponentData(entity, data);
 			}
 		}
+		
+
+		public static bool TryGetComponentData<T>(this EntityManager em, Entity entity, out T data, T def = default)
+			where T : struct, IComponentData
+		{
+			if (em.HasComponent<T>(entity))
+			{
+				data = em.GetComponentData<T>(entity);
+				return true;
+			}
+
+			data = def;
+			return false;
+		}
 	}
 }
