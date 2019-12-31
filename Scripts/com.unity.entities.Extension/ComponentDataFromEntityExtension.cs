@@ -19,6 +19,20 @@ namespace package.stormiumteam.shared.ecs
 			hasComponent = false;
 			return defaultValue;
 		}
+		
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool TryGet<T>(this ComponentDataFromEntity<T> cdfe, Entity entity, out T component)
+			where T : struct, IComponentData
+		{
+			if (cdfe.Exists(entity))
+			{
+				component = cdfe[entity];
+				return true;
+			}
+
+			component = default;
+			return false;
+		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static unsafe void TrySet<T>(this ComponentDataFromEntity<T> cdfe, Entity entity, T value, bool compareChange)

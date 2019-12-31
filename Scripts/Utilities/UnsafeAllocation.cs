@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Runtime.CompilerServices;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 
@@ -76,10 +78,22 @@ namespace package.stormiumteam.shared
 			Length    = list.Length;
 		}
 
+		public UnsafeAllocationLength(void* data, int length)
+		{
+			Allocator = Allocator.Invalid;
+			Data      = data;
+			Length    = length;
+		}
+
 		public T this[int index]
 		{
 			get => UnsafeUtilityEx.ArrayElementAsRef<T>(Data, index);
 			set => UnsafeUtility.WriteArrayElement(Data, index, value);
+		}
+
+		public ref T AsRef(int index)
+		{
+			return ref UnsafeUtilityEx.ArrayElementAsRef<T>(Data, index);
 		}
 
 		public void Dispose()
@@ -88,6 +102,33 @@ namespace package.stormiumteam.shared
 				return;
 
 			UnsafeUtility.Free(Data, Allocator);
+		}
+
+		public Enumerator GetEnumerator()
+		{
+			return new Enumerator {Data = this, Index = -1};
+		}
+
+		public struct Enumerator
+		{
+			public UnsafeAllocationLength<T> Data;
+			public int Index;
+
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			public bool MoveNext()
+			{
+				var num = Index + 1;
+				if (num >= Data.Length)
+					return false;
+				Index = num;
+				return true;
+			}
+
+			public ref T Current
+			{
+				[MethodImpl(MethodImplOptions.AggressiveInlining)]
+				get { return ref Data.AsRef(Index); }
+			}
 		}
 	}
 }
