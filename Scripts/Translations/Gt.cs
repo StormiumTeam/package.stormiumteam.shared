@@ -31,9 +31,10 @@ namespace StormiumTeam.Shared
 			m_Languages = new List<Language>(16)
 			{
 				new Language("en", "English") {IsDefault = true},
-				new Language("fr", "Français")
+				new Language("fr", "Français"),
+				new Language("pl", "Polish"),
 			};
-			Current = m_Languages[0];
+			Current = m_Languages[2];
 		}
 
 		protected override void OnUpdate()
