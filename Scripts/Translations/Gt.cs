@@ -34,7 +34,7 @@ namespace StormiumTeam.Shared
 				new Language("fr", "Français"),
 				new Language("pl", "Polish"),
 			};
-			Current = m_Languages[2];
+			Current = m_Languages[0];
 		}
 
 		protected override void OnUpdate()
