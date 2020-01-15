@@ -55,7 +55,7 @@ namespace package.stormiumteam.shared
 		}
 	}
 
-	public unsafe struct UnsafeAllocationLength<T> : IDisposable
+	public  unsafe struct UnsafeAllocationLength<T> : IDisposable
 		where T : struct
 	{
 		[NativeDisableUnsafePtrRestriction]

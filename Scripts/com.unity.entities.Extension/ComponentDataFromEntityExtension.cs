@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.CompilerServices;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Entities;
@@ -28,6 +29,35 @@ namespace package.stormiumteam.shared.ecs
 			{
 				component = cdfe[entity];
 				return true;
+			}
+
+			component = default;
+			return false;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool TryGetChain<T>(this ComponentDataFromEntity<T> cdfe, Span<Entity> entities, out T component)
+			where T : struct, IComponentData
+		{
+			var entLength = entities.Length;
+			for (var i = 0; i != entLength; i++)
+			{
+				if (TryGet(cdfe, entities[i], out component))
+					return true;
+			}
+
+			component = default;
+			return false;
+		}
+		
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static unsafe bool TryGetChain<T>(this ComponentDataFromEntity<T> cdfe, Entity* entities, int length, out T component)
+			where T : struct, IComponentData
+		{
+			for (var i = 0; i != length; i++)
+			{
+				if (TryGet(cdfe, entities[i], out component))
+					return true;
 			}
 
 			component = default;
