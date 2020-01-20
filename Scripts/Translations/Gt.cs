@@ -7,6 +7,40 @@ using UnityEngine;
 
 namespace StormiumTeam.Shared
 {
+	public static class TL
+	{
+		public static string _(string header, string text)
+		{
+			return "□" + header + "|" + text;
+		}
+
+		public static bool IsFormatted(string text)
+		{
+			return text.StartsWith("□");
+		}
+
+		public static (string header, string content) From(string formated)
+		{
+			if (!IsFormatted(formated))
+				return ("unknown tl", "unknown tl");
+
+			var startInt = formated.IndexOf("□", StringComparison.Ordinal);
+			formated = formated.Substring(startInt + 1);
+
+			var headerEnd = formated.IndexOf('|');
+			var header    = string.Empty;
+			var content   = string.Empty;
+
+			if (headerEnd >= 0)
+			{
+				header  = formated.Substring(0, headerEnd);
+				content = formated.Substring(headerEnd + 1);
+			}
+
+			return (header, content);
+		}
+	}
+
 	public class LocalizationSystem : ComponentSystem
 	{
 		private Language       m_CurrentLanguage;
