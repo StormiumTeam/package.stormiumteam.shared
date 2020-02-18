@@ -19,7 +19,7 @@ namespace package.stormiumteam.shared.ecs
 				throw new InvalidOperationException(string.Format("Lazy<{0}> not initialized.", typeof(T)));
 #else
 			if (!lazy.m_Initialized)
-				return lazy.Get(World.Active);
+				return lazy.Get(World.DefaultGameObjectInjectionWorld);
 #endif
 
 			return lazy.Value;

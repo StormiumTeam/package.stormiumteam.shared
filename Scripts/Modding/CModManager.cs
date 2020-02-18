@@ -148,7 +148,7 @@ namespace package.stormiumteam.shared.modding
 					// TODO: Verify for ClientComponentSystem
 					else
 					{
-						var manager = World.Active.GetOrCreateSystem(systemType);
+						var manager = World.DefaultGameObjectInjectionWorld.GetOrCreateSystem(systemType);
 
 						var allFields = modWorld.GetType().GetFields();
 						foreach (var field in allFields)
@@ -161,7 +161,7 @@ namespace package.stormiumteam.shared.modding
 					}
 			}
 
-			ScriptBehaviourUpdateOrder.UpdatePlayerLoop(World.Active);
+			ScriptBehaviourUpdateOrder.UpdatePlayerLoop(World.DefaultGameObjectInjectionWorld);
 
 			OnNewMod?.Invoke(modInfo);
 		}

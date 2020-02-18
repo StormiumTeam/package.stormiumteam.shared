@@ -7,7 +7,7 @@ namespace package.stormiumteam.shared
 		public static bool HasComponent<T>(this Entity entity, World world = null)
 		{
 			if (world == null)
-				world = World.Active;
+				world = World.DefaultGameObjectInjectionWorld;
 			return world.EntityManager.HasComponent<T>(entity);
 		}
 
@@ -15,7 +15,7 @@ namespace package.stormiumteam.shared
 			where T : struct, IComponentData
 		{
 			if (world == null)
-				world = World.Active;
+				world = World.DefaultGameObjectInjectionWorld;
 			return world.EntityManager.GetComponentData<T>(entity);
 		}
 
@@ -23,7 +23,7 @@ namespace package.stormiumteam.shared
 			where T : struct, IComponentData
 		{
 			if (world == null)
-				world = World.Active;
+				world = World.DefaultGameObjectInjectionWorld;
 			world.EntityManager.SetComponentData(entity, data);
 		}
 
@@ -31,7 +31,7 @@ namespace package.stormiumteam.shared
 			where T : struct, IComponentData
 		{
 			if (world == null)
-				world = World.Active;
+				world = World.DefaultGameObjectInjectionWorld;
 			var entityManager = world.EntityManager;
 			var hasComponent  = entityManager.HasComponent<T>(entity);
 			if (hasComponent && !ComponentType.ReadWrite<T>().IsZeroSized)
@@ -44,7 +44,7 @@ namespace package.stormiumteam.shared
 			where T : struct
 		{
 			if (world == null)
-				world = World.Active;
+				world = World.DefaultGameObjectInjectionWorld;
 			var entityManager = world.EntityManager;
 			if (entityManager.HasComponent<T>(entity))
 				entityManager.RemoveComponent<T>(entity);
@@ -54,7 +54,7 @@ namespace package.stormiumteam.shared
 			where T : struct, ISharedComponentData
 		{
 			if (world == null)
-				world = World.Active;
+				world = World.DefaultGameObjectInjectionWorld;
 			var entityManager = world.EntityManager;
 			if (entityManager.HasComponent<T>(entity))
 				entityManager.SetSharedComponentData(entity, data);

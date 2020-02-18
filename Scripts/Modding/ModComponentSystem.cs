@@ -237,7 +237,7 @@ namespace package.stormiumteam.shared.modding
 
 		private void CreateManagerExtraInternal(ModComponentSystem manager, int capacity)
 		{
-			s_CreateInstance.Invoke(manager, new object[] {World.Active, capacity});
+			s_CreateInstance.Invoke(manager, new object[] {World.DefaultGameObjectInjectionWorld, capacity});
 		}
 
 		//
