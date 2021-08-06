@@ -18,9 +18,6 @@ namespace package.stormiumteam.shared.ecs
 		{
 			if (em.HasComponent<T>(entity))
 			{
-				if (TypeManager.GetTypeInfo<T>().IsZeroSized)
-					return;
-
 				em.SetComponentData(entity, data);
 			}
 			else
@@ -28,7 +25,29 @@ namespace package.stormiumteam.shared.ecs
 				em.AddComponentData(entity, data);
 			}
 		}
-		
+
+		public static bool TryGetBuffer<T>(this EntityManager em, Entity entity, out DynamicBuffer<T> data)
+			where T : struct, IBufferElementData
+		{
+			if (em.HasComponent<T>(entity))
+			{
+				data = em.GetBuffer<T>(entity);
+				return true;
+			}
+
+			data = default;
+			return false;
+		}
+
+		public static DynamicBuffer<T> GetOrAddBuffer<T>(this EntityManager em, Entity entity) 
+			where T : struct, IBufferElementData
+		{
+			if (TryGetBuffer(em, entity, out DynamicBuffer<T> buffer))
+				return buffer;
+
+			buffer = em.AddBuffer<T>(entity);
+			return buffer;
+		}
 
 		public static bool TryGetComponentData<T>(this EntityManager em, Entity entity, out T data, T def = default)
 			where T : struct, IComponentData

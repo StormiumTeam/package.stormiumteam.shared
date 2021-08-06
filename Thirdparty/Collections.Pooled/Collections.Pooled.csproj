@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netcoreapp2.1</TargetFrameworks>
+    <LangVersion>7.3</LangVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Joel Mueller</Authors>
+    <Company />
+    <Description>Includes PooledList, PooledDictionary, PooledSet, PooledStack, and PooledQueue: based on the corresponding collections in System.Collections.Generic, but using ArrayPool internally to reduce allocations, and with some API changes that allow for better compatibility with Span.</Description>
+    <Copyright>Copyright (c) 2018, 2019 Joel Mueller, Dzmitry Lahoda, based on code from the .NET Foundation</Copyright>
+    <PackageTags>List ArrayPool Span Dictionary Stack Set HashSet</PackageTags>
+    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/jtmueller/Collections.Pooled</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/jtmueller/Collections.Pooled.git</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <Version>1.0.0</Version>
+    <PackageReleaseNotes>Adds `sizeToCapacity` parameter to PooledList constructor. When set to true, this parameter causes the list to start out with `Count == Capacity`. All entries in the list will have the default value for the type, or if `clearMode` is set to `ClearMode.Never` then entries in the list may have a previously-used value from the array pool. This feature is primarily useful when working with value types and avoiding unnecessary allocations. Thanks to Dzmitry Lahoda for the contribution!</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Collections.Pooled.xml</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <DocumentationFile></DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Buffers" Version="4.5.0" Condition="$(TargetFramework) == 'netstandard2.0'" />
+    <PackageReference Include="System.Memory" Version="4.5.2" Condition="$(TargetFramework) == 'netstandard2.0'" />
+  </ItemGroup>
+
+</Project>

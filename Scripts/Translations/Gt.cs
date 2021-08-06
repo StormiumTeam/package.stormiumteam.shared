@@ -121,12 +121,23 @@ namespace StormiumTeam.Shared
 			LocalizationSystem.Language defLang    = null;
 			foreach (var lang in languages)
 			{
-				POParseResult result;
+				POParseResult result = default;
 
 				var parser = new POParser();
-				using (var stream = File.OpenText(string.Format(pathResult, lang.Id, name)))
+				try
 				{
-					result = parser.Parse(stream);
+					using (var stream = File.OpenText(string.Format(pathResult, lang.Id, name)))
+					{
+						result = parser.Parse(stream);
+					}
+				}
+				catch (Exception ex)
+				{
+					Debug.LogException(ex);
+				}
+				finally
+				{
+					result ??= parser.Parse("");
 				}
 
 				result.Catalog.Language = lang.Id;

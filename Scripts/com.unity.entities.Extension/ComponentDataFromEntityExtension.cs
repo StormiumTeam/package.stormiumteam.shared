@@ -11,7 +11,7 @@ namespace package.stormiumteam.shared.ecs
 		public static T TryGet<T>(this ComponentDataFromEntity<T> cdfe, Entity entity, out bool hasComponent, T defaultValue)
 			where T : struct, IComponentData
 		{
-			if (cdfe.Exists(entity))
+			if (cdfe.HasComponent(entity))
 			{
 				hasComponent = true;
 				return cdfe[entity];
@@ -25,7 +25,7 @@ namespace package.stormiumteam.shared.ecs
 		public static bool TryGet<T>(this ComponentDataFromEntity<T> cdfe, Entity entity, out T component)
 			where T : struct, IComponentData
 		{
-			if (cdfe.Exists(entity))
+			if (cdfe.HasComponent(entity))
 			{
 				component = cdfe[entity];
 				return true;
@@ -68,7 +68,7 @@ namespace package.stormiumteam.shared.ecs
 		public static unsafe void TrySet<T>(this ComponentDataFromEntity<T> cdfe, Entity entity, T value, bool compareChange)
 			where T : struct, IComponentData
 		{
-			if (cdfe.Exists(entity))
+			if (cdfe.HasComponent(entity))
 			{
 				if (compareChange)
 				{
@@ -91,7 +91,7 @@ namespace package.stormiumteam.shared.ecs
 			ComponentUpdater<T> updater;
 			updater.cdfe     = cdfe;
 			updater.entity   = entity;
-			updater.possess  = cdfe.Exists(entity);
+			updater.possess  = cdfe.HasComponent(entity);
 			updater.original = updater.possess ? cdfe[entity] : default;
 
 			return updater;

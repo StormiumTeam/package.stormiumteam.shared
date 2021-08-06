@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using Unity.Collections.LowLevel.Unsafe;
 
 namespace Scripts.Utilities

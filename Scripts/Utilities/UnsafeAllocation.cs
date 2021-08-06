@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Runtime.CompilerServices;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
@@ -45,13 +44,12 @@ namespace package.stormiumteam.shared
 
 		public ref T AsRef()
 		{
-			return ref UnsafeUtilityEx.AsRef<T>(Data);
+			return ref UnsafeUtility.AsRef<T>(Data);
 		}
 
-		public T Value
+		public ref T Value
 		{
-			get => AsRef();
-			set => UnsafeUtility.MemCpy(Data, UnsafeUtility.AddressOf(ref value), UnsafeUtility.SizeOf<T>());
+			get => ref AsRef();
 		}
 	}
 
@@ -87,13 +85,13 @@ namespace package.stormiumteam.shared
 
 		public T this[int index]
 		{
-			get => UnsafeUtilityEx.ArrayElementAsRef<T>(Data, index);
+			get => UnsafeUtility.ArrayElementAsRef<T>(Data, index);
 			set => UnsafeUtility.WriteArrayElement(Data, index, value);
 		}
 
 		public ref T AsRef(int index)
 		{
-			return ref UnsafeUtilityEx.ArrayElementAsRef<T>(Data, index);
+			return ref UnsafeUtility.ArrayElementAsRef<T>(Data, index);
 		}
 
 		public void Dispose()
